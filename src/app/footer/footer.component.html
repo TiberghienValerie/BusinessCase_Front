@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-content pt-10">
+            <div class="card-title">LIENS UTILES</div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <a [routerLink]="['plan']" title="Plan du site">Plan du site</a>
+              </li>
+              <li class="list-group-item">
+                <a [routerLink]="['mentionsLegales']" title="Mentions lègales"
+                  >Mentions lègales</a
+                >
+              </li>
+              <li class="list-group-item">
+                <a [routerLink]="['CGU']" title="CGU">CGU</a>
+              </li>
+              <li class="list-group-item">
+                <a [routerLink]="['FAQ']" title="FAQ">FAQ</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <div class="card-content cardadroite">
+            <div class="card-title">RESEAUX SOCIAUX</div>
+            <fa-icon [icon]="faFacebook" size="2x"></fa-icon>
+            <fa-icon [icon]="faInstagram" size="2x"></fa-icon>
+            <fa-icon [icon]="faTwitter" size="2x"></fa-icon>
+            <fa-icon [icon]="faLinkedin" size="2x"></fa-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <div class="card-content">
+      <p>
+        <fa-icon [icon]="faCopyright" size="xs"></fa-icon> 2021 Centre Auto Ccas
+        - Tous droits réservés
+      </p>
+    </div>
+  </div>
+</div>

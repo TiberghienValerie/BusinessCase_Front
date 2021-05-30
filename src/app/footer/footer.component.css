@@ -1,0 +1,45 @@
+/*==================== 
+  Footer 
+====================== */
+
+.cardadroite {
+  float: right;
+  padding-left: 0px;
+  padding-bottom: 10px;
+}
+.card {
+  background: transparent !important;
+  border: none !important;
+  margin-top: 25px;
+}
+
+.card-title {
+  font-style: normal;
+  font-weight: 900;
+  font-size: var(--font-size-titre);
+  line-height: 21px;
+  text-transform: uppercase;
+  color: var(--textsecondary);
+}
+
+.card-content > p {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--textsecondary);
+}
+
+.card-content > i {
+  font-size: 20px;
+  margin: 0px 8px;
+}
+
+.linkBlack {
+  color: var(--text);
+  font-size: var(--font-size-contenu);
+}
+
+fa-icon {
+  padding: 5px;
+}

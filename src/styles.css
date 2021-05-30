@@ -1,0 +1,447 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.min.css";
+/* ###################### */
+/*      POLICE            */
+/* ###################### */
+
+@font-face {
+  font-family: var(--font-family);
+  src: url("assets/fonts/Roboto-Regular.ttf");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: var(--font-family);
+  src: url("assets/fonts/Roboto-Bold.ttf");
+  font-weight: bold;
+}
+
+/* ###################### */
+/*         GENERAL        */
+/* ###################### */
+
+body {
+  font-family: var(--font-family) !important;
+  color: var(--text) !important;
+  font-style: var(--font-style) !important;
+  font-weight: normal;
+}
+
+h2 {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 36px;
+  line-height: 42px;
+  text-align: center;
+
+  color: var(--colorgreen);
+}
+
+.height-10 {
+  height: 10%;
+}
+
+.height-80 {
+  height: 80%;
+}
+
+.height-250 {
+  min-height: 250px;
+}
+
+ul {
+  list-style-type: none !important;
+}
+/* ##################### */
+/*        LIENS          */
+/* ##################### */
+
+a,
+a:visited,
+a:link,
+a:hover,
+a:active {
+  text-decoration: none !important;
+  color: var(--textsecondary);
+}
+
+p a,
+p a:visited,
+p a:link,
+p a:hover,
+p a:active {
+  text-decoration: none !important;
+  color: var(--text);
+}
+
+#mentions a,
+#mentions a:visited,
+#mentions a:link,
+#mentions a:hover,
+#mentions a:active {
+  text-decoration: none !important;
+  color: var(--text) !important;
+}
+
+nav a,
+nav a:visited,
+nav a:link,
+nav a:hover,
+nav a:active {
+  text-decoration: none !important;
+  color: var(--text) !important;
+}
+
+li.nav-item a {
+  border-bottom: 5px solid white !important;
+  color: var(--text) !important;
+  transition: all 2s ease-out;
+}
+
+span.page-link.circle {
+  border: 5px solid white !important;
+
+  color: var(--textsecondary) !important;
+  border-color: var(--colorbtn) !important;
+  background-color: var(--colorbtn) !important;
+  border-radius: 50% !important;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+span.page-link.bold {
+  border: 5px solid white !important;
+  color: var(--colorbtn) !important;
+  font-weight: bold;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+a.page-link.circle {
+  border: 5px solid white !important;
+  color: var(--colorbtn) !important;
+  background-color: transparent !important;
+  transition: all 2s ease-out;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+a:hover.page-link.circle {
+  border: 5px solid white !important;
+
+  color: var(--textsecondary) !important;
+  border-color: var(--colorbtn) !important;
+  background-color: var(--colorbtn) !important;
+  border-radius: 50% !important;
+  margin-left: 5px;
+  margin-right: 5px;
+  opacity: 0.5;
+}
+
+li.nav-item a:hover,
+li.nav-item .active {
+  border-bottom: 5px solid !important;
+  color: var(--text) !important;
+  border-color: var(--colorbtn) !important;
+  background-color: #ffffff !important;
+}
+
+.list-group .list-group-item > a {
+  border-bottom: 5px solid transparent !important;
+  color: var(--textsecondary) !important;
+  transition: all 2s ease-out;
+}
+
+.list-group .list-group-item > a:hover {
+  border-bottom: 5px solid !important;
+  color: var(--textsecondary) !important;
+  border-color: var(--textsecondary) !important;
+  background-color: transparent !important;
+}
+
+.list-group {
+  border-radius: 0 !important;
+}
+
+.list-group-item {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+/*====================
+|  Bouton
+====================== */
+
+.btnJaune {
+  font-family: var(--font-family) !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  line-height: 16px !important;
+  text-align: center !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 7px 15px !important;
+  color: var(--textsecondary) !important;
+  margin: 0px 10px;
+  background: var(--colorbtn2) !important;
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 25px !important;
+  transition: all 1s ease;
+}
+
+.btnJaune:hover {
+  font-family: var(--font-family) !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  line-height: 16px !important;
+  text-align: center !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 7px 15px !important;
+  color: var(--textsecondary) !important;
+
+  background: linear-gradient(
+    180deg,
+    var(--colorbtn2) 0%,
+    var(--colorbtn2hover) 100%
+  ) !important;
+
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 25px !important;
+
+  animation: shakeX;
+  animation-duration: 1s;
+}
+
+.btnRouge {
+  font-family: Roboto !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  line-height: 16px !important;
+  text-align: center !important;
+
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 7px 15px !important;
+  color: #ffffff !important;
+  margin: 0px 10px;
+  background: var(--colorbtn) !important;
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 25px !important;
+  transition: all 1s ease;
+}
+
+.btnRouge:hover {
+  font-family: Roboto !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  line-height: 16px !important;
+  text-align: center !important;
+
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 7px 15px !important;
+  color: #ffffff !important;
+
+  background: linear-gradient(
+    70.62deg,
+    var(--colorbtn) 46.36%,
+    var(--colorbtnhover) 76.2%
+  ) !important;
+
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 25px !important;
+
+  animation: shakeX;
+  animation-duration: 1s;
+}
+
+.btnRouge2 {
+  font-family: Roboto !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  line-height: 16px !important;
+  text-align: center !important;
+  height: 60px;
+  width: 60px;
+  justify-content: center !important;
+  align-items: center !important;
+  color: #ffffff !important;
+  margin: 0px 10px;
+  background: var(--colorbtn) !important;
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 50px !important;
+  transition: all 1s ease;
+}
+
+.btnRouge2:hover {
+  font-family: Roboto !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font-size: 14px !important;
+  line-height: 16px !important;
+  text-align: center !important;
+  height: 60px;
+  width: 60px;
+  justify-content: center !important;
+  align-items: center !important;
+  color: #ffffff !important;
+
+  background: linear-gradient(
+    70.62deg,
+    var(--colorbtn) 46.36%,
+    var(--colorbtnhover) 76.2%
+  ) !important;
+
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2) !important;
+  border-radius: 50px !important;
+
+  animation: shakeX;
+  animation-duration: 1s;
+}
+
+/*====================
+|  research
+====================== */
+
+.researchBackground {
+  background: var(--backgroundgrid);
+}
+
+.marginbottom {
+  margin-bottom: -15px;
+}
+
+/*==================== 
+  Images
+====================== */
+
+.zoom {
+  transition: all 0.5s ease;
+}
+
+.zoom:hover {
+  transform: scale(1.1);
+}
+
+/*==================== 
+  Contenu
+====================== */
+
+.textContenu {
+  font-size: var(--font-size-contenu);
+  line-height: 16px;
+  text-transform: capitalize;
+}
+
+.textContenu2 {
+  font-size: var(--font-size-contenu);
+  line-height: 16px;
+}
+
+.textContenuBold {
+  font-size: var(--font-size-titre);
+  font-weight: bold;
+  line-height: var(--line-height);
+  text-transform: uppercase;
+}
+
+.textContenuColor {
+  font-size: var(--font-size-titre);
+  color: var(--colorlink);
+  line-height: var(--line-height);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.textContenuColorBold {
+  font-size: var(--font-size-titre);
+  color: var(--colorlink);
+  font-weight: bold;
+  line-height: var(--line-height);
+  text-transform: uppercase;
+}
+
+.textContenuitalique {
+  font-size: var(--font-size-titre);
+  font-style: italic !important;
+  line-height: var(--line-height);
+  text-transform: uppercase;
+}
+
+.shadows {
+  box-shadow: 0px 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+/* FOOTER */
+footer,
+.footer {
+  background: linear-gradient(
+    70.62deg,
+    var(--colorbtn) 46.36%,
+    var(--colorbtnhover) 76.2%
+  ) !important;
+  color: var(--textsecondary);
+
+  bottom: 0;
+}
+
+/* faq */
+.panel.customClass {
+  background-color: var(--colorbtn);
+  color: var(--textsecondary) !important;
+}
+.panel.customClass .panel-body {
+  background-color: var(--textsecondary);
+  color: var(--text);
+}
+
+.btn-link,
+.btn-link:hover {
+  text-decoration: none !important;
+  color: var(--textsecondary) !important;
+}
+
+.btn.focus {
+  box-shadow: none;
+}
+
+:root {
+  --font-family: "Roboto";
+  --text: black;
+  --textsecondary: #ffffff;
+
+  --colorbtn: #e33826;
+  --colorbtnhover: #ff9c07;
+
+  --colorbtn2: #fed700;
+  --colorbtn2hover: #ff9c07;
+
+  --colorlink: #63b3d8;
+
+  --background: #fafafa;
+  --hint: #999;
+
+  --backgroundgrid: #e9e9e9;
+
+  --font-size-link: 18px;
+  --font-size-contenu: 14px;
+
+  --line-height: 21px;
+
+  --font-size-titre: 14px;
+  --font-style: normal;
+
+  --colorgreen: #73655c;
+}

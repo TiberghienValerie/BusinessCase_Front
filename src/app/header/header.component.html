@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
+  <a class="navbar-brand" href="#">
+    <img
+      class="img-fluid"
+      src="assets/img/logo.png"
+      title="Logo de la société"
+      alt="Logo de la société"
+      width="200px"
+      height="200px"
+    />
+  </a>
+  <button
+    class="navbar-toggler m-5"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarScroll"
+    aria-controls="navbarScroll"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div
+    class="collapse navbar-collapse justify-content-center"
+    id="navbarScroll"
+  >
+    <a
+      href="#"
+      onClick="document.getElementById(\'navbarScroll\').classList.remove(\'show\');"
+      ><i class="fas fa-times" aria-hidden="true"></i
+    ></a>
+
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link {{ classAccueil }}" [routerLink]="['accueil']"
+          >Accueil</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ classApropos }}" [routerLink]="['apropos']"
+          >A propos</a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {{ classContact }}" [routerLink]="['contact']"
+          >Contact</a
+        >
+      </li>
+      <li class="nav-item d-lg-none">
+        <a
+          class="nav-link"
+          data-bs-toggle="modal"
+          data-bs-target="#connexionModal"
+          title="Me connecter"
+          >Se connecter</a
+        >
+      </li>
+    </ul>
+  </div>
+  <div class="d-lg-flex d-none">
+    <button
+      data-bs-toggle="modal"
+      data-bs-target="#connexionModal"
+      id="menu"
+      type="button"
+      class="btnRouge btn btn-display"
+    >
+      <i class="fas fa-user" aria-hidden="true"></i> Mon compte
+    </button>
+  </div>
+</nav>
