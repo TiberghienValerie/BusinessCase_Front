@@ -18,6 +18,8 @@ import { AccueilComponent } from './accueil/accueil.component';
 import { AproposComponent } from './apropos/apropos.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { FormsModule } from '@angular/forms';
+import { AnnonceComponent } from './annonce/annonce.component';
+import { FormRechercheComponent } from './form-recherche/form-recherche.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { FormsModule } from '@angular/forms';
     ContactComponent,
     AccueilComponent,
     AproposComponent,
+    AnnonceComponent,
+    FormRechercheComponent,
   ],
   imports: [
     BrowserModule,

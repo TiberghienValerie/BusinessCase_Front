@@ -21,7 +21,7 @@ export class AppComponent {
   constructor(private router: Router) {
     this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
       if (event instanceof NavigationStart) {
-        if (event.url === '/accueil') {
+        if (event.url === '/accueil' || event.url === '/') {
           this.classAccueil = 'active';
           this.classContact = '';
           this.classApropos = '';

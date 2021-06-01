@@ -1,0 +1,77 @@
+<form (ngSubmit)="onSubmit()" #rechercheForm="ngForm">
+  <div class="row m-2 p-2">
+    <div class="col-12 col-sm-4 col-md-4">
+      <label for="marque">Marque : </label>
+      <select
+        id="marque"
+        name="marque"
+        content-type="choices"
+        trigger="true"
+        target="modele"
+        aria-label="marque"
+        class="shadows form-control form-select"
+        (change)="onMarqueChanged($event)"
+        [(ngModel)]="marque"
+      >
+        ';
+        <option value="0">Toutes les marques</option>
+        <option *ngFor="let m of tabMarques" [value]="m.idMarque">
+          {{ m.nomMarque }}
+        </option>
+      </select>
+    </div>
+    <div class="col-12 col-sm-4 col-md-4">
+      <label for="modele">Modèle : </label>
+      <select
+        id="modele"
+        name="modele"
+        content-type="choices"
+        trigger="true"
+        aria-label="modele"
+        class="shadows form-control form-select"
+        [disabled]="disabled"
+        [(ngModel)]="modele"
+      >
+        <option value="0">Tous les modèles</option>
+        <option *ngFor="let mo of tabModelesFiltrer" value="{{ mo.idModele }}">
+          {{ mo.nomModele }}
+        </option>
+      </select>
+    </div>
+    <div class="col-12 col-sm-4 col-md-4">
+      <label for="carburant">Carburant : </label>
+      <select
+        id="carburant"
+        name="carburant"
+        content-type="choices"
+        trigger="true"
+        aria-label="carburant"
+        class="shadows form-control form-select"
+        [(ngModel)]="carburant"
+      >
+        <option value="0">Tous les carburants</option>
+        <option *ngFor="let c of tabCarburants" value="{{ c.idCarburant }}">
+          {{ c.nomCarburant }}
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row">
+    <div
+      class="
+        marginbottom
+        col-12 col-sm-12 col-md-12
+        text-center
+        align-self-center
+      "
+    >
+      <button
+        type="submit"
+        class="btnJaune btn btn-display"
+        [disabled]="!rechercheForm.form.valid"
+      >
+        <fa-icon [icon]="faSearch" size="xs"></fa-icon> <span> Recherche</span>
+      </button>
+    </div>
+  </div>
+</form>

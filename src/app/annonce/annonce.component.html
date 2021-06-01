@@ -1,0 +1,60 @@
+<div class="mt-3 h-100 shadows w-100 p-3">
+  <div class="row height-10">
+    <div class="col-8 col-sm-8 col-md-8">{{ uneAnnonce.titre }}</div>
+    <div class="textContenuColor col-sm-4 col-md-4 text-end">
+      {{ uneAnnonce.prix }} € TTC
+    </div>
+  </div>
+  <div class="row height-80">
+    <div class="col-4 col-sm-4 col-md-4 overflow-hidden">
+      <img
+        src="assets/img/audi-rs3-25-tfsi-121974821_151113.jpg"
+        class="zoom img-fluid"
+        width="151"
+        height="113"
+        alt="img"
+      />
+    </div>
+    <div class="col-8 col-sm-8 col-md-8 text-start textContenu">
+      <p>
+        <img
+          alt="km"
+          src="assets/img/Orion_time-limit24.png"
+          width="24px"
+          height="24px"
+        />
+        <span class="ps-3 textContenu2">{{ uneAnnonce.kilometrage }} km</span>
+      </p>
+      <p>
+        <img
+          alt="carburant"
+          src="assets/img/Orion_gas-station24.png"
+          width="24px"
+          height="24px"
+        />
+        <span class="ps-3 textContenu2">{{
+          uneAnnonce.carburant.nomCarburant
+        }}</span>
+      </p>
+      <p>
+        <img
+          alt="carburant"
+          src="assets/img/Orion_birthday24.png"
+          width="24px"
+          height="24px"
+        />
+        <span class="ps-3 textContenu2">{{ uneAnnonce.anneeCirculation }}</span>
+      </p>
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 text-start textContenu">
+      <p>{{ uneAnnonce.descriptionCourte }}</p>
+    </div>
+  </div>
+  <div class="row height-10">
+    <div class="col-12 col-sm-12 col-md-12 text-right">
+      <button type="submit" class="btnJaune btn btn-display">
+        <a href="fiche.php" title="Plus info">Plus info</a>
+      </button>
+    </div>
+  </div>
+</div>

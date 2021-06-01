@@ -1,1 +1,30 @@
-<p>accueil works!</p>
+<section>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-12">
+      <h1>Rechercher une voiture d'occassion</h1>
+    </div>
+  </div>
+</section>
+<section class="researchBackground">
+  <app-form-recherche
+    [tabAnnonces]="tabAnnonces"
+    (rechercheFormulaire)="rechercheFormulaire($event)"
+  ></app-form-recherche>
+</section>
+<section>
+  <div class="row mt-4">
+    <div
+      class="textContenuBold text-center align-self-center col-12 col-md-12 m-4"
+    >
+      {{ nbAnnonce }} annonces
+    </div>
+  </div>
+  <div class="row mt-4">
+    <app-annonce
+      class="textContenuBold col-12 col-sm-6 col-md-6 mb-4"
+      *ngFor="let a of tabAnnoncesFilter"
+      [uneAnnonce]="a"
+    >
+    </app-annonce>
+  </div>
+</section>
