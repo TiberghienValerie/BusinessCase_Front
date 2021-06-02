@@ -1,6 +1,8 @@
+import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
 import { Component, OnInit } from '@angular/core';
 import { Annonce } from '../models/annonce';
 import { Carburant } from '../models/carburant';
+import { Kilometrage } from '../models/kilometrage';
 import { Marque } from '../models/marque';
 import { Modele } from '../models/modele';
 
@@ -11,9 +13,10 @@ import { Modele } from '../models/modele';
 })
 export class AccueilComponent implements OnInit {
   public tabAnnonces: Annonce[] = [];
+  public tabKilometrage: Kilometrage[] = [];
   public tabAnnoncesFilter: Annonce[] = [];
 
-  public nbAnnonce!: number;
+  public maxKilometrage!: number;
 
   constructor() {
     this.tabAnnonces.push(
@@ -100,7 +103,7 @@ export class AccueilComponent implements OnInit {
         'voiture de course géniale',
         'Voiture de course géniale',
         2017,
-        100000,
+        250000,
         250000.0,
         0,
         new Modele(3, 'A3', new Marque(2, 'Audi')),
@@ -160,7 +163,7 @@ export class AccueilComponent implements OnInit {
         'voiture de course géniale',
         'Voiture de course géniale',
         2017,
-        100000,
+        125000,
         250000.0,
         0,
         new Modele(3, 'A3', new Marque(2, 'Audi')),
@@ -171,8 +174,22 @@ export class AccueilComponent implements OnInit {
 
     this.tabAnnoncesFilter.push(...this.tabAnnonces);
 
-    /* Calcul du nombre d'annonces */
-    this.nbAnnonce = this.tabAnnoncesFilter.length;
+    /* calcul du max des kilometrages */
+    this.maxKilometrage = 0;
+    for (let i = 0; i < this.tabAnnonces.length; i++) {
+      if (this.maxKilometrage < this.tabAnnonces[i].kilometrage) {
+        this.maxKilometrage = this.tabAnnonces[i].kilometrage;
+      }
+    }
+
+    var j = 0;
+    for (var i = 5000; i <= this.maxKilometrage; i = i + 15000) {
+      this.tabKilometrage.push(new Kilometrage(j, i));
+      j++;
+    }
+    if (i > this.maxKilometrage) {
+      this.tabKilometrage.push(new Kilometrage(j, i));
+    }
   }
 
   ngOnInit(): void {}
@@ -180,6 +197,5 @@ export class AccueilComponent implements OnInit {
   rechercheFormulaire(tabAnnonce: Annonce[]) {
     this.tabAnnoncesFilter.length = 0;
     this.tabAnnoncesFilter.push(...tabAnnonce);
-    this.nbAnnonce = this.tabAnnoncesFilter.length;
   }
 }

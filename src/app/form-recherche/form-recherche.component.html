@@ -56,6 +56,26 @@
       </select>
     </div>
   </div>
+  <div class="row m-2 p-2">
+    <div class="col-12 col-sm-4 col-md-4">
+      <label for="kilometrage">Kilometrage : </label>
+      <select
+        id="kilometrage"
+        name="kilometrage"
+        content-type="choices"
+        trigger="true"
+        aria-label="kilometrage"
+        class="shadows form-control form-select"
+        [(ngModel)]="kilometrage"
+      >
+        ';
+        <option value="0">Tous les kilomètrages</option>
+        <option *ngFor="let m of tabKilometrage" [value]="m.nomKilometrage">
+          < {{ m.nomKilometrage }}
+        </option>
+      </select>
+    </div>
+  </div>
   <div class="row">
     <div
       class="

@@ -9,6 +9,7 @@
   <app-form-recherche
     [tabAnnonces]="tabAnnonces"
     (rechercheFormulaire)="rechercheFormulaire($event)"
+    [tabKilometrage]="tabKilometrage"
   ></app-form-recherche>
 </section>
 <section>
@@ -16,7 +17,7 @@
     <div
       class="textContenuBold text-center align-self-center col-12 col-md-12 m-4"
     >
-      {{ nbAnnonce }} annonces
+      {{ tabAnnoncesFilter.length }} annonces
     </div>
   </div>
   <div class="row mt-4">

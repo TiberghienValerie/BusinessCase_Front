@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Annonce } from '../models/annonce';
 import { Carburant } from '../models/carburant';
+import { Kilometrage } from '../models/kilometrage';
 import { Marque } from '../models/marque';
 import { Modele } from '../models/modele';
 
@@ -12,6 +13,7 @@ import { Modele } from '../models/modele';
 })
 export class FormRechercheComponent implements OnInit {
   public modele!: number;
+  public kilometrage!: number;
   public marque!: number;
   public carburant!: number;
   public filtrer!: string;
@@ -24,6 +26,7 @@ export class FormRechercheComponent implements OnInit {
   public disabled: boolean = true;
 
   @Input() public tabAnnonces!: Annonce[];
+  @Input() public tabKilometrage!: Kilometrage[];
   @Output() public rechercheFormulaire: EventEmitter<Annonce[]>;
 
   faSearch = faSearch;
@@ -46,6 +49,8 @@ export class FormRechercheComponent implements OnInit {
 
     this.marque = 0;
     this.carburant = 0;
+    this.kilometrage = 0;
+    this.modele = 0;
   }
 
   onMarqueChanged(value: any) {
@@ -55,8 +60,10 @@ export class FormRechercheComponent implements OnInit {
     });
     this.tabModelesFiltrer = val;
 
-    if (value.target.value === '0') this.disabled = true;
-    else this.disabled = false;
+    if (value.target.value === '0') {
+      this.disabled = true;
+      this.modele = 0;
+    } else this.disabled = false;
 
     this.modele = 0;
   }
@@ -67,18 +74,73 @@ export class FormRechercheComponent implements OnInit {
     this.tabAnnoncesFiltrer.length = 0;
 
     let val = this.tabAnnonces.filter((a) => {
-      if (this.carburant != 0 && this.modele == 0) {
+      if (this.carburant != 0 && this.modele == 0 && this.kilometrage == 0) {
+        console.log('cas 1');
         return a.carburant.idCarburant == this.carburant;
-      } else if (this.modele != 0 && this.carburant == 0) {
+      } else if (
+        this.modele != 0 &&
+        this.carburant == 0 &&
+        this.kilometrage == 0
+      ) {
         return a.modele.idModele == this.modele;
-      } else if (this.carburant != 0 && this.modele != 0) {
+      } else if (
+        this.modele == 0 &&
+        this.carburant == 0 &&
+        this.kilometrage != 0
+      ) {
+        console.log('cas 2');
+        return (
+          a.kilometrage > this.kilometrage - 15000 &&
+          a.kilometrage <= this.kilometrage
+        );
+      } else if (
+        this.modele != 0 &&
+        this.carburant != 0 &&
+        this.kilometrage == 0
+      ) {
+        console.log('cas 3');
         return (
           a.carburant.idCarburant == this.carburant &&
           a.modele.idModele == this.modele
         );
+      } else if (
+        this.modele != 0 &&
+        this.carburant == 0 &&
+        this.kilometrage != 0
+      ) {
+        console.log('cas 4');
+        return (
+          a.kilometrage > this.kilometrage - 15000 &&
+          a.kilometrage <= this.kilometrage &&
+          a.modele.idModele == this.modele
+        );
+      } else if (
+        this.modele == 0 &&
+        this.carburant != 0 &&
+        this.kilometrage != 0
+      ) {
+        console.log('cas 5');
+        return (
+          a.kilometrage > this.kilometrage - 15000 &&
+          a.kilometrage <= this.kilometrage &&
+          a.carburant.idCarburant == this.carburant
+        );
+      } else if (
+        this.carburant != 0 &&
+        this.modele != 0 &&
+        this.carburant != 0
+      ) {
+        console.log('cas 6');
+        return (
+          a.carburant.idCarburant == this.carburant &&
+          a.modele.idModele == this.modele &&
+          a.kilometrage > this.kilometrage - 15000 &&
+          a.kilometrage <= this.kilometrage
+        );
       } else return false;
     });
-    if (this.carburant == 0 && this.marque == 0) {
+
+    if (this.carburant == 0 && this.marque == 0 && this.kilometrage == 0) {
       this.rechercheFormulaire.emit(this.tabAnnonces);
     } else {
       this.tabAnnoncesFiltrer.push(...val);
