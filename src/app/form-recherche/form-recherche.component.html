@@ -13,7 +13,6 @@
         (change)="onMarqueChanged($event)"
         [(ngModel)]="marque"
       >
-        ';
         <option value="0">Toutes les marques</option>
         <option *ngFor="let m of tabMarques" [value]="m.idMarque">
           {{ m.nomMarque }}
@@ -68,10 +67,46 @@
         class="shadows form-control form-select"
         [(ngModel)]="kilometrage"
       >
-        ';
         <option value="0">Tous les kilomètrages</option>
         <option *ngFor="let m of tabKilometrage" [value]="m.nomKilometrage">
           < {{ m.nomKilometrage }}
+        </option>
+      </select>
+    </div>
+    <div class="col-12 col-sm-4 col-md-4">
+      <label for="anneeCirculation">Année de circulation : </label>
+      <select
+        id="anneeCirculation"
+        name="anneeCirculation"
+        content-type="choices"
+        trigger="true"
+        aria-label="anneeCirculation"
+        class="shadows form-control form-select"
+        [(ngModel)]="anneeCirculation"
+      >
+        <option value="0">Tous les années de circulation</option>
+        <option
+          *ngFor="let a of tabAnneeCirculation"
+          [value]="a.nomAnneeCirculation"
+        >
+          {{ a.nomAnneeCirculation }} - {{ a.nomAnneeCirculation + 5 }}
+        </option>
+      </select>
+    </div>
+    <div class="col-12 col-sm-4 col-md-4">
+      <label for="prixVente">Prix de vente : </label>
+      <select
+        id="prixVente"
+        name="prixVente"
+        content-type="choices"
+        trigger="true"
+        aria-label="prixVente"
+        class="shadows form-control form-select"
+        [(ngModel)]="prixVente"
+      >
+        <option value="0">Tous les prix de vente</option>
+        <option *ngFor="let p of tabPrixVente" [value]="p.nomPrixVente">
+          < {{ p.nomPrixVente }}
         </option>
       </select>
     </div>

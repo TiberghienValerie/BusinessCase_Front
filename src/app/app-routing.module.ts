@@ -5,6 +5,7 @@ import { AproposComponent } from './apropos/apropos.component';
 import { CGUComponent } from './cgu/cgu.component';
 import { ContactComponent } from './contact/contact.component';
 import { FAQComponent } from './faq/faq.component';
+import { FicheComponent } from './fiche/fiche.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { PlanSiteComponent } from './plan-site/plan-site.component';
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'accueil', component: AccueilComponent },
   { path: 'apropos', component: AproposComponent },
+  { path: 'fiche/:id', component: FicheComponent },
 ];
 
 @NgModule({

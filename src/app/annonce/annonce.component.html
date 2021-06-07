@@ -8,7 +8,7 @@
   <div class="row height-80">
     <div class="col-4 col-sm-4 col-md-4 overflow-hidden">
       <img
-        src="assets/img/audi-rs3-25-tfsi-121974821_151113.jpg"
+        src="assets/img/1/audi-rs3-25-tfsi-121974821_151113.jpg"
         class="zoom img-fluid"
         width="151"
         height="113"
@@ -53,7 +53,9 @@
   <div class="row height-10">
     <div class="col-12 col-sm-12 col-md-12 text-right">
       <button type="submit" class="btnJaune btn btn-display">
-        <a href="fiche.php" title="Plus info">Plus info</a>
+        <a [routerLink]="['../fiche', uneAnnonce.idAnnonce]" title="Plus info"
+          >Plus info</a
+        >
       </button>
     </div>
   </div>

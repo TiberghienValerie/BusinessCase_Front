@@ -20,6 +20,10 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { FormsModule } from '@angular/forms';
 import { AnnonceComponent } from './annonce/annonce.component';
 import { FormRechercheComponent } from './form-recherche/form-recherche.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { FicheComponent } from './fiche/fiche.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
@@ -35,6 +39,7 @@ import { FormRechercheComponent } from './form-recherche/form-recherche.componen
     AproposComponent,
     AnnonceComponent,
     FormRechercheComponent,
+    FicheComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,6 +50,9 @@ import { FormRechercheComponent } from './form-recherche/form-recherche.componen
     AccordionModule.forRoot(),
     LeafletModule,
     FormsModule,
+    ModalModule.forRoot(),
+    PaginationModule.forRoot(),
+    CarouselModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -60,5 +60,14 @@ export class ContactComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit() {}
+  onSubmit() {
+    window.location.href =
+      'mailto:contact@centreautoccas.fr?cc=' +
+      this.email +
+      '&subject=' +
+      this.message;
+
+    this.message = '';
+    this.email = '';
+  }
 }

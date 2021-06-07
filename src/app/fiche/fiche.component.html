@@ -1,0 +1,126 @@
+<section>
+  <div class="row">
+    <div class="col-4 col-sm-3 col-md-3">
+      <div class="d-flex">
+        <button id="menu" type="button" class="btnJaune btn btn-display">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i>
+          <a href="index.php" title="Retour">Retour</a>
+        </button>
+      </div>
+    </div>
+    <div class="col-8 col-sm-9 col-md-9">
+      <h1>Titre Annonce</h1>
+    </div>
+  </div>
+
+  <!-- carroussel -->
+  <div class="row">
+    <div class="col-12 col-md-12 mt-5 mb-3">
+      <carousel>
+        <slide *ngFor="let slide of slides; let index = index">
+          <img [src]="slide.image" />
+        </slide>
+      </carousel>
+    </div>
+  </div>
+
+  <!-- informations-->
+  <div class="row">
+    <div class="col-12 col-md-12 mt-5 mb-3">
+      <div class="shadows">
+        <div class="row p-3">
+          <div class="col-4 col-md-4 textContenuBold">AUDI RS3</div>
+          <div class="col-4 col-md-4 textContenuitalique text-center">
+            Réf. 10A45B
+          </div>
+          <div class="textContenuColorBold col-4 col-md-4 text-end">
+            44.990 € TTC
+          </div>
+        </div>
+        <div class="row p-3">
+          <div
+            class="
+              col-4 col-md-4
+              d-flex
+              align-content-between
+              justify-content-start
+              align-items-center
+            "
+          >
+            <img
+              alt="km"
+              src="img/Orion_time-limit.png"
+              width="64px"
+              height="64px"
+            />
+            <span class="ps-3 textContenu2">12 200 km</span>
+          </div>
+          <div
+            class="
+              col-4 col-md-4
+              d-flex
+              align-content-between
+              justify-content-center
+              align-items-center
+            "
+          >
+            <img
+              alt="carburant"
+              src="img/Orion_gas-station.png"
+              width="64px"
+              height="64px"
+            />
+            <span class="ps-3 textContenu2">Essence</span>
+          </div>
+          <div
+            class="
+              col-4 col-md-4
+              d-flex
+              align-content-between
+              justify-content-end
+              align-items-center
+            "
+          >
+            <img
+              alt="carburant"
+              src="img/Orion_birthday.png"
+              width="64px"
+              height="64px"
+            />
+            <span class="ps-3 textContenu2">2017</span>
+          </div>
+        </div>
+        <div class="row p-3">
+          <p class="textcontenu">
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+            quae ab illo inventore veritatis et quasi architecto beatae vitae
+            dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+            aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+            eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+            qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit,
+            sed quia non numquam eius modi tempora incidunt ut labore et dolore
+            magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis
+            nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut
+            aliquid ex ea commodi consequatur? Quis autem vel eum iure
+            reprehenderit qui in ea voluptate velit esse quam nihil molestiae
+            consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla
+            pariatur?
+          </p>
+        </div>
+        <div class="row position-relative mb-3">
+          <div
+            class="
+              col-12 col-md-12
+              position-absolute
+              top-0
+              start-50
+              translate-middle
+              text-center
+            "
+          ></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

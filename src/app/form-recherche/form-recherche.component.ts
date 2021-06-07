@@ -1,10 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { AnneeCirculation } from '../models/annee-circulation';
 import { Annonce } from '../models/annonce';
 import { Carburant } from '../models/carburant';
 import { Kilometrage } from '../models/kilometrage';
 import { Marque } from '../models/marque';
 import { Modele } from '../models/modele';
+import { PrixVente } from '../models/prix-vente';
 
 @Component({
   selector: 'app-form-recherche',
@@ -14,6 +16,8 @@ import { Modele } from '../models/modele';
 export class FormRechercheComponent implements OnInit {
   public modele!: number;
   public kilometrage!: number;
+  public anneeCirculation!: number;
+  public prixVente!: number;
   public marque!: number;
   public carburant!: number;
   public filtrer!: string;
@@ -27,6 +31,9 @@ export class FormRechercheComponent implements OnInit {
 
   @Input() public tabAnnonces!: Annonce[];
   @Input() public tabKilometrage!: Kilometrage[];
+  @Input() public tabPrixVente!: PrixVente[];
+  @Input() public tabAnneeCirculation!: AnneeCirculation[];
+
   @Output() public rechercheFormulaire: EventEmitter<Annonce[]>;
 
   faSearch = faSearch;
@@ -51,6 +58,8 @@ export class FormRechercheComponent implements OnInit {
     this.carburant = 0;
     this.kilometrage = 0;
     this.modele = 0;
+    this.anneeCirculation = 0;
+    this.prixVente = 0;
   }
 
   onMarqueChanged(value: any) {

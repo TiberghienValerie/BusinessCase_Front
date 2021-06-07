@@ -10,6 +10,8 @@
     [tabAnnonces]="tabAnnonces"
     (rechercheFormulaire)="rechercheFormulaire($event)"
     [tabKilometrage]="tabKilometrage"
+    [tabAnneeCirculation]="tabAnneeCirculation"
+    [tabPrixVente]="tabPrixVente"
   ></app-form-recherche>
 </section>
 <section>
@@ -23,9 +25,60 @@
   <div class="row mt-4">
     <app-annonce
       class="textContenuBold col-12 col-sm-6 col-md-6 mb-4"
-      *ngFor="let a of tabAnnoncesFilter"
+      *ngFor="let a of returnedArray"
       [uneAnnonce]="a"
     >
     </app-annonce>
+  </div>
+</section>
+
+<section>
+  <div class="row g-4 m-auto">
+    <div
+      class="col-12 col-md-6 d-flex justify-content-start align-items-center"
+    >
+      <form (ngSubmit)="onSubmit()" #resultatForm="ngForm">
+        <div class="row align-items-center m-2 p-2">
+          <div class="col-6 col-sm-12 col-md-12">
+            <label for="marque">Résultats par page : </label>
+            <select
+              id="resultat"
+              name="resultat"
+              content-type="choices"
+              trigger="true"
+              aria-label="resultat"
+              class="shadows form-control form-select"
+              (change)="onResultatChanged($event)"
+              [(ngModel)]="resultat"
+            >
+              <option value="0">Tous les résultats</option>
+              <option *ngFor="let r of tabResultat" [value]="r.nomResultat">
+                {{ r.nomResultat }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div
+      id="navigationfooter"
+      class="col-12 col-md-6 pt-4 d-flex justify-content-end align-items-center"
+    >
+      <div class="row">
+        <div class="col-xs-12 col-12">
+          <pagination
+            [boundaryLinks]="showBoundaryLinks"
+            [directionLinks]="showDirectionLinks"
+            [totalItems]="contentArray.length"
+            [itemsPerPage]="resultatParPage"
+            (pageChanged)="pageChanged($event)"
+            previousText="&lsaquo;"
+            nextText="&rsaquo;"
+            firstText="&laquo;"
+            lastText="&raquo;"
+          ></pagination>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

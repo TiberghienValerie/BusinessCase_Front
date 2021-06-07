@@ -132,6 +132,42 @@ a.page-link.circle {
   margin-right: 5px;
 }
 
+.page-item.active .page-link {
+  z-index: 3;
+  border: 1px solid white !important;
+  color: var(--textsecondary) !important;
+  border-color: var(--colorbtn) !important;
+  background-color: var(--colorbtn) !important;
+  border-radius: 50% !important;
+  margin-left: 5px;
+  margin-right: 5px;
+  font-weight: bold;
+}
+
+.page-item .page-link {
+  z-index: 3;
+  /*border: 1px solid var(--colorbtn) !important;*/
+  color: var(--colorbtn) !important;
+  /*border-color: var(--colorbtn) !important;
+  background-color: white !important;
+  border-radius: 50% !important;*/
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.page-link:hover {
+  z-index: 2;
+  text-decoration: none;
+  border: 1px solid white !important;
+  color: var(--textsecondary) !important;
+  border-color: var(--colorbtn) !important;
+  background-color: var(--colorbtn) !important;
+  border-radius: 50% !important;
+  margin-left: 5px;
+  margin-right: 5px;
+  opacity: 0.5;
+}
+
 a:hover.page-link.circle {
   border: 5px solid white !important;
 
@@ -171,6 +207,14 @@ li.nav-item .active {
 
 .list-group-item {
   background-color: transparent !important;
+  border: none !important;
+}
+
+/*====================
+| Pagination 
+====================== */
+
+.page-link {
   border: none !important;
 }
 
@@ -415,6 +459,92 @@ footer,
 
 .btn.focus {
   box-shadow: none;
+}
+
+/*====================
+|   Modal 
+====================== */
+
+.affichage {
+  color: red;
+  font-style: italic;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="password"] {
+  border-top: none !important;
+  border-right: none !important;
+  border-radius: 0px !important;
+}
+
+textarea {
+  border-top: none !important;
+  border-right: none !important;
+  border-radius: 0px !important;
+}
+
+button.btn-close {
+  font-size: 40px;
+}
+
+.modal {
+  animation: backInDown;
+  animation-duration: 1s;
+}
+
+/*==================== 
+  Responsive
+====================== */
+
+@media (max-width: 991px) {
+  .button,
+  .alignright,
+  .alignCenter {
+    text-align: left;
+  }
+
+  li.nav-item {
+    margin-left: 20px;
+    font-size: 18px;
+  }
+
+  li.nav-item a,
+  li.nav-item .active {
+    transition: all 2s ease-out;
+    color: var(--textsecondary) !important;
+    border-bottom: none !important;
+    background-color: transparent !important;
+  }
+
+  li.nav-item a:hover {
+    border-bottom: 5px solid !important;
+    color: var(--textsecondary) !important;
+    border-color: var(--textsecondary) !important;
+    background-color: transparent !important;
+  }
+
+  #navbarScroll {
+    height: 400px;
+    z-index: 9999;
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(
+      70.62deg,
+      var(--colorbtn) 46.36%,
+      var(--colorbtnhover) 76.2%
+    ) !important;
+    color: white;
+
+    animation: backInDown;
+    animation-duration: 1s;
+  }
+
+  #navigationfooter {
+    justify-content: flex-start !important;
+  }
 }
 
 :root {
