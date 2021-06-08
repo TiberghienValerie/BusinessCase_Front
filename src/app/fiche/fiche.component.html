@@ -4,21 +4,28 @@
       <div class="d-flex">
         <button id="menu" type="button" class="btnJaune btn btn-display">
           <i class="fas fa-arrow-left" aria-hidden="true"></i>
-          <a href="index.php" title="Retour">Retour</a>
+          <a [routerLink]="['../../accueil']" title="Retour">Retour</a>
         </button>
       </div>
     </div>
     <div class="col-8 col-sm-9 col-md-9">
-      <h1>Titre Annonce</h1>
+      <h1>{{ tabAnnoncesId[0].titre }}</h1>
     </div>
   </div>
 
   <!-- carroussel -->
   <div class="row">
     <div class="col-12 col-md-12 mt-5 mb-3">
-      <carousel>
-        <slide *ngFor="let slide of slides; let index = index">
-          <img [src]="slide.image" />
+      <carousel
+        [itemsPerSlide]="itemsPerSlide"
+        [singleSlideOffset]="singleSlideOffset"
+        [noWrap]="noWrap"
+        [interval]="cycleInterval"
+        [startFromIndex]="0"
+        [showIndicators]="showIndicator"
+      >
+        <slide *ngFor="let slide of slides; let index = index" class="mx-auto">
+          <img alt="image slide" [src]="slide.image" class="img-fluid" />
         </slide>
       </carousel>
     </div>
@@ -29,12 +36,15 @@
     <div class="col-12 col-md-12 mt-5 mb-3">
       <div class="shadows">
         <div class="row p-3">
-          <div class="col-4 col-md-4 textContenuBold">AUDI RS3</div>
+          <div class="col-4 col-md-4 textContenuBold">
+            {{ tabAnnoncesId[0].modele.nomModele }}
+            {{ tabAnnoncesId[0].modele.marque.nomMarque }}
+          </div>
           <div class="col-4 col-md-4 textContenuitalique text-center">
-            Réf. 10A45B
+            Réf. {{ tabAnnoncesId[0].refAnnonce }}
           </div>
           <div class="textContenuColorBold col-4 col-md-4 text-end">
-            44.990 € TTC
+            {{ tabAnnoncesId[0].prix }} € TTC
           </div>
         </div>
         <div class="row p-3">
@@ -49,11 +59,13 @@
           >
             <img
               alt="km"
-              src="img/Orion_time-limit.png"
+              src="../../assets/img/Orion_time-limit.png"
               width="64px"
               height="64px"
             />
-            <span class="ps-3 textContenu2">12 200 km</span>
+            <span class="ps-3 textContenu2">
+              {{ tabAnnoncesId[0].kilometrage }} km</span
+            >
           </div>
           <div
             class="
@@ -66,11 +78,13 @@
           >
             <img
               alt="carburant"
-              src="img/Orion_gas-station.png"
+              src="../../assets/img/Orion_gas-station.png"
               width="64px"
               height="64px"
             />
-            <span class="ps-3 textContenu2">Essence</span>
+            <span class="ps-3 textContenu2">
+              {{ tabAnnoncesId[0].carburant.nomCarburant }}</span
+            >
           </div>
           <div
             class="
@@ -83,11 +97,13 @@
           >
             <img
               alt="carburant"
-              src="img/Orion_birthday.png"
+              src="../../assets/img/Orion_birthday.png"
               width="64px"
               height="64px"
             />
-            <span class="ps-3 textContenu2">2017</span>
+            <span class="ps-3 textContenu2">
+              {{ tabAnnoncesId[0].anneeCirculation }}</span
+            >
           </div>
         </div>
         <div class="row p-3">
