@@ -1,14 +1,14 @@
 import { jitOnlyGuardedExpression } from '@angular/compiler/src/render3/util';
 import { Component, OnInit } from '@angular/core';
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
-import { AnneeCirculation } from '../models/annee-circulation';
+import { AnneeCirculation } from '../interface/annee-circulation';
 import { Annonce } from '../models/annonce';
 import { Carburant } from '../models/carburant';
-import { Kilometrage } from '../models/kilometrage';
+import { Kilometrage } from '../interface/kilometrage';
 import { Marque } from '../models/marque';
 import { Modele } from '../models/modele';
-import { PrixVente } from '../models/prix-vente';
-import { Resultat } from '../models/resultat';
+import { PrixVente } from '../interface/prix-vente';
+import { Resultat } from '../interface/resultat';
 
 @Component({
   selector: 'app-accueil',
@@ -208,40 +208,46 @@ export class AccueilComponent implements OnInit {
     /* Initialisation du tableau des résultats */
     var j = 0;
     for (var i = 2; i <= 10; i = i + 2) {
-      this.tabResultat.push(new Resultat(j, i));
+      this.tabResultat.push({ idResultat: j, nomResultat: i });
       j++;
     }
 
     /* Initialisation du tableau des kilomètrages */
     var j = 0;
     for (var i = 5000; i <= this.maxKilometrage; i = i + 15000) {
-      this.tabKilometrage.push(new Kilometrage(j, i));
+      this.tabKilometrage.push({ idKilometrage: j, nomKilometrage: i });
       j++;
     }
     if (i > this.maxKilometrage) {
-      this.tabKilometrage.push(new Kilometrage(j, i));
+      this.tabKilometrage.push({ idKilometrage: j, nomKilometrage: i });
     }
 
     /* Initialisation du tableau des années de circulation */
     var j = 0;
     var anneeEnCours = 2021;
     for (var i = this.minAnneeCirculation; i <= anneeEnCours; i = i + 5) {
-      this.tabAnneeCirculation.push(new AnneeCirculation(j, i));
+      this.tabAnneeCirculation.push({
+        idAnneeCirculation: j,
+        nomAnneeCirculation: i,
+      });
       j++;
     }
     if (i > anneeEnCours) {
-      this.tabAnneeCirculation.push(new AnneeCirculation(j, i));
+      this.tabAnneeCirculation.push({
+        idAnneeCirculation: j,
+        nomAnneeCirculation: i,
+      });
     }
 
     /* Initialisation du tableau des prix de vente */
     var j = 0;
     var maxPrix = Math.round(this.maxPrixVente / 10000) * 10000;
     for (var i = 5000; i <= maxPrix; i = i + 15000) {
-      this.tabPrixVente.push(new PrixVente(j, i));
+      this.tabPrixVente.push({ idPrixVente: j, nomPrixVente: i });
       j++;
     }
     if (i > maxPrix) {
-      this.tabPrixVente.push(new PrixVente(j, i));
+      this.tabPrixVente.push({ idPrixVente: j, nomPrixVente: i });
     }
   }
 
