@@ -107,33 +107,55 @@
         </button>
       </div>
       <div class="modal-body">
-        <form
-          onsubmit="return verif(this);"
-          method="post"
-          action="connexion.php"
-        >
-          <div class="mb-3">
-            <input
-              name="login"
-              placeholder="Votre login"
-              type="text"
-              class="form-control"
-              id="recipient-login"
-            />
-          </div>
-          <div class="mb-3">
-            <input
-              name="password"
-              placeholder="Votre password"
-              type="password"
-              class="form-control"
-              id="recipient-password"
-            />
-          </div>
-          <button type="submit" class="btnRouge btn btn-display">
-            Valider
-          </button>
-        </form>
+        <div class="login">
+          <form
+            [formGroup]="loginForm"
+            class="login-container"
+            (ngSubmit)="seConnecter()"
+          >
+            <p
+              [ngClass]="{
+                'has-error': isSubmitted && formControls.email.errors
+              }"
+            >
+              <input type="email" placeholder="Email" formControlName="email" />
+            </p>
+
+            <div
+              *ngIf="isSubmitted && formControls.email.errors"
+              class="help-block"
+            >
+              <div *ngIf="formControls.email.errors.required">
+                <font color="#e33826">L'email est requis</font>
+              </div>
+            </div>
+
+            <p
+              [ngClass]="{
+                'has-error': isSubmitted && formControls.password.errors
+              }"
+            >
+              <input
+                type="password"
+                placeholder="Password"
+                formControlName="password"
+              />
+            </p>
+
+            <div
+              *ngIf="isSubmitted && formControls.password.errors"
+              class="help-block"
+            >
+              <div *ngIf="formControls.password.errors.required">
+                <font color="#e33826">Mot de passe requis</font>
+              </div>
+            </div>
+
+            <p>
+              <input type="submit" value="Se connecter" />
+            </p>
+          </form>
+        </div>
       </div>
     </div>
   </div>

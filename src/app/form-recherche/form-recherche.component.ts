@@ -1,12 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faFilter, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { AnneeCirculation } from '../models/annee-circulation';
+import { AnneeCirculation } from '../interface/annee-circulation';
 import { Annonce } from '../models/annonce';
 import { Carburant } from '../models/carburant';
-import { Kilometrage } from '../models/kilometrage';
+import { Kilometrage } from '../interface/kilometrage';
 import { Marque } from '../models/marque';
 import { Modele } from '../models/modele';
-import { PrixVente } from '../models/prix-vente';
+import { PrixVente } from '../interface/prix-vente';
 
 @Component({
   selector: 'app-form-recherche',

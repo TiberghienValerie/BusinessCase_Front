@@ -17,7 +17,7 @@ import { ContactComponent } from './contact/contact.component';
 import { AccueilComponent } from './accueil/accueil.component';
 import { AproposComponent } from './apropos/apropos.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AnnonceComponent } from './annonce/annonce.component';
 import { FormRechercheComponent } from './form-recherche/form-recherche.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -50,6 +50,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     AccordionModule.forRoot(),
     LeafletModule,
     FormsModule,
+    ReactiveFormsModule,
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
