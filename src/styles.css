@@ -575,3 +575,30 @@ button.btn-close {
 
   --colorgreen: #73655c;
 }
+
+header {
+  height: 230px;
+}
+
+.hide-box {
+  transition: 0.25s ease;
+  max-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  width: 250px;
+  margin-top: 32px;
+  padding: 10px;
+  top: 50%;
+  left: 25%;
+}
+
+.hide-box.-visible {
+  max-height: 99em;
+  opacity: 1;
+  visibility: visible;
+  width: 250px;
+  margin-top: 32px;
+  padding: 10px;
+  top: 50%;
+  left: 25%;
+}

@@ -1,162 +1,336 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
-  <a class="navbar-brand" href="#">
-    <img
-      class="img-fluid"
-      src="assets/img/logo.png"
-      title="Logo de la société"
-      alt="Logo de la société"
-      width="200px"
-      height="200px"
-    />
-  </a>
-  <button
-    class="navbar-toggler m-5"
-    type="submit"
-    data-bs-toggle="collapse"
-    data-bs-target="#navbarScroll"
-    aria-controls="navbarScroll"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-    (click)="show()"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<div *ngIf="isConnected === false; then thenBlock; else elseBlock"></div>
+<ng-template #thenBlock>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" href="#">
+      <img
+        class="img-fluid"
+        src="assets/img/logo.png"
+        title="Logo de la société"
+        alt="Logo de la société"
+        width="200px"
+        height="200px"
+      />
+    </a>
+
+    <button
+      class="navbar-toggler m-5"
+      type="submit"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="show()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      [ngClass]="classActive === true ? 'show' : 'notShow'"
+      class="collapse navbar-collapse justify-content-center"
+      id="navbarScroll"
+    >
+      <a
+        [ngClass]="classActive === true ? 'show' : 'notShow'"
+        class="btnClose"
+        [routerLink]="['accueil']"
+        (click)="close()"
+        ><fa-icon [icon]="faTimes" size="2x"></fa-icon
+      ></a>
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link {{ classAccueil }}"
+            [routerLink]="['accueil']"
+            (click)="close()"
+            >Accueil</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link {{ classApropos }}"
+            [routerLink]="['apropos']"
+            (click)="close()"
+            >A propos</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link {{ classContact }}"
+            [routerLink]="['contact']"
+            (click)="close()"
+            >Contact</a
+          >
+        </li>
+        <li class="nav-item d-lg-none">
+          <a
+            class="nav-link"
+            data-bs-toggle="modal"
+            data-bs-target="#connexionModal"
+            title="Me connecter"
+            (click)="connexionModal.show(); close()"
+            >Se connecter</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="d-lg-flex d-none">
+      <button
+        type="button"
+        id="menu"
+        class="btnRouge btn btn-display"
+        (click)="connexionModal.show()"
+      >
+        <fa-icon [icon]="faUser" size="xs"></fa-icon> Mon compte
+      </button>
+    </div>
+  </nav>
 
   <div
-    [ngClass]="classActive === true ? 'show' : 'notShow'"
-    class="collapse navbar-collapse justify-content-center"
-    id="navbarScroll"
+    class="modal fade"
+    bsModal
+    #connexionModal="bs-modal"
+    [config]="{ backdrop: 'static' }"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="connexion-name"
   >
-    <a
-      [ngClass]="classActive === true ? 'show' : 'notShow'"
-      class="btnClose"
-      [routerLink]="['accueil']"
-      (click)="close()"
-      ><fa-icon [icon]="faTimes" size="2x"></fa-icon
-    ></a>
-
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a
-          class="nav-link {{ classAccueil }}"
-          [routerLink]="['accueil']"
-          (click)="close()"
-          >Accueil</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link {{ classApropos }}"
-          [routerLink]="['apropos']"
-          (click)="close()"
-          >A propos</a
-        >
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link {{ classContact }}"
-          [routerLink]="['contact']"
-          (click)="close()"
-          >Contact</a
-        >
-      </li>
-      <li class="nav-item d-lg-none">
-        <a
-          class="nav-link"
-          data-bs-toggle="modal"
-          data-bs-target="#connexionModal"
-          title="Me connecter"
-          (click)="connexionModal.show(); close()"
-          >Se connecter</a
-        >
-      </li>
-    </ul>
-  </div>
-  <div class="d-lg-flex d-none">
-    <button
-      type="button"
-      id="menu"
-      class="btnRouge btn btn-display"
-      (click)="connexionModal.show()"
-    >
-      <fa-icon [icon]="faUser" size="xs"></fa-icon> Mon compte
-    </button>
-  </div>
-</nav>
-
-<div
-  class="modal fade"
-  bsModal
-  #connexionModal="bs-modal"
-  [config]="{ backdrop: 'static' }"
-  tabindex="-1"
-  role="dialog"
-  aria-labelledby="connexion-name"
->
-  <div class="modal-dialog modal-sm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 id="connexion-name" class="modal-title pull-left">Se connecter</h4>
-        <button
-          type="button"
-          class="close pull-right btn-close"
-          aria-label="Close"
-          (click)="connexionModal.hide()"
-        >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="login">
-          <form
-            [formGroup]="loginForm"
-            class="login-container"
-            (ngSubmit)="seConnecter()"
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="connexion-name" class="modal-title pull-left">
+            Se connecter
+          </h4>
+          <button
+            #fileInput
+            type="button"
+            class="close pull-right btn-close"
+            aria-label="Close"
+            (click)="connexionModal.hide()"
           >
-            <p
-              [ngClass]="{
-                'has-error': isSubmitted && formControls.email.errors
-              }"
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="login">
+            <form
+              [formGroup]="loginForm"
+              class="login-container"
+              (ngSubmit)="seConnecter()"
             >
-              <input type="email" placeholder="Email" formControlName="email" />
-            </p>
+              <p
+                [ngClass]="{
+                  'has-error': isSubmitted && formControls.login.errors
+                }"
+              >
+                <input
+                  type="text"
+                  placeholder="Login"
+                  formControlName="login"
+                />
+              </p>
 
-            <div
-              *ngIf="isSubmitted && formControls.email.errors"
-              class="help-block"
-            >
-              <div *ngIf="formControls.email.errors.required">
-                <font color="#e33826">L'email est requis</font>
+              <div
+                *ngIf="isSubmitted && formControls.login.errors"
+                class="help-block"
+              >
+                <div *ngIf="formControls.login.errors.required">
+                  <font color="#e33826">Le login est requis</font>
+                </div>
               </div>
-            </div>
 
-            <p
-              [ngClass]="{
-                'has-error': isSubmitted && formControls.password.errors
-              }"
-            >
-              <input
-                type="password"
-                placeholder="Password"
-                formControlName="password"
-              />
-            </p>
+              <p
+                [ngClass]="{
+                  'has-error': isSubmitted && formControls.password.errors
+                }"
+              >
+                <input
+                  type="password"
+                  placeholder="Password"
+                  formControlName="password"
+                />
+              </p>
 
-            <div
-              *ngIf="isSubmitted && formControls.password.errors"
-              class="help-block"
-            >
-              <div *ngIf="formControls.password.errors.required">
-                <font color="#e33826">Mot de passe requis</font>
+              <div
+                *ngIf="isSubmitted && formControls.password.errors"
+                class="help-block"
+              >
+                <div *ngIf="formControls.password.errors.required">
+                  <font color="#e33826">Mot de passe requis</font>
+                </div>
               </div>
-            </div>
 
-            <p>
-              <input type="submit" value="Se connecter" />
-            </p>
-          </form>
+              <p>
+                <input type="submit" value="Se connecter" />
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</ng-template>
+<ng-template #elseBlock>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white">
+    <a class="navbar-brand" href="#">
+      <img
+        class="img-fluid"
+        src="assets/img/logo.png"
+        title="Logo de la société"
+        alt="Logo de la société"
+        width="200px"
+        height="200px"
+      />
+    </a>
+
+    <button
+      class="navbar-toggler m-5"
+      type="submit"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarScroll"
+      aria-controls="navbarScroll"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+      (click)="show()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div
+      [ngClass]="classActive === true ? 'show' : 'notShow'"
+      class="collapse navbar-collapse justify-content-center"
+      id="navbarScroll"
+    >
+      <a
+        [ngClass]="classActive === true ? 'show' : 'notShow'"
+        class="btnClose"
+        [routerLink]="['accueil']"
+        (click)="close()"
+        ><fa-icon [icon]="faTimes" size="2x"></fa-icon
+      ></a>
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a
+            class="nav-link {{ classAccueil }}"
+            [routerLink]="['accueil']"
+            (click)="close()"
+            >Accueil</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link {{ classApropos }}"
+            [routerLink]="['apropos']"
+            (click)="close()"
+            >A propos</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link {{ classContact }}"
+            [routerLink]="['contact']"
+            (click)="close()"
+            >Contact</a
+          >
+        </li>
+        <li class="nav-item d-lg-none">
+          <a class="nav-link" href="#">Gérer Mon compte</a>
+        </li>
+        <li class="nav-item d-lg-none">
+          <a class="nav-link" href="#">Gérer Mes Garages </a>
+        </li>
+        <li class="nav-item d-lg-none">
+          <a class="nav-link" href="#">Gestion Mes annonces par Garage</a>
+        </li>
+        <li class="nav-item d-lg-none">
+          <a
+            class="nav-link"
+            data-bs-toggle="modal"
+            data-bs-target="#deconnexionModal"
+            title="Me connecter"
+            (click)="deconnexionModal.show(); close()"
+            >Me déconnecter</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div
+      class="
+        d-lg-flex d-none
+        justify-content-center
+        align-items-center
+        position-relative
+      "
+    >
+      <button id="menu2" type="button" class="btnRouge2 btn btn-display">
+        <fa-icon [icon]="faUser" size="1x"></fa-icon>
+      </button>
+      Nom Prénom
+      <a
+        [routerLink]="'.'"
+        fragment="mon-bloc-1"
+        data-js="hide"
+        (click)="classActive2 === false ? show2() : close2()"
+      >
+        &nbsp;<fa-icon [icon]="faAngleDown" size="2x"></fa-icon
+      ></a>
+      <div
+        id="mon-bloc-1"
+        [ngClass]="classActive2 === true ? '-visible' : ''"
+        class="hide-box shadows position-absolute translate-middle-x"
+      >
+        <!-- Gérer Mon compte<br />
+        Gérer Mes garages<br />
+        Gérer Mes annonces par garage<br />-->
+        <a
+          data-bs-toggle="modal"
+          data-bs-target="#deconnexionModal"
+          title="Me déconnecter"
+          (click)="deconnexionModal.show(); close2()"
+          >Me déconnecter</a
+        >
+      </div>
+    </div>
+  </nav>
+
+  <div
+    class="modal fade"
+    bsModal
+    #deconnexionModal="bs-modal"
+    [config]="{ backdrop: 'static' }"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="deconnexion-name"
+  >
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="deconnexion-name" class="modal-title pull-left">
+            Se déconnecter
+          </h4>
+          <button
+            #fileInput2
+            type="button"
+            class="close pull-right btn-close"
+            aria-label="Close"
+            (click)="deconnexionModal.hide()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="login">
+            <form class="login-container" (ngSubmit)="seDeconnecter()">
+              <p>Voulez-vous vous déconnectez ?</p>
+              <p>
+                <input type="submit" value="Se déconnecter" />
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
