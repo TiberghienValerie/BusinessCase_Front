@@ -109,6 +109,7 @@ export class HeaderComponent implements OnInit {
   }
 
   seDeconnecter() {
+    this.tabUtilisateurFiltrer.length = 0;
     this.authService.deconnecter();
     this.fileInput2.nativeElement.click();
     this.ngOnInit();

@@ -8,6 +8,7 @@ import { FAQComponent } from './faq/faq.component';
 import { FicheComponent } from './fiche/fiche.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
 import { PlanSiteComponent } from './plan-site/plan-site.component';
+import { IsSignedInGuard } from './service/is-signed-in-guard';
 
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
@@ -17,7 +18,11 @@ const routerOptions: ExtraOptions = {
 
 const routes: Routes = [
   { path: '', redirectTo: '/accueil', pathMatch: 'full' },
-  { path: 'plan', component: PlanSiteComponent },
+  {
+    path: 'plan',
+    component: PlanSiteComponent,
+    canActivate: [IsSignedInGuard],
+  },
   { path: 'mentionsLegales', component: MentionsLegalesComponent },
   { path: 'CGU', component: CGUComponent },
   { path: 'FAQ', component: FAQComponent },
