@@ -13,6 +13,7 @@ import {
   faTimes,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import { Utilisateur } from '../models/utilisateur';
 import { AuthService } from '../service/auth.service';
 
 @Component({
@@ -32,16 +33,40 @@ export class HeaderComponent implements OnInit {
   loginForm!: FormGroup;
   isSubmitted = false;
 
+  public tabUtilisateur: Utilisateur[] = [];
+
   public isConnected: boolean = false;
 
   public classActive: boolean = false;
   public classActive2: boolean = false;
+  public tabUtilisateurFiltrer: Utilisateur[] = [];
+
+  public nomUtilisateur!: string;
+  public prenomUtilisateur!: string;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
+    this.tabUtilisateur.push(
+      new Utilisateur(
+        1,
+        'Tiberghien',
+        'Valérie',
+        '4 allée du printemps',
+        '',
+        '',
+        '42000',
+        'Saint Etienne',
+        '0600000000',
+        'tiberghien.valerie@wanadoo.fr',
+        'toto',
+        'toto',
+        'access_token'
+      )
+    );
+
     if (localStorage.hasOwnProperty('ACCESS_TOKEN')) this.isConnected = true;
     else this.isConnected = false;
   }
@@ -64,10 +89,23 @@ export class HeaderComponent implements OnInit {
       return;
     }
 
-    this.authService.seConnecter(this.loginForm.value);
-    this.fileInput.nativeElement.click();
-    this.ngOnInit();
-    this.router.navigateByUrl('/accueil');
+    var login = this.loginForm.value.login;
+    var pwd = this.loginForm.value.password;
+    let val = this.tabUtilisateur.filter(function (u) {
+      return u.loginUtilisateur == login && u.pwdUtilisateur == pwd;
+    });
+
+    if (val.length > 0) {
+      this.tabUtilisateurFiltrer.push(...val);
+      this.authService.seConnecter(this.tabUtilisateurFiltrer);
+      this.fileInput.nativeElement.click();
+      this.nomUtilisateur = this.tabUtilisateurFiltrer[0].nomUtilisateur;
+      this.prenomUtilisateur = this.tabUtilisateurFiltrer[0].prenomUtilisateur;
+      this.ngOnInit();
+      this.router.navigateByUrl('/accueil');
+    } else {
+      this.ngOnInit();
+    }
   }
 
   seDeconnecter() {
