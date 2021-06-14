@@ -588,8 +588,9 @@ header {
   width: 250px;
   margin-top: 32px;
   padding: 10px;
-  top: 50%;
+  top: 25%;
   left: 25%;
+  z-index: 99999;
 }
 
 .hide-box.-visible {

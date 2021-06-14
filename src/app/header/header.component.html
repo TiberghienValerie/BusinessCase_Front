@@ -236,13 +236,19 @@
           >
         </li>
         <li class="nav-item d-lg-none">
-          <a class="nav-link" href="#">Gérer Mon compte</a>
+          <a class="nav-link" [routerLink]="['monCompte']" (click)="close()"
+            >Gérer Mon compte</a
+          >
         </li>
         <li class="nav-item d-lg-none">
-          <a class="nav-link" href="#">Gérer Mes Garages </a>
+          <a class="nav-link" [routerLink]="['mesGarages']" (click)="close()"
+            >Gérer Mes Garages
+          </a>
         </li>
         <li class="nav-item d-lg-none">
-          <a class="nav-link" href="#">Gestion Mes annonces par Garage</a>
+          <a class="nav-link" [routerLink]="['mesAnnonces']" (click)="close()"
+            >Gestion Mes annonces par Garage</a
+          >
         </li>
         <li class="nav-item d-lg-none">
           <a
@@ -282,10 +288,13 @@
         [ngClass]="classActive2 === true ? '-visible' : ''"
         class="hide-box shadows position-absolute translate-middle-x"
       >
-        <!-- Gérer Mon compte<br />
-        Gérer Mes garages<br />
-        Gérer Mes annonces par garage<br />-->
+        <a class="nav-link" [routerLink]="['monCompte']">Gérer mon compte</a>
+        <a class="nav-link" [routerLink]="['mesGarages']">Gérer mes garages</a>
+        <a class="nav-link" [routerLink]="['mesAnnonces']"
+          >Gérer mes annonces</a
+        >
         <a
+          class="nav-link"
           data-bs-toggle="modal"
           data-bs-target="#deconnexionModal"
           title="Me déconnecter"

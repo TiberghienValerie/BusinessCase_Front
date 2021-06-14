@@ -21,7 +21,6 @@ const routes: Routes = [
   {
     path: 'plan',
     component: PlanSiteComponent,
-    canActivate: [IsSignedInGuard],
   },
   { path: 'mentionsLegales', component: MentionsLegalesComponent },
   { path: 'CGU', component: CGUComponent },
@@ -30,6 +29,21 @@ const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'apropos', component: AproposComponent },
   { path: 'fiche/:id', component: FicheComponent },
+  {
+    path: 'monCompte',
+    component: AproposComponent,
+    canActivate: [IsSignedInGuard],
+  },
+  {
+    path: 'mesGarages',
+    component: AproposComponent,
+    canActivate: [IsSignedInGuard],
+  },
+  {
+    path: 'mesAnnonces',
+    component: AproposComponent,
+    canActivate: [IsSignedInGuard],
+  },
 ];
 
 @NgModule({
