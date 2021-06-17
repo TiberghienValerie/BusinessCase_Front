@@ -6,6 +6,7 @@ import {
   Event as NavigationEvent,
 } from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -17,6 +18,8 @@ export class AppComponent {
   public classAccueil: string = 'active';
   public classContact: string = '';
   public classApropos: string = '';
+
+
 
   constructor(private router: Router) {
     this.event$ = this.router.events.subscribe((event: NavigationEvent) => {
@@ -41,4 +44,6 @@ export class AppComponent {
       }
     });
   }
+
+ 
 }

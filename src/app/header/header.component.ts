@@ -1,8 +1,10 @@
 import {
   Component,
   ElementRef,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
   TemplateRef,
   ViewChild,
 } from '@angular/core';
@@ -33,22 +35,26 @@ export class HeaderComponent implements OnInit {
   loginForm!: FormGroup;
   isSubmitted = false;
 
+  @Output() public utilisateurConnecte!: EventEmitter<Utilisateur>;
+
   public tabUtilisateur: Utilisateur[] = [];
 
   public isConnected: boolean = false;
 
   public classActive: boolean = false;
   public classActive2: boolean = false;
-  public tabUtilisateurFiltrer: Utilisateur[] = [];
 
-  public nomUtilisateur!: string;
-  public prenomUtilisateur!: string;
+  public nomUtilisateur: string | null | undefined ;
+  public prenomUtilisateur: string | null | undefined;
 
+
+ 
   constructor(
     private authService: AuthService,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
+  
     this.tabUtilisateur.push(
       new Utilisateur(
         1,
@@ -69,6 +75,9 @@ export class HeaderComponent implements OnInit {
 
     if (localStorage.hasOwnProperty('ACCESS_TOKEN')) this.isConnected = true;
     else this.isConnected = false;
+
+    this.nomUtilisateur = localStorage.getItem('nomUtilisateur');
+      this.prenomUtilisateur = localStorage.getItem('nomUtilisateur');
   }
 
   ngOnInit() {
@@ -76,6 +85,9 @@ export class HeaderComponent implements OnInit {
       login: ['', Validators.required],
       password: ['', Validators.required],
     });
+
+   
+   
 
     if (localStorage.hasOwnProperty('ACCESS_TOKEN')) this.isConnected = true;
     else this.isConnected = false;
@@ -96,11 +108,13 @@ export class HeaderComponent implements OnInit {
     });
 
     if (val.length > 0) {
-      this.tabUtilisateurFiltrer.push(...val);
-      this.authService.seConnecter(this.tabUtilisateurFiltrer);
+  
+      this.authService.seConnecter(val[0]);
+      this.nomUtilisateur = localStorage.getItem('nomUtilisateur');
+      this.prenomUtilisateur = localStorage.getItem('nomUtilisateur');
+      
       this.fileInput.nativeElement.click();
-      this.nomUtilisateur = this.tabUtilisateurFiltrer[0].nomUtilisateur;
-      this.prenomUtilisateur = this.tabUtilisateurFiltrer[0].prenomUtilisateur;
+     
       this.ngOnInit();
       this.router.navigateByUrl('/accueil');
     } else {
@@ -109,10 +123,18 @@ export class HeaderComponent implements OnInit {
   }
 
   seDeconnecter() {
-    this.tabUtilisateurFiltrer.length = 0;
+    
     this.authService.deconnecter();
+    
     this.fileInput2.nativeElement.click();
+    this.nomUtilisateur = '';
+    this.prenomUtilisateur = '';
+   
     this.ngOnInit();
+    this.loginForm = this.formBuilder.group({
+      login: [''],
+      password: [''],
+    });
     this.router.navigateByUrl('/accueil');
   }
 

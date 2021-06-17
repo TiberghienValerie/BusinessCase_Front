@@ -88,7 +88,7 @@
   </nav>
 
   <div
-    class="modal fade"
+    class="modal fade modal_index"
     bsModal
     #connexionModal="bs-modal"
     [config]="{ backdrop: 'static' }"
@@ -273,8 +273,7 @@
       <button id="menu2" type="button" class="btnRouge2 btn btn-display">
         <fa-icon [icon]="faUser" size="1x"></fa-icon>
       </button>
-      {{ nomUtilisateur }}
-      {{ prenomUtilisateur }}
+     {{nomUtilisateur}} {{prenomUtilisateur
       <a
         [routerLink]="'.'"
         fragment="mon-bloc-1"
@@ -306,7 +305,7 @@
   </nav>
 
   <div
-    class="modal fade"
+    class="modal fade modal_index"
     bsModal
     #deconnexionModal="bs-modal"
     [config]="{ backdrop: 'static' }"
