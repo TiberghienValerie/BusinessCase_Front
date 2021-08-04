@@ -1,3 +1,6 @@
 export class Marque {
-  constructor(public idMarque: number, public nomMarque: string) {}
+  constructor(
+    public id: number,
+    public nomMarque: string
+  ) {}
 }

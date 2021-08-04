@@ -7,6 +7,11 @@ import { Kilometrage } from '../interface/kilometrage';
 import { Marque } from '../models/marque';
 import { Modele } from '../models/modele';
 import { PrixVente } from '../interface/prix-vente';
+import {marqueApiService} from "../service/marque-api.service";
+import {modeleApiService} from "../service/modele-api.service";
+import {carburantApiService} from "../service/carburant-api.service";
+import {Garage} from "../models/garage";
+import {annonceApiService} from "../service/annonce-api.service";
 
 @Component({
   selector: 'app-form-recherche',
@@ -28,31 +33,96 @@ export class FormRechercheComponent implements OnInit {
   public tabModelesFiltrer: Modele[] = [];
   public tabAnnoncesFiltrer: Annonce[] = [];
   public disabled: boolean = true;
+  public url!: string;
+  public nbPages!: number;
 
   @Input() public tabAnnonces!: Annonce[];
+  @Input() public nbTotalEnregistrement!: number;
   @Input() public tabKilometrage!: Kilometrage[];
   @Input() public tabPrixVente!: PrixVente[];
   @Input() public tabAnneeCirculation!: AnneeCirculation[];
+  @Input() public mode!: string;
 
   @Output() public rechercheFormulaire: EventEmitter<Annonce[]>;
+  @Output() public rechercheFormulaireNbEnregistrement: EventEmitter<number>;
+  @Output() public rechercheFormulaireUrl: EventEmitter<string>;
+  @Output() public rechercheFormulaireMode: EventEmitter<string>;
 
   faSearch = faSearch;
 
-  constructor() {
+
+  getCarburants(page: number = 1) {
+    this.serviceApiCarburant.getCollection(page).subscribe(
+      (data) => {
+        for (let o of data['hydra:member']) {
+          this.tabCarburants.push(
+            new Carburant(o.id, o.NomCarburant)
+          );
+        }
+
+     /*   if(data['hydra:view']['hydra:next'] !== undefined) {
+          let recherchePage = parseInt(data['hydra:view']['hydra:next'].split(/\s*=\s*///)[1]);
+   /*       this.getCarburants(recherchePage);
+        }*/
+      },
+      () => {
+        alert('Cannot load Modele');
+      },
+    );
+  }
+
+  getMarques(page: number = 1) {
+    this.serviceApiMarque.getCollection(page).subscribe(
+      (data) => {
+        for (let o of data['hydra:member']) {
+          this.tabMarques.push(
+            new Marque(o.id, o.nomMarque)
+          );
+        }
+        /*if(data['hydra:view']['hydra:next'] !== undefined) {
+          let recherchePage = parseInt(data['hydra:view']['hydra:next'].split(/\s*=\s*///)[1]);
+         // this.getModeles(recherchePage);
+       // }
+      },
+      () => {
+        alert('Cannot load Modele');
+      },
+    );
+  }
+
+  getModeles(page: number = 1) {
+    this.serviceApiModele.getCollection(page).subscribe(
+      (data) => {
+        for (let o of data['hydra:member'] ) {
+          this.tabModeles.push(
+            new Modele(o.id, o.nomModele, new Marque(o.Marque.id, o.Marque.nomMarque))
+          );
+        }
+        if(data['hydra:view']['hydra:next']!== undefined) {
+          let recherchePage = parseInt(data['hydra:view']['hydra:next'].split(/\s*=\s*/)[1]);
+          this.getModeles(recherchePage);
+        }
+      },
+      () => {
+        alert('Cannot load Modele');
+      },
+    );
+  }
+
+  constructor( public serviceApiAnnonce: annonceApiService, public serviceApiCarburant: carburantApiService, public serviceApiMarque: marqueApiService, public serviceApiModele: modeleApiService) {
     this.rechercheFormulaire = new EventEmitter();
-    this.tabModeles.push(
-      new Modele(1, '2000', new Marque(1, 'Alfa Romeo')),
-      new Modele(2, 'Giulia', new Marque(1, 'Alfa Romeo')),
-      new Modele(3, 'A3', new Marque(2, 'Audi')),
-      new Modele(2, 'A5', new Marque(2, 'Audi'))
-    );
+    this.rechercheFormulaireNbEnregistrement = new EventEmitter();
+    this.rechercheFormulaireUrl = new EventEmitter();
+    this.rechercheFormulaireMode = new EventEmitter();
 
-    this.tabMarques.push(new Marque(1, 'Alfa Romeo'), new Marque(2, 'Audi'));
 
-    this.tabCarburants.push(
-      new Carburant(1, 'Essence'),
-      new Carburant(2, 'Diesel')
-    );
+    this.tabMarques = [];
+    this.tabModeles = [];
+    this.tabCarburants = [];
+    this.getModeles();
+    this.getMarques();
+    this.getCarburants();
+
 
     this.marque = 0;
     this.carburant = 0;
@@ -63,9 +133,10 @@ export class FormRechercheComponent implements OnInit {
   }
 
   onMarqueChanged(value: any) {
+
     this.tabModelesFiltrer.length = 0;
     let val = this.tabModeles.filter(function (c) {
-      return c.marque.idMarque === parseInt(value.target.value);
+      return c.Marque.id === parseInt(value.target.value);
     });
     this.tabModelesFiltrer = val;
 
@@ -77,83 +148,48 @@ export class FormRechercheComponent implements OnInit {
     this.modele = 0;
   }
 
-  ngOnInit(): void {}
+  ngOnInit(
+  ): void {
+  }
 
   onSubmit() {
-    this.tabAnnoncesFiltrer.length = 0;
+    this.mode = 'Recherche';
+    this.tabAnnoncesFiltrer = [];
 
-    let val = this.tabAnnonces.filter((a) => {
-      if (this.carburant != 0 && this.modele == 0 && this.kilometrage == 0) {
-        console.log('cas 1');
-        return a.carburant.idCarburant == this.carburant;
-      } else if (
-        this.modele != 0 &&
-        this.carburant == 0 &&
-        this.kilometrage == 0
-      ) {
-        return a.modele.idModele == this.modele;
-      } else if (
-        this.modele == 0 &&
-        this.carburant == 0 &&
-        this.kilometrage != 0
-      ) {
-        console.log('cas 2');
-        return (
-          a.kilometrage > this.kilometrage - 15000 &&
-          a.kilometrage <= this.kilometrage
-        );
-      } else if (
-        this.modele != 0 &&
-        this.carburant != 0 &&
-        this.kilometrage == 0
-      ) {
-        console.log('cas 3');
-        return (
-          a.carburant.idCarburant == this.carburant &&
-          a.modele.idModele == this.modele
-        );
-      } else if (
-        this.modele != 0 &&
-        this.carburant == 0 &&
-        this.kilometrage != 0
-      ) {
-        console.log('cas 4');
-        return (
-          a.kilometrage > this.kilometrage - 15000 &&
-          a.kilometrage <= this.kilometrage &&
-          a.modele.idModele == this.modele
-        );
-      } else if (
-        this.modele == 0 &&
-        this.carburant != 0 &&
-        this.kilometrage != 0
-      ) {
-        console.log('cas 5');
-        return (
-          a.kilometrage > this.kilometrage - 15000 &&
-          a.kilometrage <= this.kilometrage &&
-          a.carburant.idCarburant == this.carburant
-        );
-      } else if (
-        this.carburant != 0 &&
-        this.modele != 0 &&
-        this.carburant != 0
-      ) {
-        console.log('cas 6');
-        return (
-          a.carburant.idCarburant == this.carburant &&
-          a.modele.idModele == this.modele &&
-          a.kilometrage > this.kilometrage - 15000 &&
-          a.kilometrage <= this.kilometrage
-        );
-      } else return false;
-    });
+    this.serviceApiAnnonce.getCollectionSearch(this.kilometrage, this.marque, this.modele, this.prixVente, this.anneeCirculation, this.carburant).subscribe(
+      (data) => {
+        this.nbTotalEnregistrement = data['hydra:totalItems'];
 
-    if (this.carburant == 0 && this.marque == 0 && this.kilometrage == 0) {
-      this.rechercheFormulaire.emit(this.tabAnnonces);
-    } else {
-      this.tabAnnoncesFiltrer.push(...val);
-      this.rechercheFormulaire.emit(this.tabAnnoncesFiltrer);
-    }
+        for (let o of data['hydra:member']) {
+          this.tabAnnoncesFiltrer.push(
+            new Annonce(
+              o.id,
+              o.refAnnonce,
+              o.DateAnnonce,
+              o.titre,
+              o.descriptionCourte,
+              o.descriptionLongue,
+              o.anneeCirculation,
+              o.kilometrage,
+              o.prix,
+              new Modele(o.modele.id, o.modele.nomModele, new Marque(o.modele.Marque.id, o.modele.Marque.nomMarque)),
+              new Garage(o.garage.id, o.garage.nom),
+              new Carburant(o.carburant.id, o.carburant.NomCarburant)
+            ));
+        }
+
+        this.rechercheFormulaire.emit(this.tabAnnoncesFiltrer);
+        this.rechercheFormulaireNbEnregistrement.emit(this.nbTotalEnregistrement);
+
+
+
+        this.nbPages = parseInt(data['hydra:view']['hydra:last'].split(/\s*page=\s*/)[1]);
+
+        this.url = (data['hydra:view']['hydra:last'].split(/\s*page=\s*/))[0]+'page=';
+
+
+        this.rechercheFormulaireUrl.emit(this.url);
+        this.rechercheFormulaireMode.emit(this.mode);
+      });
   }
 }

@@ -7,8 +7,13 @@ import { Carburant } from '../models/carburant';
 import { Kilometrage } from '../interface/kilometrage';
 import { Marque } from '../models/marque';
 import { Modele } from '../models/modele';
+import { Garage } from '../models/garage';
 import { PrixVente } from '../interface/prix-vente';
 import { Resultat } from '../interface/resultat';
+import {annonceApiService} from "../service/annonce-api.service";
+import {Collection} from "../models/collection";
+import {HttpClient} from "@angular/common/http";
+
 
 @Component({
   selector: 'app-accueil',
@@ -20,266 +25,178 @@ export class AccueilComponent implements OnInit {
   public tabKilometrage: Kilometrage[] = [];
   public tabAnneeCirculation: AnneeCirculation[] = [];
   public tabPrixVente: PrixVente[] = [];
-  public tabResultat: Resultat[] = [];
+ // public tabResultat: Resultat[] = [];
   public tabAnnoncesFilter: Annonce[] = [];
 
-  public maxKilometrage!: number;
-  public minAnneeCirculation!: number;
-  public maxPrixVente!: number;
-
-  public resultat!: number;
+  public  maxKilometrage: number = 200000;
+  public  minAnneeCirculation: number = 1975;
+  public maxPrixVente: number = 200000;
+  public  anneeEnCours:number = (new Date ()).getFullYear();
+  public nbTotalEnregistrement!: number;
+  public nbPages!: number;
+  public url!: string;
   public resultatParPage!: number;
+  public maxPrix!: number;
+  public mode!: string;
 
-  constructor() {
-    this.tabAnnonces.push(
-      new Annonce(
-        1,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2017,
-        100000,
-        250000.0,
-        0,
-        new Modele(1, '2000', new Marque(1, 'Alfa Romeo')),
-        1,
-        new Carburant(1, 'Essence')
-      ),
-      new Annonce(
-        2,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2017,
-        100000,
-        250000,
-        0,
-        new Modele(3, 'A3', new Marque(2, 'Audi')),
-        1,
-        new Carburant(1, 'Essence')
-      ),
-      new Annonce(
-        3,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2017,
-        100000,
-        250000.0,
-        0,
-        new Modele(3, 'A3', new Marque(2, 'Audi')),
-        1,
-        new Carburant(1, 'Essence')
-      ),
-      new Annonce(
-        4,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2017,
-        100000,
-        250000.0,
-        0,
-        new Modele(3, 'A3', new Marque(2, 'Audi')),
-        1,
-        new Carburant(1, 'Essence')
-      ),
-      new Annonce(
-        5,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2017,
-        100000,
-        250000.0,
-        0,
-        new Modele(3, 'A3', new Marque(2, 'Audi')),
-        1,
-        new Carburant(1, 'Essence')
-      ),
-      new Annonce(
-        6,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        1995,
-        250000,
-        250000.0,
-        0,
-        new Modele(3, 'A3', new Marque(2, 'Audi')),
-        1,
-        new Carburant(1, 'Essence')
-      ),
-      new Annonce(
-        7,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2008,
-        100000,
-        250000.0,
-        0,
-        new Modele(3, 'A3', new Marque(2, 'Audi')),
-        1,
-        new Carburant(1, 'Essence')
-      ),
-      new Annonce(
-        8,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2017,
-        100000,
-        250000.0,
-        0,
-        new Modele(3, 'A3', new Marque(2, 'Audi')),
-        1,
-        new Carburant(1, 'Essence')
-      ),
-      new Annonce(
-        9,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2017,
-        100000,
-        250000.0,
-        0,
-        new Modele(3, 'A3', new Marque(2, 'Audi')),
-        1,
-        new Carburant(1, 'Essence')
-      ),
-      new Annonce(
-        10,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2017,
-        125000,
-        250000.0,
-        0,
-        new Modele(3, 'A3', new Marque(2, 'Audi')),
-        1,
-        new Carburant(2, 'Diesel')
-      )
-    );
-
-    this.tabAnnoncesFilter.push(...this.tabAnnonces);
-
-    this.resultat = 0;
-    this.resultatParPage = 25;
-
-    /* calcul du max des kilometrages, du min de la date de mise en circulation, du max des prix de vente */
-    this.maxKilometrage = 0;
-    this.minAnneeCirculation = 2021;
-    this.maxPrixVente = 0;
-    for (let i = 0; i < this.tabAnnonces.length; i++) {
-      if (this.maxKilometrage < this.tabAnnonces[i].kilometrage) {
-        this.maxKilometrage = this.tabAnnonces[i].kilometrage;
-      }
-      if (this.minAnneeCirculation > this.tabAnnonces[i].anneeCirculation) {
-        this.minAnneeCirculation = this.tabAnnonces[i].anneeCirculation;
-      }
-      if (this.maxPrixVente < this.tabAnnonces[i].prix) {
-        this.maxPrixVente = this.tabAnnonces[i].prix;
-      }
-    }
-
-    /* Initialisation du tableau des résultats */
-    var j = 0;
-    for (var i = 2; i <= 10; i = i + 2) {
-      this.tabResultat.push({ idResultat: j, nomResultat: i });
-      j++;
-    }
+  getParametre() {
 
     /* Initialisation du tableau des kilomètrages */
     var j = 0;
     for (var i = 5000; i <= this.maxKilometrage; i = i + 15000) {
-      this.tabKilometrage.push({ idKilometrage: j, nomKilometrage: i });
+      this.tabKilometrage.push({idKilometrage: j, nomKilometrage: i});
       j++;
     }
     if (i > this.maxKilometrage) {
-      this.tabKilometrage.push({ idKilometrage: j, nomKilometrage: i });
+      this.tabKilometrage.push({idKilometrage: j, nomKilometrage: i});
     }
 
     /* Initialisation du tableau des années de circulation */
     var j = 0;
-    var anneeEnCours = 2021;
-    for (var i = this.minAnneeCirculation; i <= anneeEnCours; i = i + 5) {
+    for (var i = this.minAnneeCirculation; i <= this.anneeEnCours; i = i + 5) {
       this.tabAnneeCirculation.push({
         idAnneeCirculation: j,
         nomAnneeCirculation: i,
       });
       j++;
     }
-    if (i > anneeEnCours) {
+    if (i > this.anneeEnCours) {
       this.tabAnneeCirculation.push({
         idAnneeCirculation: j,
         nomAnneeCirculation: i,
       });
     }
-
     /* Initialisation du tableau des prix de vente */
     var j = 0;
-    var maxPrix = Math.round(this.maxPrixVente / 10000) * 10000;
-    for (var i = 5000; i <= maxPrix; i = i + 15000) {
-      this.tabPrixVente.push({ idPrixVente: j, nomPrixVente: i });
+    this.maxPrix = Math.round(this.maxPrixVente / 10000) * 10000;
+    for (var i = 5000; i <= this.maxPrix; i = i + 15000) {
+      this.tabPrixVente.push({idPrixVente: j, nomPrixVente: i});
       j++;
     }
-    if (i > maxPrix) {
-      this.tabPrixVente.push({ idPrixVente: j, nomPrixVente: i });
+    if (i > this.maxPrix) {
+      this.tabPrixVente.push({idPrixVente: j, nomPrixVente: i});
     }
+}
+
+  getAnnonces(page: number = 1)
+  {
+    this.serviceApiAnnonce.getCollection().subscribe(
+      (data) => {
+
+        for (let o of data['hydra:member']) {
+          this.tabAnnonces.push(
+            new Annonce(
+              o.id,
+              o.refAnnonce,
+              o.DateAnnonce,
+              o.titre,
+              o.descriptionCourte,
+              o.descriptionLongue,
+              o.anneeCirculation,
+              o.kilometrage,
+              o.prix,
+              new Modele(o.modele.id, o.modele.nomModele, new Marque(o.modele.Marque.id, o.modele.Marque.nomMarque)),
+              new Garage(o.garage.id, o.garage.nom),
+              new Carburant(o.carburant.id, o.carburant.NomCarburant)
+            ));
+        }
+
+        this.tabAnnoncesFilter.push(...this.tabAnnonces);
+
+        this.nbTotalEnregistrement = data['hydra:totalItems'];
+        this.nbPages = parseInt(data['hydra:view']['hydra:last'].split(/\s*=\s*/)[1]);
+        this.url = (data['hydra:view']['hydra:last'].split(/\s*=\s*/))[0]+'=';
+      }
+
+
+      );
   }
 
-  /* Pagination */
 
-  contentArray: Annonce[] = new Array(10).fill('');
-  returnedArray!: Annonce[];
-  showBoundaryLinks: boolean = true;
-  showDirectionLinks: boolean = true;
+
+  constructor( private httpClient: HttpClient, public serviceApiAnnonce: annonceApiService) {
+
+    /* calcul du max des kilometrages, du min de la date de mise en circulation, du max des prix de vente */
+    this.tabAnnonces = [];
+    this.tabAnnoncesFilter = [];
+    this.getAnnonces();
+    this.getParametre();
+    this.resultatParPage = 30;
+    this.mode = 'nonRecherche';
+
+
+
+
+
+  }
 
   ngOnInit(): void {
-    this.contentArray = this.tabAnnoncesFilter;
-    this.returnedArray = this.tabAnnoncesFilter.slice(0, this.resultatParPage);
   }
 
-  pageChanged(event: PageChangedEvent): void {
+  pageChanged(event: PageChangedEvent, url: string, mode: string): void {
+
     const startItem = (event.page - 1) * event.itemsPerPage;
     const endItem = event.page * event.itemsPerPage;
-    this.returnedArray = this.contentArray.slice(startItem, endItem);
+    url = url + event.page;
+    this.mode = mode;
+    this.tabAnnonces = [];
+    this.tabAnnoncesFilter = [];
+
+    this.serviceApiAnnonce.getCollectionSpecifique(`https://localhost:8000${url}`).subscribe(
+        (data) => {
+          for (let o of data['hydra:member']) {
+            this.tabAnnonces.push(
+              new Annonce(
+                o.id,
+                o.refAnnonce,
+                o.DateAnnonce,
+                o.titre,
+                o.descriptionCourte,
+                o.descriptionLongue,
+                o.anneeCirculation,
+                o.kilometrage,
+                o.prix,
+                new Modele(o.modele.id, o.modele.nomModele, new Marque(o.modele.Marque.id, o.modele.Marque.nomMarque)),
+                new Garage(o.garage.id, o.garage.nom),
+                new Carburant(o.carburant.id, o.carburant.NomCarburant)
+              ));
+          }
+
+          this.tabAnnoncesFilter.push(...this.tabAnnonces);
+
+          this.nbTotalEnregistrement = data['hydra:totalItems'];
+
+
+
+          if(this.mode=='nonRecherche') {
+            this.nbPages = parseInt(data['hydra:view']['hydra:last'].split(/\s*=\s*/)[1]);
+            this.url = (data['hydra:view']['hydra:last'].split(/\s*=\s*/))[0]+'=';
+          }else{
+            this.nbPages = parseInt(data['hydra:view']['hydra:last'].split(/\s*page=\s*/)[1]);
+            this.url = (data['hydra:view']['hydra:last'].split(/\s*page=\s*/))[0]+'page=';
+          }
+
+          console.log(this.url);
+        });
   }
 
   /*Fin pagination */
 
+  rechercheFormulaireNbEnregistrement(nbTotalEnregistrement: number) {
+    this.nbTotalEnregistrement = nbTotalEnregistrement;
+  }
+
+  rechercheFormulaireUrl(url: string) {
+    this.url = url;
+  }
+
+  rechercheFormulaireMode(mode: string) {
+    this.mode = mode;
+  }
+
   rechercheFormulaire(tabAnnonce: Annonce[]) {
     this.tabAnnoncesFilter.length = 0;
     this.tabAnnoncesFilter.push(...tabAnnonce);
-    this.ngOnInit();
-  }
-
-  onResultatChanged(value: any) {
-    if (value.target.value != 0) this.resultatParPage = value.target.value;
-    else this.resultatParPage = 25;
 
     this.ngOnInit();
   }

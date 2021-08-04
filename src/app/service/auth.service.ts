@@ -1,29 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Utilisateur } from '../models/utilisateur';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  readonly key = 'access_token';
   constructor() {}
-  public seConnecter(userInfo: Utilisateur) {
-    localStorage.setItem('ACCESS_TOKEN', userInfo.tokenUtilisateur);
-    localStorage.setItem('nomUtilisateur', userInfo.nomUtilisateur);
-    localStorage.setItem('prenomUtilisateur', userInfo.prenomUtilisateur);
-    localStorage.setItem('adresse1Utilisateur', userInfo.adresse1Utilisateur);
-    localStorage.setItem('adresse2Utilisateur', userInfo.adresse2Utilisateur);
-    localStorage.setItem('adresse3Utilisateur', userInfo.adresse3Utilisateur);
-    localStorage.setItem('cpUtilisateur', userInfo.cpUtilisateur);
-    localStorage.setItem('villeUtilisateur', userInfo.villeUtilisateur);
-    localStorage.setItem('telUtilisateur', userInfo.telUtilisateur);
-    localStorage.setItem('emailUtilisateur', userInfo.emailUtilisateur);
+
+  saveToken(token: string): void {
+    localStorage.setItem(this.key, token);
   }
+
+  hasToken(): boolean {
+    return null !== localStorage.getItem(this.key);
+  }
+
+  removeToken(): void {
+    localStorage.removeItem(this.key);
+  }
+
+  token() {
+    return localStorage.getItem(this.key);
+  }
+
+
   public estConnecte() {
-    return localStorage.getItem('ACCESS_TOKEN') !== null;
+    return localStorage.getItem('access_token') !== null;
   }
   public deconnecter() {
-    localStorage.removeItem('ACCESS_TOKEN');
-    localStorage.removeItem('nomUtilisateur');
-    localStorage.removeItem('prenomUtilisateur');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('nom');
+    localStorage.removeItem('prenom');
+    localStorage.removeItem('telephone');
+    localStorage.removeItem('email');
+    localStorage.removeItem('username');
+    localStorage.removeItem('id');
+    localStorage.removeItem('siret');
   }
 }

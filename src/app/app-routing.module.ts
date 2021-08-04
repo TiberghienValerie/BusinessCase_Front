@@ -7,6 +7,7 @@ import { ContactComponent } from './contact/contact.component';
 import { FAQComponent } from './faq/faq.component';
 import { FicheComponent } from './fiche/fiche.component';
 import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.component';
+import { MonCompteComponent } from './mon-compte/mon-compte.component';
 import { PlanSiteComponent } from './plan-site/plan-site.component';
 import { IsSignedInGuard } from './service/is-signed-in-guard';
 
@@ -31,7 +32,7 @@ const routes: Routes = [
   { path: 'fiche/:id', component: FicheComponent },
   {
     path: 'monCompte',
-    component: AproposComponent,
+    component: MonCompteComponent,
     canActivate: [IsSignedInGuard],
   },
   {

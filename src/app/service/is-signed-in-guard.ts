@@ -20,7 +20,7 @@ export class IsSignedInGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    if (localStorage.hasOwnProperty('ACCESS_TOKEN')) this.estConnecte = true;
+    if (localStorage.hasOwnProperty('access_token')) this.estConnecte = true;
     else this.estConnecte = false;
     if (this.estConnecte === true) return true;
     else {

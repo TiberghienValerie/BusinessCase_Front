@@ -14,7 +14,7 @@
         [(ngModel)]="marque"
       >
         <option value="0">Toutes les marques</option>
-        <option *ngFor="let m of tabMarques" [value]="m.idMarque">
+        <option *ngFor="let m of tabMarques" [value]="m.id">
           {{ m.nomMarque }}
         </option>
       </select>
@@ -32,7 +32,7 @@
         [(ngModel)]="modele"
       >
         <option value="0">Tous les modèles</option>
-        <option *ngFor="let mo of tabModelesFiltrer" value="{{ mo.idModele }}">
+        <option *ngFor="let mo of tabModelesFiltrer" value="{{ mo.id }}">
           {{ mo.nomModele }}
         </option>
       </select>
@@ -49,8 +49,8 @@
         [(ngModel)]="carburant"
       >
         <option value="0">Tous les carburants</option>
-        <option *ngFor="let c of tabCarburants" value="{{ c.idCarburant }}">
-          {{ c.nomCarburant }}
+        <option *ngFor="let c of tabCarburants" value="{{ c.id }}">
+          {{ c.NomCarburant }}
         </option>
       </select>
     </div>

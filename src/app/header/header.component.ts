@@ -15,8 +15,16 @@ import {
   faTimes,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import { Utilisateur } from '../models/utilisateur';
+//import { Utilisateur } from '../models/user';
 import { AuthService } from '../service/auth.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Token} from 'src/app/header/token';
+import {Credentials} from 'src/app/header/credentials';
+import {UserApiService} from '../service/user-api.service';
+//import {User} from "../models/users";
+import {Collection} from "../models/collection";
+import {User} from "../models/user";
+
 
 @Component({
   selector: 'app-header',
@@ -32,12 +40,9 @@ export class HeaderComponent implements OnInit {
   faTimes = faTimes;
   faUser = faUser;
   faAngleDown = faAngleDown;
-  loginForm!: FormGroup;
   isSubmitted = false;
-
-  @Output() public utilisateurConnecte!: EventEmitter<Utilisateur>;
-
-  public tabUtilisateur: Utilisateur[] = [];
+  @Output() public utilisateurConnecte!: EventEmitter<User>;
+  public tabUtilisateur: Array<User> = [];
 
   public isConnected: boolean = false;
 
@@ -47,94 +52,101 @@ export class HeaderComponent implements OnInit {
   public nomUtilisateur: string | null | undefined ;
   public prenomUtilisateur: string | null | undefined;
 
+  public token: string |null | undefined;
 
- 
+  public loginForm: FormGroup = this.formBuilder.group({
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required]],
+  });
+
+
+
   constructor(
     private authService: AuthService,
+    private userApiService: UserApiService,
+    private httpClient: HttpClient,
     private router: Router,
     private formBuilder: FormBuilder
   ) {
-  
-    this.tabUtilisateur.push(
-      new Utilisateur(
-        1,
-        'Tiberghien',
-        'Valérie',
-        '4 allée du printemps',
-        '',
-        '',
-        '42000',
-        'Saint Etienne',
-        '0600000000',
-        'tiberghien.valerie@wanadoo.fr',
-        'toto',
-        'toto',
-        'access_token'
-      )
-    );
+    /* if (this.authService.hasToken() == true) {
+            this.token = this.authService.token();
+            this.isConnected = true;
+     }else this.isConnected = false;
 
-    if (localStorage.hasOwnProperty('ACCESS_TOKEN')) this.isConnected = true;
-    else this.isConnected = false;
-
-    this.nomUtilisateur = localStorage.getItem('nomUtilisateur');
-      this.prenomUtilisateur = localStorage.getItem('nomUtilisateur');
+       this.nomUtilisateur = localStorage.getItem('nom');
+       this.prenomUtilisateur = localStorage.getItem('prenom');
+     }*/
   }
-
   ngOnInit() {
-    this.loginForm = this.formBuilder.group({
-      login: ['', Validators.required],
-      password: ['', Validators.required],
-    });
 
-   
-   
-
-    if (localStorage.hasOwnProperty('ACCESS_TOKEN')) this.isConnected = true;
-    else this.isConnected = false;
-  }
-  get formControls() {
-    return this.loginForm.controls;
-  }
-  seConnecter() {
-    this.isSubmitted = true;
-    if (this.loginForm.invalid) {
-      return;
+    if (this.authService.hasToken()) {
+      this.isConnected = true;
+      this.nomUtilisateur = localStorage.getItem('nom');
+      this.prenomUtilisateur = localStorage.getItem('prenom');
+      this.router.navigate(['']);
+    }else{
+      this.isConnected = false;
     }
+  }
 
-    var login = this.loginForm.value.login;
-    var pwd = this.loginForm.value.password;
-    let val = this.tabUtilisateur.filter(function (u) {
-      return u.loginUtilisateur == login && u.pwdUtilisateur == pwd;
-    });
+  seConnecter() {
 
-    if (val.length > 0) {
-  
-      this.authService.seConnecter(val[0]);
-      this.nomUtilisateur = localStorage.getItem('nomUtilisateur');
-      this.prenomUtilisateur = localStorage.getItem('nomUtilisateur');
-      
-      this.fileInput.nativeElement.click();
-     
-      this.ngOnInit();
-      this.router.navigateByUrl('/accueil');
-    } else {
-      this.ngOnInit();
+    // Set all inputs as touched (display errors of login and password when direct click on submit button).
+    this.loginForm.markAllAsTouched();
+
+    // If the form is valid (all inputs valids).
+    if (this.loginForm.valid) {
+
+      // Forge HTTP request to send to the API to retrieve JWT.
+      this.httpClient.post<Token>('https://localhost:8000/authentication_token', this.loginForm.value as Credentials).subscribe(
+        (data) => {
+
+          // When success. Save the JWT in local storage.
+          this.authService.saveToken(data.token);
+
+          const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`)
+          this.httpClient.get<Collection<User>>('https://localhost:8000/api/users?userName=XHernandez', {headers}).subscribe(
+            (data) => {
+              for (let o of data['hydra:member']) {
+                localStorage.setItem('nom', o.nom);
+                localStorage.setItem('prenom', o.prenom);
+                localStorage.setItem('username', o.username);
+                localStorage.setItem('id', o.id);
+                localStorage.setItem('email', o.email);
+                localStorage.setItem('telephone', o.telephone);
+                localStorage.setItem('siret', o.siret);
+                this.ngOnInit();
+              }
+            });
+
+          // Then redirect Angular page to home.
+          this.fileInput.nativeElement.click();
+
+
+        },
+        (e: {error: {code: number, message: string}}) => {
+          // When error.
+          alert(e.error.message);
+        },
+      );
     }
   }
 
   seDeconnecter() {
-    
+
     this.authService.deconnecter();
-    
+
     this.fileInput2.nativeElement.click();
     this.nomUtilisateur = '';
     this.prenomUtilisateur = '';
-   
+
     this.ngOnInit();
     this.loginForm = this.formBuilder.group({
-      login: [''],
+      username: [''],
       password: [''],
     });
+
+
     this.router.navigateByUrl('/accueil');
   }
 

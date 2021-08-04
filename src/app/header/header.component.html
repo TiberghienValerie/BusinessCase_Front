@@ -1,3 +1,9 @@
+<!--<ul>
+  <li *ngFor="let u of tabUtilisateur">
+    {{ u.username }}
+  </li>
+</ul>-->
+
 <div *ngIf="isConnected === false; then thenBlock; else elseBlock"></div>
 <ng-template #thenBlock>
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
@@ -119,51 +125,42 @@
               class="login-container"
               (ngSubmit)="seConnecter()"
             >
-              <p
-                [ngClass]="{
-                  'has-error': isSubmitted && formControls.login.errors
-                }"
-              >
+              <div>
+                <label for="username">
+                  Login
+                </label>
                 <input
+                  id="username"
                   type="text"
                   placeholder="Login"
-                  formControlName="login"
+                  formControlName="username"
                 />
-              </p>
-
-              <div
-                *ngIf="isSubmitted && formControls.login.errors"
-                class="help-block"
-              >
-                <div *ngIf="formControls.login.errors.required">
-                  <font color="#e33826">Le login est requis</font>
-                </div>
+                <ul *ngIf="loginForm.controls.username.touched && !loginForm.controls.username.valid">
+                  <li *ngIf="loginForm.controls.username.hasError('required')">
+                    <font color="#e33826">Le login est requis</font>
+                  </li>
+                </ul>
               </div>
-
-              <p
-                [ngClass]="{
-                  'has-error': isSubmitted && formControls.password.errors
-                }"
-              >
+              <div>
+                <label for="password">
+                  Password
+                </label>
                 <input
                   type="password"
                   placeholder="Password"
                   formControlName="password"
                 />
-              </p>
-
-              <div
-                *ngIf="isSubmitted && formControls.password.errors"
-                class="help-block"
-              >
-                <div *ngIf="formControls.password.errors.required">
-                  <font color="#e33826">Mot de passe requis</font>
-                </div>
+                <ul *ngIf="loginForm.controls.password.touched && !loginForm.controls.password.valid">
+                  <li *ngIf="loginForm.controls.password.hasError('required')">
+                    <font color="#e33826">Le mot de passe est requis</font>
+                  </li>
+                </ul>
               </div>
 
-              <p>
+
+              <div>
                 <input type="submit" value="Se connecter" />
-              </p>
+              </div>
             </form>
           </div>
         </div>
@@ -273,7 +270,7 @@
       <button id="menu2" type="button" class="btnRouge2 btn btn-display">
         <fa-icon [icon]="faUser" size="1x"></fa-icon>
       </button>
-     {{nomUtilisateur}} {{prenomUtilisateur
+     {{nomUtilisateur}} {{prenomUtilisateur}}
       <a
         [routerLink]="'.'"
         fragment="mon-bloc-1"
@@ -287,7 +284,7 @@
         [ngClass]="classActive2 === true ? '-visible' : ''"
         class="hide-box shadows position-absolute translate-middle-x"
       >
-        <a class="nav-link" [routerLink]="['monCompte']">Gérer mon compte</a>
+        <a (click)="close2()" class="nav-link" [routerLink]="['monCompte']">Gérer mon compte</a>
         <a class="nav-link" [routerLink]="['mesGarages']">Gérer mes garages</a>
         <a class="nav-link" [routerLink]="['mesAnnonces']"
           >Gérer mes annonces</a

@@ -1,3 +1,3 @@
 export class Carburant {
-  constructor(public idCarburant: number, public nomCarburant: string) {}
+  constructor(public id: number, public NomCarburant: string) {}
 }

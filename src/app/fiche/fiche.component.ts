@@ -5,6 +5,8 @@ import { Annonce } from '../models/annonce';
 import { Modele } from '../models/modele';
 import { Carburant } from '../models/carburant';
 import { Marque } from '../models/marque';
+import {Garage} from "../models/garage";
+import {annonceApiService} from "../service/annonce-api.service";
 
 @Component({
   selector: 'app-fiche',
@@ -23,36 +25,44 @@ export class FicheComponent implements OnInit {
   public tabAnnoncesId: Annonce[] = [];
 
   slides: { image: string; text?: string }[] = [];
-  constructor(private route: ActivatedRoute) {
-    this.tabAnnoncesId.push(
-      new Annonce(
-        1,
-        'AZERTY12',
-        new Date('31/05/2021'),
-        'Voiture de course',
-        'voiture de course géniale',
-        'Voiture de course géniale',
-        2017,
-        100000,
-        250000.0,
-        0,
-        new Modele(1, '2000', new Marque(1, 'Alfa Romeo')),
-        1,
-        new Carburant(1, 'Essence')
-      )
-    );
+  constructor(private route: ActivatedRoute, public serviceApiAnnonce: annonceApiService) {
 
+    this.route.paramMap.subscribe((params) => {
+      this.idObj = params.get('id')!;
+    });
+
+    this.serviceApiAnnonce.getItem(parseInt(this.idObj)).subscribe(
+      (data) => {
+
+          this.tabAnnoncesId.push(
+            new Annonce(
+              data.id,
+              data.refAnnonce,
+              data.DateAnnonce,
+              data.titre,
+              data.descriptionCourte,
+              data.descriptionLongue,
+              data.anneeCirculation,
+              data.kilometrage,
+              data.prix,
+              new Modele(data.modele.id, data.modele.nomModele, new Marque(data.modele.Marque.id, data.modele.Marque.nomMarque)),
+              new Garage(data.garage.id, data.garage.nom),
+              new Carburant(data.carburant.id, data.carburant.NomCarburant)
+            ));
+
+      });
+
+
+/*
     this.tabPhotos.push(
       new Photos(1, 'audi-rs3-25-tfsi-121974821.jpg', 1),
       new Photos(2, 'audi-rs3-25-tfsi-121974822.jpg', 2),
       new Photos(3, 'audi-rs3-25-tfsi-121974823.jpg', 3),
       new Photos(4, 'audi-rs3-25-tfsi-121974824.jpg', 4),
       new Photos(5, 'audi-rs3-25-tfsi-121974825.jpg', 5)
-    );
+    );*/
 
-    this.route.paramMap.subscribe((params) => {
-      this.idObj = params.get('id')!;
-    });
+
 
     for (let i = 0; i < this.tabPhotos.length; i++) {
       this.slides.push({

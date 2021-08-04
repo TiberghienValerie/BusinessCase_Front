@@ -24,6 +24,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { FicheComponent } from './fiche/fiche.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { MonCompteComponent } from './mon-compte/mon-compte.component';
+import {HttpClientModule} from "@angular/common/http";
+import {JwtModule} from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     AnnonceComponent,
     FormRechercheComponent,
     FicheComponent,
+    MonCompteComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +58,13 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     ModalModule.forRoot(),
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem('access_token'),
+        allowedDomains: ['localhost:8000'],
+      },
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent],
