@@ -1,9 +1,3 @@
-<!--<ul>
-  <li *ngFor="let u of tabUtilisateur">
-    {{ u.username }}
-  </li>
-</ul>-->
-
 <div *ngIf="isConnected === false; then thenBlock; else elseBlock"></div>
 <ng-template #thenBlock>
   <nav class="navbar navbar-expand-lg navbar-light bg-white">
@@ -232,17 +226,18 @@
             >Contact</a
           >
         </li>
-        <li class="nav-item d-lg-none">
+
+        <li *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
           <a class="nav-link" [routerLink]="['monCompte']" (click)="close()"
             >Gérer Mon compte</a
           >
         </li>
-        <li class="nav-item d-lg-none">
+        <li *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
           <a class="nav-link" [routerLink]="['mesGarages']" (click)="close()"
             >Gérer Mes Garages
           </a>
         </li>
-        <li class="nav-item d-lg-none">
+        <li *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
           <a class="nav-link" [routerLink]="['mesAnnonces']" (click)="close()"
             >Gestion Mes annonces par Garage</a
           >
@@ -284,9 +279,9 @@
         [ngClass]="classActive2 === true ? '-visible' : ''"
         class="hide-box shadows position-absolute translate-middle-x"
       >
-        <a (click)="close2()" class="nav-link" [routerLink]="['monCompte']">Gérer mon compte</a>
-        <a class="nav-link" [routerLink]="['mesGarages']">Gérer mes garages</a>
-        <a class="nav-link" [routerLink]="['mesAnnonces']"
+        <a *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['monCompte']">Gérer mon compte</a>
+        <a *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['mesGarages']">Gérer mes garages</a>
+        <a  *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['mesAnnonces']"
           >Gérer mes annonces</a
         >
         <a

@@ -7,5 +7,6 @@ export class User {
     public siret: string,
     public nom: string,
     public prenom: string,
+    public roles: [],
   ) {}
 }

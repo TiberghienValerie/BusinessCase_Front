@@ -29,7 +29,7 @@ export class AuthService {
     return localStorage.getItem('access_token') !== null;
   }
   public deconnecter() {
-    localStorage.removeItem('access_token');
+    this.removeToken();
     localStorage.removeItem('nom');
     localStorage.removeItem('prenom');
     localStorage.removeItem('telephone');
@@ -37,5 +37,6 @@ export class AuthService {
     localStorage.removeItem('username');
     localStorage.removeItem('id');
     localStorage.removeItem('siret');
+    localStorage.removeItem('role');
   }
 }

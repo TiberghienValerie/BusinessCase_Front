@@ -27,6 +27,9 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { MonCompteComponent } from './mon-compte/mon-compte.component';
 import {HttpClientModule} from "@angular/common/http";
 import {JwtModule} from '@auth0/angular-jwt';
+import { GarageListComponent } from './garage/garage-list/garage-list.component';
+import { GarageViewComponent } from './garage/garage-view/garage-view.component';
+import { GarageAddComponent } from './garage/garage-add/garage-add.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +47,9 @@ import {JwtModule} from '@auth0/angular-jwt';
     FormRechercheComponent,
     FicheComponent,
     MonCompteComponent,
+    GarageListComponent,
+    GarageViewComponent,
+    GarageAddComponent,
   ],
   imports: [
     BrowserModule,

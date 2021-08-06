@@ -10,6 +10,9 @@ import { MentionsLegalesComponent } from './mentions-legales/mentions-legales.co
 import { MonCompteComponent } from './mon-compte/mon-compte.component';
 import { PlanSiteComponent } from './plan-site/plan-site.component';
 import { IsSignedInGuard } from './service/is-signed-in-guard';
+import {GarageListComponent} from "./garage/garage-list/garage-list.component";
+import {GarageViewComponent} from "./garage/garage-view/garage-view.component";
+import {GarageAddComponent} from "./garage/garage-add/garage-add.component";
 
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
@@ -30,6 +33,8 @@ const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'apropos', component: AproposComponent },
   { path: 'fiche/:id', component: FicheComponent },
+  { path: 'garage-view/:id', component: GarageViewComponent },
+  { path: 'garage-add', component: GarageAddComponent },
   {
     path: 'monCompte',
     component: MonCompteComponent,
@@ -37,7 +42,7 @@ const routes: Routes = [
   },
   {
     path: 'mesGarages',
-    component: AproposComponent,
+    component: GarageListComponent,
     canActivate: [IsSignedInGuard],
   },
   {

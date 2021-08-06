@@ -44,6 +44,8 @@ export class HeaderComponent implements OnInit {
   @Output() public utilisateurConnecte!: EventEmitter<User>;
   public tabUtilisateur: Array<User> = [];
 
+  public roleUtilisateur: string | null | undefined;
+
   public isConnected: boolean = false;
 
   public classActive: boolean = false;
@@ -59,7 +61,7 @@ export class HeaderComponent implements OnInit {
     password: ['', [Validators.required]],
   });
 
-
+  public role !: string;
 
   constructor(
     private authService: AuthService,
@@ -68,14 +70,6 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder
   ) {
-    /* if (this.authService.hasToken() == true) {
-            this.token = this.authService.token();
-            this.isConnected = true;
-     }else this.isConnected = false;
-
-       this.nomUtilisateur = localStorage.getItem('nom');
-       this.prenomUtilisateur = localStorage.getItem('prenom');
-     }*/
   }
   ngOnInit() {
 
@@ -83,31 +77,39 @@ export class HeaderComponent implements OnInit {
       this.isConnected = true;
       this.nomUtilisateur = localStorage.getItem('nom');
       this.prenomUtilisateur = localStorage.getItem('prenom');
-      this.router.navigate(['']);
+      this.roleUtilisateur = localStorage.getItem('role');
     }else{
       this.isConnected = false;
+      this.nomUtilisateur = '';
+      this.prenomUtilisateur = '';
     }
+    this.router.navigate(['']);
   }
 
   seConnecter() {
-
     // Set all inputs as touched (display errors of login and password when direct click on submit button).
     this.loginForm.markAllAsTouched();
-
     // If the form is valid (all inputs valids).
     if (this.loginForm.valid) {
+
 
       // Forge HTTP request to send to the API to retrieve JWT.
       this.httpClient.post<Token>('https://localhost:8000/authentication_token', this.loginForm.value as Credentials).subscribe(
         (data) => {
-
           // When success. Save the JWT in local storage.
           this.authService.saveToken(data.token);
-
           const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`)
-          this.httpClient.get<Collection<User>>('https://localhost:8000/api/users?userName=XHernandez', {headers}).subscribe(
+          this.httpClient.get<Collection<User>>(`https://localhost:8000/api/users?username=${this.loginForm.value.username}`, {headers}).subscribe(
             (data) => {
               for (let o of data['hydra:member']) {
+               o.roles.forEach((role) =>
+                {
+                  if((role == "ROLE_PROFESSIONNEL") ||(role == "ROLE_ADMIN"))
+                  {
+                    this.role = role;
+                  }
+                });
+
                 localStorage.setItem('nom', o.nom);
                 localStorage.setItem('prenom', o.prenom);
                 localStorage.setItem('username', o.username);
@@ -115,14 +117,13 @@ export class HeaderComponent implements OnInit {
                 localStorage.setItem('email', o.email);
                 localStorage.setItem('telephone', o.telephone);
                 localStorage.setItem('siret', o.siret);
+                localStorage.setItem('role', this.role);
+
                 this.ngOnInit();
               }
             });
-
           // Then redirect Angular page to home.
           this.fileInput.nativeElement.click();
-
-
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.
@@ -131,22 +132,14 @@ export class HeaderComponent implements OnInit {
       );
     }
   }
-
   seDeconnecter() {
-
     this.authService.deconnecter();
-
     this.fileInput2.nativeElement.click();
-    this.nomUtilisateur = '';
-    this.prenomUtilisateur = '';
-
     this.ngOnInit();
     this.loginForm = this.formBuilder.group({
       username: [''],
       password: [''],
     });
-
-
     this.router.navigateByUrl('/accueil');
   }
 

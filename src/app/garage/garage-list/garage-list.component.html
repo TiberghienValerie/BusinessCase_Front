@@ -1,0 +1,37 @@
+<button type="submit" class="btnRouge btn btn-display">
+  <a [routerLink]="['../garage-add']" title="Ajouter"
+  >Ajouter</a
+  >
+</button>
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Code Postal  - Ville </th>
+      <th scope="col">Nb Annonces </th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let garage of tabGarages">
+      <td>{{ garage.id | number }}</td>
+      <td>{{ garage.nom }} </td>
+      <td>{{ garage.ville.codePostal }} {{garage.ville.nomVille}}</td>
+      <td>{{garage.annonces.length}}</td>
+      <td>
+        <button type="submit" class="btnJaune btn btn-display">
+          <a [routerLink]="['../garage-view', garage.id]" title="Plus info"
+          >Plus info</a
+          >
+        </button>
+        <input type="submit" class="btn btnRouge" value="Modifier" />
+        <input type="submit" class="btn btnRouge" value="Supprimer" />
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+
+
+

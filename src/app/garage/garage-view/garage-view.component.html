@@ -1,0 +1,33 @@
+<div class="container">
+<button id="menu" type="button" class="m-2 btnJaune btn btn-display">
+  <i class="fas fa-arrow-left" aria-hidden="true"></i>
+  <a [routerLink]="['../../mesGarages']" title="Retour">Retour</a>
+</button>
+  <div class="shadows">
+    <div class="row p-3">
+      <div class="col-12 col-md-12 textContenuBold">
+        {{ tabGarage[0].nom }}
+      </div>
+    </div>
+    <div class="row p-3">
+        <div class="col-12 col-md-12 textContenu">
+        {{ tabGarage[0].ville.adresse1}}
+          <p>{{ tabGarage[0].ville.adresse2}}</p>
+          <p>{{ tabGarage[0].ville.adresse3}}</p>
+          <p>{{ tabGarage[0].ville.codePostal}}  {{ tabGarage[0].ville.nomVille}}</p>
+          <p class="d-flex justify-start align-items-center">
+            <img
+              class="img-fluid me-3"
+              src="assets/img/Orion_phone.png"
+              width="24"
+              height="24"
+              alt="phone"
+            />
+            <a title="tel" href="tel:{{ tabGarage[0].telephone}}"><span class="p-2">{{ tabGarage[0].telephone}}</span></a>
+        </p>
+      </div>
+    </div>
+
+
+  </div>
+</div><br/>

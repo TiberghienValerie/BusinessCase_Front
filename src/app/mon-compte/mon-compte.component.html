@@ -1,3 +1,5 @@
+<div class="container m-4 ">
+  <div class="mt-3 p-3 shadows">
 <form
 [formGroup]="monCompteForm"
 class="login-container"
@@ -6,219 +8,117 @@ class="login-container"
 
 <div class="row">
   <div class="col-6">
-    <p
-  [ngClass]="{
-    'has-error': isSubmitted && formControls.nomUtilisateur.errors
-  }"
->
-  <input
-    type="text"
-    placeholder="Nom de l'utilisateur"
-    formControlName="nomUtilisateur"
-  />
-</p>
 
-<div
-  *ngIf="isSubmitted && formControls.nomUtilisateur.errors"
-  class="help-block"
->
-  <div *ngIf="formControls.nomUtilisateur.errors.required">
-    <font color="#e33826">Le nom utilisateur est requis</font>
+    <label for="nom">
+      Nom
+    </label>
+    <input id="nom"
+           type="text"
+           placeholder="Votre nom"
+           formControlName="nom"
+    >
+
+    <ul *ngIf="monCompteForm.controls.nom.touched && !monCompteForm.controls.nom.valid">
+      <li *ngIf="monCompteForm.controls.nom.hasError('required')">
+        Required
+      </li>
+    </ul>
+
   </div>
-</div>
-  </div>
+
   <div class="col-6">
-    <p
-    [ngClass]="{
-      'has-error': isSubmitted && formControls.prenomUtilisateur.errors
-    }"
-  >
-    <input
-      type="text"
-      placeholder="Prénom de l'utilisateur"
-      formControlName="prenomUtilisateur"
-    />
-  </p>
-  
-  <div
-    *ngIf="isSubmitted && formControls.prenomUtilisateur.errors"
-    class="help-block"
-  >
-    <div *ngIf="formControls.prenomUtilisateur.errors.required">
-      <font color="#e33826">Prénom requis</font>
+
+    <label for="prenom">
+      Prénom
+    </label>
+    <input id="prenom"
+           type="text"
+           placeholder="Votre prénom"
+           formControlName="prenom"
+    >
+
+    <ul *ngIf="monCompteForm.controls.prenom.touched && !monCompteForm.controls.prenom.valid">
+      <li *ngIf="monCompteForm.controls.prenom.hasError('required')">
+        Required
+      </li>
+    </ul>
+
+  </div>
+</div>
+ <div class="row">
+    <div class="col-6">
+
+      <label for="telephone">
+        Téléphone
+      </label>
+      <input id="telephone"
+             type="tel"
+             placeholder="Votre téléphone"
+             formControlName="telephone"
+      >
+
+      <ul *ngIf="monCompteForm.controls.telephone.touched && !monCompteForm.controls.telephone.valid">
+        <li *ngIf="monCompteForm.controls.telephone.hasError('required')">
+          Required
+        </li>
+
+      </ul>
+
+
     </div>
+   <div class="col-6">
+
+     <label for="email">
+       Email
+     </label>
+     <input id="email"
+            type="email"
+            placeholder="Votre émail"
+            formControlName="email"
+            width="250px"
+     >
+
+     <ul *ngIf="monCompteForm.controls.email.touched && !monCompteForm.controls.email.valid">
+       <li *ngIf="monCompteForm.controls.email.hasError('required')">
+         Required
+       </li>
+       <li *ngIf="monCompteForm.controls.email.hasError('email')">
+         Not a valid email
+       </li>
+     </ul>
+   </div>
+ </div>
+  <div class="row">
+    <div class="col-6">
+
+      <label for="siret">
+        Siret
+      </label>
+      <input id="siret"
+             type="text"
+             placeholder="Votre siret"
+             formControlName="siret"
+      >
+
+      <ul *ngIf="monCompteForm.controls.siret.touched && !monCompteForm.controls.siret.valid">
+        <li *ngIf="monCompteForm.controls.siret.hasError('required')">
+          Required
+        </li>
+
+      </ul>
+
+    </div>
+
+
+
   </div>
-  </div>
-</div>
-
-<p
-  [ngClass]="{
-    'has-error': isSubmitted && formControls.adresse1Utilisateur.errors
-  }"
->
-  <input
-    type="text"
-    placeholder="Adresse 1 de l'utilisateur"
-    formControlName="adresse1Utilisateur"
-  />
-</p>
-
-<div
-  *ngIf="isSubmitted && formControls.adresse1Utilisateur.errors"
-  class="help-block"
->
-  <div *ngIf="formControls.adresse1Utilisateur.errors.required">
-    <font color="#e33826">L'adresse 1 est requis</font>
-  </div>
-</div>
-
-
-<p
-  [ngClass]="{
-    'has-error': isSubmitted && formControls.adresse2Utilisateur.errors
-  }"
->
-  <input
-    type="text"
-    placeholder="Adresse 2 de l'utilisateur"
-    formControlName="adresse2Utilisateur"
-  />
-</p>
-
-<div
-  *ngIf="isSubmitted && formControls.adresse2Utilisateur.errors"
-  class="help-block"
->
-  <div *ngIf="formControls.adresse2Utilisateur.errors.required">
-    <font color="#e33826">L'adresse 2 est requis</font>
-  </div>
-</div>
-
-<p
-  [ngClass]="{
-    'has-error': isSubmitted && formControls.adresse3Utilisateur.errors
-  }"
->
-  <input
-    type="text"
-    placeholder="Adresse 3 de l'utilisateur"
-    formControlName="adresse3Utilisateur"
-  />
-</p>
-
-<div
-  *ngIf="isSubmitted && formControls.adresse3Utilisateur.errors"
-  class="help-block"
->
-  <div *ngIf="formControls.adresse3Utilisateur.errors.required">
-    <font color="#e33826">L'adresse 3 est requis</font>
+<div class="row">
+  <div class="col-12 text-center">
+  <input type="submit" class="btn btnRouge" value="Sauvegarder" />
   </div>
 </div>
 
-<p
-  [ngClass]="{
-    'has-error': isSubmitted && formControls.cpUtilisateur.errors
-  }"
->
-  <input
-    type="text"
-    placeholder="Code postal de l'utilisateur"
-    formControlName="cpUtilisateur"
-  />
-</p>
-
-<div
-  *ngIf="isSubmitted && formControls.cpUtilisateur.errors"
-  class="help-block"
->
-  <div *ngIf="formControls.cpUtilisateur.errors.required">
-    <font color="#e33826">Le code postal est requis</font>
-  </div>
-</div>
-
-<p
-  [ngClass]="{
-    'has-error': isSubmitted && formControls.villeUtilisateur.errors
-  }"
->
-  <input
-    type="text"
-    placeholder="Ville de l'utilisateur"
-    formControlName="villeUtilisateur"
-  />
-</p>
-
-<div
-  *ngIf="isSubmitted && formControls.villeUtilisateur.errors"
-  class="help-block"
->
-  <div *ngIf="formControls.villeUtilisateur.errors.required">
-    <font color="#e33826">La ville est requis</font>
-  </div>
-</div>
-
-<p
-  [ngClass]="{
-    'has-error': isSubmitted && formControls.telUtilisateur.errors
-  }"
->
-  <input
-    type="tel"
-    placeholder="Téléphone de l'utilisateur"
-    formControlName="telUtilisateur"
-  />
-</p>
-
-<div
-  *ngIf="isSubmitted && formControls.telUtilisateur.errors"
-  class="help-block"
->
-  <div *ngIf="formControls.telUtilisateur.errors.required">
-    <font color="#e33826">Le téléphone est requis</font>
-  </div>
-</div>
-
-<p
-  [ngClass]="{
-    'has-error': isSubmitted && formControls.emailUtilisateur.errors
-  }"
->
-  <input
-    type="email"
-    placeholder="Email de l'utilisateur"
-    formControlName="emailUtilisateur"
-  />
-</p>
-
-<div
-  *ngIf="isSubmitted && formControls.emailUtilisateur.errors"
-  class="help-block"
->
-  <div *ngIf="formControls.emailUtilisateur.errors.required">
-    <font color="#e33826">L'émail est requis </font>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<p>
-  <input type="submit" value="Sauvegarder" />
-</p>
 </form>
+  </div>
+</div>
+
