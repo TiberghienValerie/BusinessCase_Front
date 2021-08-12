@@ -60,7 +60,6 @@ export class NgbdModalContent {
       this.httpClient.delete(`https://localhost:8000/api/garages/${idgarage}`, httpOptions).subscribe(
         (data) => {
           this.router.navigate(['']);
-          this.router.navigate(['mesGarages']);
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.
@@ -124,11 +123,10 @@ export class GarageListComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal
   ) {
-    this.listeGarages();
-
   }
 
   ngOnInit(): void {
+    this.tabGarages = [];
     this.listeGarages();
   }
 

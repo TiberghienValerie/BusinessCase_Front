@@ -31,7 +31,7 @@ import { GarageListComponent } from './garage/garage-list/garage-list.component'
 import { GarageViewComponent } from './garage/garage-view/garage-view.component';
 import { GarageAddComponent } from './garage/garage-add/garage-add.component';
 import { GarageUpdateComponent } from './garage/garage-update/garage-update.component';
-import { GarageDeleteComponent } from './garage/garage-delete/garage-delete.component';
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -54,7 +54,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     GarageViewComponent,
     GarageAddComponent,
     GarageUpdateComponent,
-    GarageDeleteComponent,
   ],
   imports: [
     BrowserModule,
