@@ -1,25 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../service/auth.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Collection} from "../../models/collection";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Garages} from "../../models/garages";
 import {Ville} from "../../models/ville";
-import {AuthService} from "../../service/auth.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {user2} from "../../mon-compte/user2";
 
 @Component({
-  selector: 'app-garage-view',
-  templateUrl: './garage-view.component.html',
-  styleUrls: ['./garage-view.component.css']
+  selector: 'app-garage-delete',
+  templateUrl: './garage-delete.component.html',
+  styleUrls: ['./garage-delete.component.css']
 })
-
-
-
-export class GarageViewComponent implements OnInit {
+export class GarageDeleteComponent implements OnInit {
 
   public token: string |null | undefined;
   public id: string |null | undefined;
-  public tabGarage: Array<Garages> = [];
 
   constructor(
     private authService: AuthService,
@@ -33,23 +27,15 @@ export class GarageViewComponent implements OnInit {
       });
       this.token = this.authService.token();
       const httpOptions = {
-        headers: new HttpHeaders({
+          headers: new HttpHeaders({
           'Content-Type':  'application/json',
           'Authorization': `Bearer ${this.token}`
-        })
+          })
       };
 
-      this.httpClient.get<Garages>(`https://localhost:8000/api/garages/${this.id}`, httpOptions).subscribe(
+      this.httpClient.delete(`https://localhost:8000/api/garages/${this.id}`, httpOptions).subscribe(
         (data) => {
-            this.tabGarage.push(
-              new Garages(
-                data.id,
-                data.nom,
-                data.telephone,
-                new Ville(data.ville.id, data.ville.codePostal, data.ville.nomVille, data.ville.adresse1, data.ville.adresse2, data.ville.adresse3 ),
-                data.annonces
-              )
-            );
+           this.router.navigate(['mesGarages']);
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.

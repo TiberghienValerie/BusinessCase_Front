@@ -25,12 +25,34 @@
           >Plus info</a
           >
         </button>
-        <input type="submit" class="btn btnRouge" value="Modifier" />
-        <input type="submit" class="btn btnRouge" value="Supprimer" />
+        <button type="submit" class="btnRouge btn btn-display">
+          <a [routerLink]="['../garage-update', garage.id]" title="Modifier"
+          >Modifier</a
+          >
+        </button>
+        <button type="submit" class="btnRouge btn btn-display">
+          <a [routerLink]="['../garage-delete', garage.id]" title="Supprimer"
+          >Supprimer</a
+          >
+        </button>
+
+        <button class="btnRouge btn btn-display" (click)="open(garage.id, garage.nom)">Supprimer</button>
+
+
+
+
       </td>
     </tr>
     </tbody>
   </table>
+
+
+
+
+
+
+
+
 
 
 

@@ -13,6 +13,8 @@ import { IsSignedInGuard } from './service/is-signed-in-guard';
 import {GarageListComponent} from "./garage/garage-list/garage-list.component";
 import {GarageViewComponent} from "./garage/garage-view/garage-view.component";
 import {GarageAddComponent} from "./garage/garage-add/garage-add.component";
+import {GarageUpdateComponent} from "./garage/garage-update/garage-update.component";
+import {GarageDeleteComponent} from "./garage/garage-delete/garage-delete.component";
 
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
@@ -33,8 +35,6 @@ const routes: Routes = [
   { path: 'accueil', component: AccueilComponent },
   { path: 'apropos', component: AproposComponent },
   { path: 'fiche/:id', component: FicheComponent },
-  { path: 'garage-view/:id', component: GarageViewComponent },
-  { path: 'garage-add', component: GarageAddComponent },
   {
     path: 'monCompte',
     component: MonCompteComponent,
@@ -45,6 +45,10 @@ const routes: Routes = [
     component: GarageListComponent,
     canActivate: [IsSignedInGuard],
   },
+  { path: 'garage-view/:id', component: GarageViewComponent, canActivate: [IsSignedInGuard], },
+  { path: 'garage-update/:id', component: GarageUpdateComponent, canActivate: [IsSignedInGuard],},
+  { path: 'garage-delete/:id', component: GarageDeleteComponent, canActivate: [IsSignedInGuard], },
+  { path: 'garage-add', component: GarageAddComponent, canActivate: [IsSignedInGuard], },
   {
     path: 'mesAnnonces',
     component: AproposComponent,

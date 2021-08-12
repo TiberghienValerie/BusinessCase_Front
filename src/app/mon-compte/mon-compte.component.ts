@@ -47,8 +47,13 @@ export class MonCompteComponent implements OnInit {
     if (this.monCompteForm.valid) {
       this.token = this.authService.token();
       const body = JSON.stringify(this.monCompteForm.value as Credentials);
-      const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`);
-      this.httpClient.put<user2>(`https://localhost:8000/api/users/${localStorage.getItem('id')}`, {body}, {headers}).subscribe(
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${this.token}`
+        })
+      };
+      this.httpClient.put<user2>(`https://localhost:8000/api/users/${localStorage.getItem('id')}`, body, httpOptions).subscribe(
         (data)=> {
           localStorage.setItem('nom', this.monCompteForm.value.nom);
           localStorage.setItem('prenom', this.monCompteForm.value.prenom);

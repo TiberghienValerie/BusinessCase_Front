@@ -5,6 +5,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {GarageApiService} from "../../service/garage-api.service";
 import {CredentialsVille} from "../credentialsVille";
+import {Collection} from "../../models/collection";
+import {Garages} from "../../models/garages";
 
 
 @Component({
@@ -17,8 +19,16 @@ export class GarageAddComponent implements OnInit {
   public garageForm: FormGroup = this.formBuilder.group({
     nom: ['', [Validators.required]],
     telephone: ['', [Validators.required]],
-    ville: ['', [Validators.required]],
+    adresse1: ['', [Validators.required]],
+    adresse2: [''],
+    adresse3: [''],
+    codePostal:['', [Validators.required]],
+    nomVille: ['', [Validators.required]],
+    user: [localStorage.getItem('id')]
+
   });
+
+
 
   constructor(
     private authService: AuthService,
@@ -32,17 +42,25 @@ export class GarageAddComponent implements OnInit {
   }
 
   valider() {
+
     this.garageForm.markAllAsTouched();
     // If the form is valid (all inputs valids).
     if (this.garageForm.valid) {
       this.token = this.authService.token();
       const body = JSON.stringify(this.garageForm.value as CredentialsVille);
-      console.log(body);
-      const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`);
-       //Insertion du garage et de la ville
 
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+        })
+      };
 
+      //Insertion du garage et de la ville
 
+      this.httpClient.post<CredentialsVille>(`https://localhost:8000/garage/add`, body, httpOptions).subscribe(
+        (data)=> {
+          this.router.navigate(['mesGarages']);
+        });
     }
   }
 

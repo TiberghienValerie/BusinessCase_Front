@@ -620,3 +620,46 @@ header {
 label {
   padding: 10px;
 }
+
+/*
+Modal suppression
+ */
+
+.modal-container {
+  /*background: var(--colorbtn);
+  opacity: 0.5;*/
+  border: 1px solid var(--colorbtn);
+  padding: 12px;
+}
+
+.modal-container input[type="submit"] {
+  background: var(--colorbtn);
+  border-color: transparent;
+  color: #fff;
+  cursor: pointer;
+}
+
+.modal-container input[type="submit"]:hover {
+  /*background: #17c;*/
+  background: linear-gradient(
+    70.62deg,
+    var(--colorbtn) 46.36%,
+    var(--colorbtnhover) 76.2%
+  ) !important;
+}
+
+.modal-container input[type="submit"]:focus {
+  border-color: transparent;
+}
+
+.modal-container input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  padding: 16px;
+  outline: 0;
+  font-family: inherit;
+  font-size: 0.95em;
+}

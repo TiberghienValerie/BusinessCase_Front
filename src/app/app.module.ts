@@ -30,6 +30,9 @@ import {JwtModule} from '@auth0/angular-jwt';
 import { GarageListComponent } from './garage/garage-list/garage-list.component';
 import { GarageViewComponent } from './garage/garage-view/garage-view.component';
 import { GarageAddComponent } from './garage/garage-add/garage-add.component';
+import { GarageUpdateComponent } from './garage/garage-update/garage-update.component';
+import { GarageDeleteComponent } from './garage/garage-delete/garage-delete.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,8 @@ import { GarageAddComponent } from './garage/garage-add/garage-add.component';
     GarageListComponent,
     GarageViewComponent,
     GarageAddComponent,
+    GarageUpdateComponent,
+    GarageDeleteComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +70,7 @@ import { GarageAddComponent } from './garage/garage-add/garage-add.component';
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
     HttpClientModule,
+    NgbModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('access_token'),

@@ -98,8 +98,14 @@ export class HeaderComponent implements OnInit {
         (data) => {
           // When success. Save the JWT in local storage.
           this.authService.saveToken(data.token);
-          const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`)
-          this.httpClient.get<Collection<User>>(`https://localhost:8000/api/users?username=${this.loginForm.value.username}`, {headers}).subscribe(
+          //const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`)
+          const httpOptions = {
+            headers: new HttpHeaders({
+              'Content-Type':  'application/json',
+              'Authorization': `Bearer ${this.token}`
+            })
+          };
+          this.httpClient.get<Collection<User>>(`https://localhost:8000/api/users?username=${this.loginForm.value.username}`, httpOptions).subscribe(
             (data) => {
               for (let o of data['hydra:member']) {
                o.roles.forEach((role) =>
@@ -109,7 +115,6 @@ export class HeaderComponent implements OnInit {
                     this.role = role;
                   }
                 });
-
                 localStorage.setItem('nom', o.nom);
                 localStorage.setItem('prenom', o.prenom);
                 localStorage.setItem('username', o.username);
