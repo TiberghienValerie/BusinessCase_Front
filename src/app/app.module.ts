@@ -31,6 +31,7 @@ import { GarageListComponent } from './garage/garage-list/garage-list.component'
 import { GarageViewComponent } from './garage/garage-view/garage-view.component';
 import { GarageAddComponent } from './garage/garage-add/garage-add.component';
 import { GarageUpdateComponent } from './garage/garage-update/garage-update.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -69,6 +70,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PaginationModule.forRoot(),
     CarouselModule.forRoot(),
     HttpClientModule,
+    NgxSpinnerModule,
     NgbModule,
     JwtModule.forRoot({
       config: {

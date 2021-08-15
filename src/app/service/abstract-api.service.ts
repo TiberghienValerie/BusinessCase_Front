@@ -1,16 +1,19 @@
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Collection} from "../models/collection";
+import {environment} from "../../environments/environment";
+
 
 
 export abstract class AbstractApiService<T, L> {
   readonly baseUrl: string;
+  apiURL = environment.apiURL;
 
   constructor(
     private httpClient: HttpClient,
     resourceName: string,
   ) {
-    this.baseUrl = `https://localhost:8000/api/${resourceName}/`;
+    this.baseUrl = `${this.apiURL}/api/${resourceName}/`;
   }
 
   getCollection(page: number = 1 ): Observable<Collection<L>> {

@@ -7,6 +7,7 @@ import {GarageApiService} from "../../service/garage-api.service";
 import {CredentialsVille} from "../credentialsVille";
 import {Collection} from "../../models/collection";
 import {Garages} from "../../models/garages";
+import {environment} from "../../../environments/environment";
 
 
 @Component({
@@ -27,6 +28,8 @@ export class GarageAddComponent implements OnInit {
     user: [localStorage.getItem('id')]
 
   });
+
+  public apiURL = environment.apiURL;
 
 
 
@@ -57,7 +60,7 @@ export class GarageAddComponent implements OnInit {
 
       //Insertion du garage et de la ville
 
-      this.httpClient.post<CredentialsVille>(`https://localhost:8000/garage/add`, body, httpOptions).subscribe(
+      this.httpClient.post<CredentialsVille>(`${this.apiURL}/garage/add`, body, httpOptions).subscribe(
         (data)=> {
           this.router.navigate(['mesGarages']);
         });

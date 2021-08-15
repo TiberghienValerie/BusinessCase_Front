@@ -7,6 +7,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CredentialsVille} from "../credentialsVille";
 import {Garages} from "../../models/garages";
 import {Ville} from "../../models/ville";
+import {environment} from "../../../environments/environment";
 
 
 
@@ -31,6 +32,7 @@ export class GarageUpdateComponent implements OnInit {
     user: [localStorage.getItem('id')]
 
   });
+  public apiURL = environment.apiURL;
 
   constructor(
     private authService: AuthService,
@@ -53,7 +55,7 @@ export class GarageUpdateComponent implements OnInit {
         })
       };
 
-      this.httpClient.get<Garages>(`https://localhost:8000/api/garages/${this.id}`, httpOptions).subscribe(
+      this.httpClient.get<Garages>(`${this.apiURL}/api/garages/${this.id}`, httpOptions).subscribe(
         (data) => {
           this.garageForm.setValue({'nom':  data.nom, 'telephone' : data.telephone, 'adresse1': data.ville.adresse1, 'adresse2': data.ville.adresse2, 'adresse3': data.ville.adresse3, 'codePostal': data.ville.codePostal, 'nomVille': data.ville.nomVille, 'user': localStorage.getItem('id')})
         },
@@ -84,7 +86,7 @@ export class GarageUpdateComponent implements OnInit {
 
       //Insertion du garage et de la ville
 
-      this.httpClient.put<CredentialsVille>(`https://localhost:8000/garage/update/${this.id}`, body, httpOptions).subscribe(
+      this.httpClient.put<CredentialsVille>(`${this.apiURL}/garage/update/${this.id}`, body, httpOptions).subscribe(
         (data)=> {
           this.router.navigate(['mesGarages']);
         });

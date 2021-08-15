@@ -29,6 +29,7 @@
     "express": "^4.17.1",
     "leaflet": "^1.7.1",
     "ngx-bootstrap": "^6.2.0",
+    "ngx-spinner": "^12.0.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.1.0",
     "url-polyfill": "^1.1.12",

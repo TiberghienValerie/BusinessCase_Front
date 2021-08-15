@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import {environment} from "../../environments/environment";
 import {AuthService} from "../service/auth.service";
 import {UserApiService} from "../service/user-api.service";
 import {HttpClient, HttpHeaders} from '@angular/common/http';
@@ -24,6 +24,8 @@ export class MonCompteComponent implements OnInit {
     prenom: [localStorage.getItem('prenom'), [Validators.required]],
     siret: [localStorage.getItem('siret'), [Validators.required]],
   });
+
+  public apiURL = environment.apiURL;
 
   constructor(
     private authService: AuthService,
@@ -53,7 +55,7 @@ export class MonCompteComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.httpClient.put<user2>(`https://localhost:8000/api/users/${localStorage.getItem('id')}`, body, httpOptions).subscribe(
+      this.httpClient.put<user2>(`${this.apiURL}/api/users/${localStorage.getItem('id')}`, body, httpOptions).subscribe(
         (data)=> {
           localStorage.setItem('nom', this.monCompteForm.value.nom);
           localStorage.setItem('prenom', this.monCompteForm.value.prenom);

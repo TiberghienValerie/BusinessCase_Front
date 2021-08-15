@@ -6,6 +6,7 @@ import {Ville} from "../../models/ville";
 import {AuthService} from "../../service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {user2} from "../../mon-compte/user2";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-garage-view',
@@ -20,6 +21,7 @@ export class GarageViewComponent implements OnInit {
   public token: string |null | undefined;
   public id: string |null | undefined;
   public tabGarage: Array<Garages> = [];
+  public apiURL = environment.apiURL;
 
   constructor(
     private authService: AuthService,
@@ -39,7 +41,7 @@ export class GarageViewComponent implements OnInit {
         })
       };
 
-      this.httpClient.get<Garages>(`https://localhost:8000/api/garages/${this.id}`, httpOptions).subscribe(
+      this.httpClient.get<Garages>(`${this.apiURL}/api/garages/${this.id}`, httpOptions).subscribe(
         (data) => {
             this.tabGarage.push(
               new Garages(

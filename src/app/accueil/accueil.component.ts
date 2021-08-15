@@ -13,6 +13,7 @@ import { Resultat } from '../interface/resultat';
 import {annonceApiService} from "../service/annonce-api.service";
 import {Collection} from "../models/collection";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment";
 
 
 @Component({
@@ -38,6 +39,7 @@ export class AccueilComponent implements OnInit {
   public resultatParPage!: number;
   public maxPrix!: number;
   public mode!: string;
+  public apiURL = environment.apiURL;
 
   getParametre() {
 
@@ -142,7 +144,7 @@ export class AccueilComponent implements OnInit {
     this.tabAnnonces = [];
     this.tabAnnoncesFilter = [];
 
-    this.serviceApiAnnonce.getCollectionSpecifique(`https://localhost:8000${url}`).subscribe(
+    this.serviceApiAnnonce.getCollectionSpecifique(`${this.apiURL}${url}`).subscribe(
         (data) => {
           for (let o of data['hydra:member']) {
             this.tabAnnonces.push(

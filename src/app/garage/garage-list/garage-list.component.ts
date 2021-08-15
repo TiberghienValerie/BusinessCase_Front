@@ -9,6 +9,8 @@ import {Garages} from "../../models/garages";
 import {Annonce} from "../../models/annonce";
 import {Ville} from "../../models/ville";
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {NgxSpinnerService} from "ngx-spinner";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'ngbd-modal-content',
@@ -38,6 +40,7 @@ export class NgbdModalContent {
   @Input() id!:number;
 
   public token: string |null | undefined;
+  public apiURL = environment.apiURL;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -57,7 +60,7 @@ export class NgbdModalContent {
         })
       };
 
-      this.httpClient.delete(`https://localhost:8000/api/garages/${idgarage}`, httpOptions).subscribe(
+      this.httpClient.delete(`${this.apiURL}/api/garages/${idgarage}`, httpOptions).subscribe(
         (data) => {
           this.router.navigate(['']);
         },
@@ -83,6 +86,7 @@ export class GarageListComponent implements OnInit {
   public token: string |null | undefined;
   public url: string |null | undefined;
   public tabGarages: Array<Garages> = [];
+  public apiURL = environment.apiURL;
 
 
   listeGarages() {
@@ -90,8 +94,8 @@ export class GarageListComponent implements OnInit {
       this.token = this.authService.token();
       const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`)
       this.url = `/api/garages?user.id=${localStorage.getItem('id')}`;
-
-      this.httpClient.get<Collection<Garages>>(`https://localhost:8000${this.url}`, {headers}).subscribe(
+      this.spinner.show("global");
+      this.httpClient.get<Collection<Garages>>(`${this.apiURL}${this.url}`, {headers}).subscribe(
         (data) => {
           for (let o of data['hydra:member']) {
             this.tabGarages.push(
@@ -104,7 +108,7 @@ export class GarageListComponent implements OnInit {
               )
             );
           }
-          ;
+          this.spinner.hide("global");
         },
         (e: { error: { code: number, message: string } }) => {
           // When error.
@@ -121,7 +125,8 @@ export class GarageListComponent implements OnInit {
     private garageApiService: GarageApiService,
     private httpClient: HttpClient,
     private router: Router,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private spinner: NgxSpinnerService
   ) {
   }
 
