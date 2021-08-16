@@ -92,10 +92,15 @@ export class GarageListComponent implements OnInit {
   listeGarages() {
     if (this.authService.hasToken()) {
       this.token = this.authService.token();
-      const headers = new HttpHeaders().set('Authorization',`Bearer ${this.token}`)
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${this.token}`
+        })
+      };
       this.url = `/api/garages?user.id=${localStorage.getItem('id')}`;
-      this.spinner.show("global");
-      this.httpClient.get<Collection<Garages>>(`${this.apiURL}${this.url}`, {headers}).subscribe(
+      this.spinner.show("garage-list");
+      this.httpClient.get<Collection<Garages>>(`${this.apiURL}${this.url}`, httpOptions).subscribe(
         (data) => {
           for (let o of data['hydra:member']) {
             this.tabGarages.push(
@@ -108,7 +113,7 @@ export class GarageListComponent implements OnInit {
               )
             );
           }
-          this.spinner.hide("global");
+          this.spinner.hide("garage-list");
         },
         (e: { error: { code: number, message: string } }) => {
           // When error.

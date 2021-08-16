@@ -7,6 +7,7 @@ import { Carburant } from '../models/carburant';
 import { Marque } from '../models/marque';
 import {Garage} from "../models/garage";
 import {annonceApiService} from "../service/annonce-api.service";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-fiche',
@@ -17,23 +18,42 @@ export class FicheComponent implements OnInit {
   public tabPhotos: Photos[] = [];
 
   idObj!: string;
-  public itemsPerSlide = 3;
+  public itemsPerSlide = 2;
   public singleSlideOffset = false;
   public noWrap = false;
   public cycleInterval = 3000;
   public showIndicator = false;
   public tabAnnoncesId: Annonce[] = [];
+  public photos: Photos[] = [];
 
   slides: { image: string; text?: string }[] = [];
-  constructor(private route: ActivatedRoute, public serviceApiAnnonce: annonceApiService) {
+  constructor(
+    private route: ActivatedRoute,
+    public serviceApiAnnonce: annonceApiService,
+    private spinner: NgxSpinnerService
+  ) {
 
     this.route.paramMap.subscribe((params) => {
       this.idObj = params.get('id')!;
     });
-
+    this.spinner.show("fiche");
     this.serviceApiAnnonce.getItem(parseInt(this.idObj)).subscribe(
       (data) => {
+        this.photos = [];
+        if(data.photos.length>0) {
+          for(let p of data.photos) {
+              this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+          }
+          for(let p1 of this.photos) {
+            this.slides.push({
+              image: `${p1.pathPhotos}`,
+            });
+          }
+        }else{
+          this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+        }
 
+        console.log(this.photos);
           this.tabAnnoncesId.push(
             new Annonce(
               data.id,
@@ -47,28 +67,11 @@ export class FicheComponent implements OnInit {
               data.prix,
               new Modele(data.modele.id, data.modele.nomModele, new Marque(data.modele.Marque.id, data.modele.Marque.nomMarque)),
               new Garage(data.garage.id, data.garage.nom),
-              new Carburant(data.carburant.id, data.carburant.NomCarburant)
+              new Carburant(data.carburant.id, data.carburant.NomCarburant),
+              this.photos
             ));
-
+        this.spinner.hide("fiche");
       });
-
-
-/*
-    this.tabPhotos.push(
-      new Photos(1, 'audi-rs3-25-tfsi-121974821.jpg', 1),
-      new Photos(2, 'audi-rs3-25-tfsi-121974822.jpg', 2),
-      new Photos(3, 'audi-rs3-25-tfsi-121974823.jpg', 3),
-      new Photos(4, 'audi-rs3-25-tfsi-121974824.jpg', 4),
-      new Photos(5, 'audi-rs3-25-tfsi-121974825.jpg', 5)
-    );*/
-
-
-
-    for (let i = 0; i < this.tabPhotos.length; i++) {
-      this.slides.push({
-        image: `assets/img/${this.idObj}/${this.tabPhotos[i]['nomPhotos']}`,
-      });
-    }
   }
 
   ngOnInit(): void {}

@@ -8,7 +8,7 @@ import {CredentialsVille} from "../credentialsVille";
 import {Garages} from "../../models/garages";
 import {Ville} from "../../models/ville";
 import {environment} from "../../../environments/environment";
-
+import {NgxSpinnerService} from "ngx-spinner";
 
 
 
@@ -40,7 +40,8 @@ export class GarageUpdateComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService
   ) {
 
     if (this.authService.hasToken()) {
@@ -54,10 +55,11 @@ export class GarageUpdateComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-
+      this.spinner.show("garage-update");
       this.httpClient.get<Garages>(`${this.apiURL}/api/garages/${this.id}`, httpOptions).subscribe(
         (data) => {
           this.garageForm.setValue({'nom':  data.nom, 'telephone' : data.telephone, 'adresse1': data.ville.adresse1, 'adresse2': data.ville.adresse2, 'adresse3': data.ville.adresse3, 'codePostal': data.ville.codePostal, 'nomVille': data.ville.nomVille, 'user': localStorage.getItem('id')})
+          this.spinner.hide("garage-update");
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.

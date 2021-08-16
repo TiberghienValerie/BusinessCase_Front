@@ -3,7 +3,7 @@ import { Modele } from './modele';
 import { Garage } from './garage';
 import {Photos} from "./photos";
 
-export class Annonce {
+export class Annonces {
   constructor(
     public id: number,
     public refAnnonce: string,
@@ -17,6 +17,6 @@ export class Annonce {
     public modele: Modele,
     public garage: Garage,
     public carburant: Carburant,
-    public photos: Photos[]
+    public photos: Photos []
   ) {}
 }

@@ -1,7 +1,8 @@
 export class Photos {
   constructor(
-    public idPhotos: number,
+    public id: number,
     public nomPhotos: string,
+    public pathPhotos:string,
     public ordre: number
   ) {}
 }

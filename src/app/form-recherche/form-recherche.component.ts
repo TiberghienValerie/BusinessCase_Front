@@ -12,6 +12,7 @@ import {modeleApiService} from "../service/modele-api.service";
 import {carburantApiService} from "../service/carburant-api.service";
 import {Garage} from "../models/garage";
 import {annonceApiService} from "../service/annonce-api.service";
+import {Photos} from "../models/photos";
 
 @Component({
   selector: 'app-form-recherche',
@@ -35,6 +36,7 @@ export class FormRechercheComponent implements OnInit {
   public disabled: boolean = true;
   public url!: string;
   public nbPages!: number;
+  public photos: Photos[] = [];
 
   @Input() public tabAnnonces!: Annonce[];
   @Input() public nbTotalEnregistrement!: number;
@@ -161,20 +163,32 @@ export class FormRechercheComponent implements OnInit {
         this.nbTotalEnregistrement = data['hydra:totalItems'];
 
         for (let o of data['hydra:member']) {
+
+          this.photos = [];
+          if(o.photos.length>0) {
+            for(let p of o.photos) {
+              this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+            }
+          }else{
+            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+          }
+
+
           this.tabAnnoncesFiltrer.push(
-            new Annonce(
-              o.id,
-              o.refAnnonce,
-              o.DateAnnonce,
-              o.titre,
-              o.descriptionCourte,
-              o.descriptionLongue,
-              o.anneeCirculation,
-              o.kilometrage,
-              o.prix,
-              new Modele(o.modele.id, o.modele.nomModele, new Marque(o.modele.Marque.id, o.modele.Marque.nomMarque)),
-              new Garage(o.garage.id, o.garage.nom),
-              new Carburant(o.carburant.id, o.carburant.NomCarburant)
+              new Annonce(
+                o.id,
+                o.refAnnonce,
+                o.DateAnnonce,
+                o.titre,
+                o.descriptionCourte,
+                o.descriptionLongue,
+                o.anneeCirculation,
+                o.kilometrage,
+                o.prix,
+                new Modele(o.modele.id, o.modele.nomModele, new Marque(o.modele.Marque.id, o.modele.Marque.nomMarque)),
+                new Garage(o.garage.id, o.garage.nom),
+                new Carburant(o.carburant.id, o.carburant.NomCarburant),
+               this.photos
             ));
         }
 

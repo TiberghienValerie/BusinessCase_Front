@@ -73,6 +73,11 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder
   ) {
+
+    if (this.authService.hasToken()) {
+      this.seDeconnecter();
+    }
+
   }
   ngOnInit() {
 

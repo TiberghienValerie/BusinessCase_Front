@@ -4,30 +4,26 @@
       <div class="d-flex">
         <button id="menu" type="button" class="btnJaune btn btn-display">
           <i class="fas fa-arrow-left" aria-hidden="true"></i>
-          <a [routerLink]="['../../accueil']" title="Retour">Retour</a>
+          <a [routerLink]="['../../mesAnnonces']" title="Retour">Retour</a>
         </button>
       </div>
     </div>
     <div class="col-8 col-sm-9 col-md-9">
-      <h1>{{ tabAnnoncesId[0].titre }}</h1>
+      <h1>{{ tabAnnonce[0].titre }}</h1>
     </div>
   </div>
 
+
   <!-- carroussel -->
   <div class="row">
-    <div class="col-12 col-md-12 mt-5 mb-3">
-      <carousel
-        [itemsPerSlide]="itemsPerSlide"
-        [singleSlideOffset]="singleSlideOffset"
-        [noWrap]="noWrap"
-        [interval]="cycleInterval"
-        [startFromIndex]="0"
-        [showIndicators]="showIndicator"
-      >
-        <slide *ngFor="let slide of slides; let index = index" class="mx-auto">
-          <img width="100%" alt="image slide" [src]="slide.image" class="img-fluid" />
-        </slide>
-      </carousel>
+    <div class="col-2 col-md-2 mt-5 mb-3" *ngFor="let photos of tabAnnonce[0].photos">
+      <img
+        src="{{photos.pathPhotos}}"
+        class="zoom img-fluid"
+        width="151"
+        height="113"
+        alt="img"
+      />
     </div>
   </div>
 
@@ -37,14 +33,14 @@
       <div class="shadows">
         <div class="row p-3">
           <div class="col-4 col-md-4 textContenuBold">
-            {{ tabAnnoncesId[0].modele.nomModele }}
-            {{ tabAnnoncesId[0].modele.Marque.nomMarque }}
+            {{ tabAnnonce[0].modele.nomModele }}
+            {{ tabAnnonce[0].modele.Marque.nomMarque }}
           </div>
           <div class="col-4 col-md-4 textContenuitalique text-center">
-            Réf. {{ tabAnnoncesId[0].refAnnonce }}
+            Réf. {{ tabAnnonce[0].refAnnonce }}
           </div>
           <div class="textContenuColorBold col-4 col-md-4 text-right">
-            {{ tabAnnoncesId[0].prix }} € TTC
+            {{ tabAnnonce[0].prix }} € TTC
           </div>
         </div>
         <div class="row p-3">
@@ -64,7 +60,7 @@
               height="64px"
             />
             <span class="ps-3 textContenu2">
-              {{ tabAnnoncesId[0].kilometrage }} km</span
+              {{ tabAnnonce[0].kilometrage }} km</span
             >
           </div>
           <div
@@ -83,7 +79,7 @@
               height="64px"
             />
             <span class="ps-3 textContenu2">
-              {{ tabAnnoncesId[0].carburant.NomCarburant }}</span
+              {{ tabAnnonce[0].carburant.NomCarburant }}</span
             >
           </div>
           <div
@@ -102,13 +98,13 @@
               height="64px"
             />
             <span class="ps-3 textContenu2">
-              {{ tabAnnoncesId[0].anneeCirculation }}</span
+              {{ tabAnnonce[0].anneeCirculation }}</span
             >
           </div>
         </div>
         <div class="row p-3">
           <p class="textcontenu">
-            {{ tabAnnoncesId[0].descriptionLongue }}
+            {{ tabAnnonce[0].descriptionLongue }}
           </p>
         </div>
         <div class="row position-relative mb-3">
@@ -128,13 +124,13 @@
   </div>
 </section>
 
+
 <ngx-spinner
   bdColor="rgba(0, 0, 0, 0.8)"
   size="medium"
   color="#fff"
   type="square-jelly-box"
   [fullScreen]="true"
-  name="fiche"
+  name="annonce-read"
 ><p style="color: white">Loading...</p>
 </ngx-spinner>
-

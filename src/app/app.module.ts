@@ -34,6 +34,8 @@ import { GarageUpdateComponent } from './garage/garage-update/garage-update.comp
 import { NgxSpinnerModule } from "ngx-spinner";
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AnnonceListComponent } from './annonce/annonce-list/annonce-list.component';
+import { AnnonceReadComponent } from './annonce/annonce-read/annonce-read.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +57,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     GarageViewComponent,
     GarageAddComponent,
     GarageUpdateComponent,
+    AnnonceListComponent,
+    AnnonceReadComponent,
   ],
   imports: [
     BrowserModule,

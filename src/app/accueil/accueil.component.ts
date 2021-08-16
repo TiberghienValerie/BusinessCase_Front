@@ -14,6 +14,8 @@ import {annonceApiService} from "../service/annonce-api.service";
 import {Collection} from "../models/collection";
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../environments/environment";
+import {NgxSpinnerService} from "ngx-spinner";
+import {Photos} from "../models/photos";
 
 
 @Component({
@@ -40,6 +42,7 @@ export class AccueilComponent implements OnInit {
   public maxPrix!: number;
   public mode!: string;
   public apiURL = environment.apiURL;
+  public photos: Photos[] = [];
 
   getParametre() {
 
@@ -82,32 +85,43 @@ export class AccueilComponent implements OnInit {
 
   getAnnonces(page: number = 1)
   {
+    this.spinner.show("accueil");
     this.serviceApiAnnonce.getCollection().subscribe(
       (data) => {
-
         for (let o of data['hydra:member']) {
-          this.tabAnnonces.push(
-            new Annonce(
-              o.id,
-              o.refAnnonce,
-              o.DateAnnonce,
-              o.titre,
-              o.descriptionCourte,
-              o.descriptionLongue,
-              o.anneeCirculation,
-              o.kilometrage,
-              o.prix,
-              new Modele(o.modele.id, o.modele.nomModele, new Marque(o.modele.Marque.id, o.modele.Marque.nomMarque)),
-              new Garage(o.garage.id, o.garage.nom),
-              new Carburant(o.carburant.id, o.carburant.NomCarburant)
-            ));
-        }
+          this.photos = [];
+          if(o.photos.length>0) {
+            for(let p of o.photos) {
+              this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+            }
+          }else{
+            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+          }
+            this.tabAnnonces.push(
+              new Annonce(
+                o.id,
+                o.refAnnonce,
+                o.DateAnnonce,
+                o.titre,
+                o.descriptionCourte,
+                o.descriptionLongue,
+                o.anneeCirculation,
+                o.kilometrage,
+                o.prix,
+                new Modele(o.modele.id, o.modele.nomModele, new Marque(o.modele.Marque.id, o.modele.Marque.nomMarque)),
+                new Garage(o.garage.id, o.garage.nom),
+                new Carburant(o.carburant.id, o.carburant.NomCarburant),
+                this.photos
+              ));
+          }
+
 
         this.tabAnnoncesFilter.push(...this.tabAnnonces);
 
         this.nbTotalEnregistrement = data['hydra:totalItems'];
         this.nbPages = parseInt(data['hydra:view']['hydra:last'].split(/\s*=\s*/)[1]);
         this.url = (data['hydra:view']['hydra:last'].split(/\s*=\s*/))[0]+'=';
+        this.spinner.hide("accueil");
       }
 
 
@@ -116,7 +130,11 @@ export class AccueilComponent implements OnInit {
 
 
 
-  constructor( private httpClient: HttpClient, public serviceApiAnnonce: annonceApiService) {
+  constructor(
+    private httpClient: HttpClient,
+    public serviceApiAnnonce: annonceApiService,
+    private spinner: NgxSpinnerService
+  ) {
 
     /* calcul du max des kilometrages, du min de la date de mise en circulation, du max des prix de vente */
     this.tabAnnonces = [];
@@ -143,10 +161,20 @@ export class AccueilComponent implements OnInit {
     this.mode = mode;
     this.tabAnnonces = [];
     this.tabAnnoncesFilter = [];
-
+    this.spinner.show("accueil");
     this.serviceApiAnnonce.getCollectionSpecifique(`${this.apiURL}${url}`).subscribe(
         (data) => {
           for (let o of data['hydra:member']) {
+            this.photos = [];
+            if(o.photos.length>0) {
+              for(let p of o.photos) {
+                this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+              }
+            }else{
+              this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+            }
+
+
             this.tabAnnonces.push(
               new Annonce(
                 o.id,
@@ -160,7 +188,8 @@ export class AccueilComponent implements OnInit {
                 o.prix,
                 new Modele(o.modele.id, o.modele.nomModele, new Marque(o.modele.Marque.id, o.modele.Marque.nomMarque)),
                 new Garage(o.garage.id, o.garage.nom),
-                new Carburant(o.carburant.id, o.carburant.NomCarburant)
+                new Carburant(o.carburant.id, o.carburant.NomCarburant),
+                this.photos
               ));
           }
 
@@ -178,7 +207,7 @@ export class AccueilComponent implements OnInit {
             this.url = (data['hydra:view']['hydra:last'].split(/\s*page=\s*/))[0]+'page=';
           }
 
-          console.log(this.url);
+          this.spinner.hide("accueil");
         });
   }
 
