@@ -16,16 +16,62 @@
 
   <!-- carroussel -->
   <div class="row">
-    <div class="col-2 col-md-2 mt-5 mb-3" *ngFor="let photos of tabAnnonce[0].photos">
-      <img
-        src="{{photos.pathPhotos}}"
-        class="zoom img-fluid"
-        width="151"
-        height="113"
-        alt="img"
-      />
+    <div class="col-12 col-md-12 mt-5 mb-3">
+      <div class="shadows">
+        <div class="row p-3">
+          <div class="col-2 col-md-2 text-right mb-5" *ngFor="let photos of tabAnnonce[0].photos">
+              <p><a
+                class="btnClose"
+              ><fa-icon [icon]="faTimes" size="2x"></fa-icon
+              ></a></p>
+              <img
+                src="{{photos.pathPhotos}}"
+                class="zoom img-fluid"
+                width="151"
+                height="113"
+                alt="img"
+              />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
+
+
+  <!-- formulaire ajout image -->
+
+  <div class="row">
+    <div class="col-12 col-md-12 mt-5 mb-3">
+      <div class="shadows">
+        <div class="row p-3">
+            <div class="col-12 col-md-12 text-left mb-5">
+              <form
+                [formGroup]="imageForm"
+                class="login-container"
+                (ngSubmit)="valider()"
+              >
+                <label for="image">
+                  Image
+                </label>
+                <input id="image"
+                       type="file"
+                       placeholder="Votre image"
+                       formControlName="image"
+                >
+                <ul *ngIf="imageForm.controls.image.touched && !imageForm.controls.image.valid">
+                  <li *ngIf="imageForm.controls.image.hasError('required')">
+                    Required
+                  </li>
+                </ul>
+                <input type="submit" class="btn btnRouge" value="Uploader" />
+              </form>
+            </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   <!-- informations-->
   <div class="row">

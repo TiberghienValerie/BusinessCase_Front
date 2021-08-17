@@ -13,6 +13,9 @@ import {Marque} from "../../models/marque";
 import {Garage} from "../../models/garage";
 import {Carburant} from "../../models/carburant";
 import {NgxSpinnerService} from "ngx-spinner";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {Credentials} from "../image";
 
 @Component({
   selector: 'app-annonce-read',
@@ -26,13 +29,19 @@ export class AnnonceReadComponent implements OnInit {
   public tabAnnonce: Array<Annonces> = [];
   public apiURL = environment.apiURL;
   public photos: Photos[] = [];
+  faTimes = faTimes;
+
+  public imageForm: FormGroup = this.formBuilder.group({
+    image: ['', [Validators.required]],
+  });
 
   constructor(
     private authService: AuthService,
     private httpClient: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private formBuilder: FormBuilder
   ) {
 
 
@@ -88,6 +97,10 @@ export class AnnonceReadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  valider() {
+
   }
 
 }
