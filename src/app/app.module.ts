@@ -36,6 +36,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AnnonceListComponent } from './annonce/annonce-list/annonce-list.component';
 import { AnnonceReadComponent } from './annonce/annonce-read/annonce-read.component';
+import { AnnonceAddComponent } from './annonce/annonce-add/annonce-add.component';
+import { AnnonceUpdateComponent } from './annonce/annonce-update/annonce-update.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +61,8 @@ import { AnnonceReadComponent } from './annonce/annonce-read/annonce-read.compon
     GarageUpdateComponent,
     AnnonceListComponent,
     AnnonceReadComponent,
+    AnnonceAddComponent,
+    AnnonceUpdateComponent,
   ],
   imports: [
     BrowserModule,

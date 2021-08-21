@@ -1,3 +1,8 @@
+<button type="submit" class="btnRouge btn btn-display">
+  <a [routerLink]="['../annonce-add']" title="Ajouter"
+  >Ajouter</a
+  >
+</button>
 <div class="textContenuBold text-center align-self-center col-12 col-md-12 m-4">{{ nbTotalEnregistrement }} annonces</div>
 <table class="table table-striped">
   <thead>
@@ -18,9 +23,15 @@
     <td>
       <button type="submit" class="btnJaune btn btn-display">
         <a [routerLink]="['../annonce-read', annonce.id]" title="Plus info"
-        >Plus info</a
+        >Plus info / Gestion images</a
         >
       </button>
+      <button type="submit" class="btnRouge btn btn-display">
+        <a [routerLink]="['../annonce-update', annonce.id]" title="Modifier"
+        >Modifier</a
+        >
+      </button>
+      <button class="btnRouge btn btn-display" (click)="open(annonce.id, annonce.titre)">Supprimer</button>
     </td>
   </tr>
   </tbody>

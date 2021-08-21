@@ -16,6 +16,8 @@ import {GarageAddComponent} from "./garage/garage-add/garage-add.component";
 import {GarageUpdateComponent} from "./garage/garage-update/garage-update.component";
 import {AnnonceListComponent} from "./annonce/annonce-list/annonce-list.component";
 import {AnnonceReadComponent} from "./annonce/annonce-read/annonce-read.component";
+import {AnnonceAddComponent} from "./annonce/annonce-add/annonce-add.component";
+import {AnnonceUpdateComponent} from "./annonce/annonce-update/annonce-update.component";
 
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
@@ -55,6 +57,9 @@ const routes: Routes = [
     canActivate: [IsSignedInGuard],
   },
   { path: 'annonce-read/:id', component: AnnonceReadComponent, canActivate: [IsSignedInGuard], },
+  { path: 'annonce-update/:id', component: AnnonceUpdateComponent, canActivate: [IsSignedInGuard],},
+  { path: 'annonce-add', component: AnnonceAddComponent, canActivate: [IsSignedInGuard], },
+
 ];
 
 @NgModule({

@@ -166,11 +166,13 @@ export class FormRechercheComponent implements OnInit {
 
           this.photos = [];
           if(o.photos.length>0) {
+            let i = 0;
             for(let p of o.photos) {
-              this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+              this.photos[i] = new Photos(p.id, p.nomPhotos, p.pathPhotos);
+              i = i+1;
             }
           }else{
-            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
           }
 
 

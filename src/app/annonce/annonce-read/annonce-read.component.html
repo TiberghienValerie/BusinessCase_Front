@@ -15,13 +15,14 @@
 
 
   <!-- carroussel -->
-  <div class="row">
+  <div class="row" *ngIf="tabAnnonce[0].photos.length>0">
     <div class="col-12 col-md-12 mt-5 mb-3">
       <div class="shadows">
         <div class="row p-3">
           <div class="col-2 col-md-2 text-right mb-5" *ngFor="let photos of tabAnnonce[0].photos">
               <p><a
                 class="btnClose"
+                (click)="open(photos.id, photos.nomPhotos)"
               ><fa-icon [icon]="faTimes" size="2x"></fa-icon
               ></a></p>
               <img
@@ -45,25 +46,48 @@
       <div class="shadows">
         <div class="row p-3">
             <div class="col-12 col-md-12 text-left mb-5">
-              <form
-                [formGroup]="imageForm"
-                class="login-container"
-                (ngSubmit)="valider()"
-              >
-                <label for="image">
-                  Image
-                </label>
-                <input id="image"
-                       type="file"
-                       placeholder="Votre image"
-                       formControlName="image"
-                >
-                <ul *ngIf="imageForm.controls.image.touched && !imageForm.controls.image.valid">
-                  <li *ngIf="imageForm.controls.image.hasError('required')">
-                    Required
+              <form [formGroup]="photoForm" (ngSubmit)="submit()">
+                <div class="form-group">
+                  <label for="name">Name</label>
+                  <input
+                    formControlName="name"
+                    id="name"
+                    type="text"
+                    class="form-control">
+
+                </div>
+                <ul *ngIf="photoForm.controls.name.touched && !photoForm.controls.name.valid">
+                  <li *ngIf="photoForm.controls.name.hasError('required')">
+                    Name is required
                   </li>
                 </ul>
-                <input type="submit" class="btn btnRouge" value="Uploader" />
+
+
+                <div class="form-group">
+                  <label for="file">File</label>
+                  <input
+                    formControlName="file"
+                    id="file"
+                    type="file"
+                    class="form-control"
+                    (change)="onFileChange($event)">
+                </div>
+
+                <ul *ngIf="mauvaisImage">
+                  <li>
+                      {{mauvaisImage}}
+                  </li>
+                </ul>
+
+                <ul *ngIf="photoForm.controls.file.touched && !photoForm.controls.file.valid">
+                  <li *ngIf="photoForm.controls.file.hasError('required')">
+                    Image file is required
+                  </li>
+                </ul>
+
+
+                <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
+                <button class="btn btnRouge" type="submit">Submit</button>
               </form>
             </div>
 

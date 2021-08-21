@@ -8,6 +8,7 @@ import { Annonce } from '../models/annonce';
 })
 export class AnnonceComponent implements OnInit {
   @Input() public uneAnnonce!: Annonce;
+
   constructor() {}
 
   ngOnInit(): void {}

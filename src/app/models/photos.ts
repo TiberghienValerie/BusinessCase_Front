@@ -3,6 +3,5 @@ export class Photos {
     public id: number,
     public nomPhotos: string,
     public pathPhotos:string,
-    public ordre: number
   ) {}
 }

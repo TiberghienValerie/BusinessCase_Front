@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Annonces} from "../../models/annonces";
 import {environment} from "../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -13,10 +13,73 @@ import {Carburant} from "../../models/carburant";
 import {AuthService} from "../../service/auth.service";
 import {annonceApiService} from "../../service/annonce-api.service";
 import {Router} from "@angular/router";
-import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {NgbActiveModal, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NgxSpinnerService} from "ngx-spinner";
 import { PageChangedEvent } from 'ngx-bootstrap/pagination';
 import {Photos} from "../../models/photos";
+
+
+@Component({
+  selector: 'ngbd-modal-content',
+  template: `
+
+      <div class="modal-header">
+        <h4 id="deconnexion-name" class="modal-title pull-left">
+          Suppression
+        </h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-container">
+          <p>Voulez-vous supprimer l'annonce {{name}} ?</p>
+          <p>
+            <input type="submit" (click)="suppression(id);activeModal.close('Close click')" value="Ok"/>
+          </p>
+        </div>
+      </div>
+
+  `
+})
+export class NgbdModalContent {
+  @Input() name!:string;
+  @Input() id!:number;
+
+  public token: string |null | undefined;
+  public apiURL = environment.apiURL;
+
+  constructor(
+    public activeModal: NgbActiveModal,
+    private authService: AuthService,
+    private httpClient: HttpClient,
+    private router: Router,
+  ) {}
+
+  suppression(idannonce: number){
+
+  /*  if (this.authService.hasToken()) {
+      this.token = this.authService.token();
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${this.token}`
+        })
+      };
+
+      this.httpClient.delete(`${this.apiURL}/api/garages/${idgarage}`, httpOptions).subscribe(
+        (data) => {
+          this.router.navigate(['']);
+        },
+        (e: {error: {code: number, message: string}}) => {
+          // When error.
+          alert(e.error.message);
+        },
+      );
+    }*/
+
+  }
+}
 
 @Component({
   selector: 'app-annonce-list',
@@ -51,11 +114,13 @@ export class AnnonceListComponent implements OnInit {
           for (let o of data['hydra:member']) {
             this.photos = [];
             if(o.photos.length>0) {
+              let i = 0;
               for(let p of o.photos) {
-                this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+                this.photos[i] = new Photos(p.id, p.nomPhotos, p.pathPhotos);
+                i = i+1;
               }
             }else{
-              this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+              this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
             }
             this.tabAnnonces.push(
               new Annonce(
@@ -135,11 +200,13 @@ export class AnnonceListComponent implements OnInit {
         for (let o of data['hydra:member']) {
           this.photos = [];
           if(o.photos.length>0) {
+            let i = 0;
             for(let p of o.photos) {
-              this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+              this.photos[i] = new Photos(p.id, p.nomPhotos, p.pathPhotos);
+              i = i+1;
             }
           }else{
-            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
           }
           this.tabAnnonces.push(
             new Annonce(
@@ -177,12 +244,12 @@ export class AnnonceListComponent implements OnInit {
         alert(e.error.message);
       },
     );
-
-
-
-
-
-
     }
+  }
+
+  open(id: number, name: string) {
+    const modalRef = this.modalService.open(NgbdModalContent);
+    modalRef.componentInstance.name = name;
+    modalRef.componentInstance.id = id;
   }
 }

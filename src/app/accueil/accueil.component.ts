@@ -91,11 +91,13 @@ export class AccueilComponent implements OnInit {
         for (let o of data['hydra:member']) {
           this.photos = [];
           if(o.photos.length>0) {
+            let i = 0;
             for(let p of o.photos) {
-              this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${o.id}/${p.pathPhotos}`);
+              i = i+1;
             }
           }else{
-            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
           }
             this.tabAnnonces.push(
               new Annonce(
@@ -151,6 +153,7 @@ export class AccueilComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   pageChanged(event: PageChangedEvent, url: string, mode: string): void {
@@ -167,11 +170,13 @@ export class AccueilComponent implements OnInit {
           for (let o of data['hydra:member']) {
             this.photos = [];
             if(o.photos.length>0) {
+              let i = 0;
               for(let p of o.photos) {
-                this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+                this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${o.id}/${p.pathPhotos}`);
+                i = i+1;
               }
             }else{
-              this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+              this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
             }
 
 

@@ -8,6 +8,7 @@ import { Marque } from '../models/marque';
 import {Garage} from "../models/garage";
 import {annonceApiService} from "../service/annonce-api.service";
 import {NgxSpinnerService} from "ngx-spinner";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-fiche',
@@ -16,6 +17,7 @@ import {NgxSpinnerService} from "ngx-spinner";
 })
 export class FicheComponent implements OnInit {
   public tabPhotos: Photos[] = [];
+  public apiURL = environment.apiURL;
 
   idObj!: string;
   public itemsPerSlide = 2;
@@ -41,19 +43,22 @@ export class FicheComponent implements OnInit {
       (data) => {
         this.photos = [];
         if(data.photos.length>0) {
+          let i=0;
           for(let p of data.photos) {
-              this.photos[p.ordre-1] = new Photos(p.id, p.nomPhotos, p.pathPhotos, p.ordre);
+              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${data.id}/${p.pathPhotos}`);
+              i = i+1;
           }
+
           for(let p1 of this.photos) {
             this.slides.push({
               image: `${p1.pathPhotos}`,
             });
           }
         }else{
-          this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg', 1))
+          this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
         }
 
-        console.log(this.photos);
+
           this.tabAnnoncesId.push(
             new Annonce(
               data.id,
