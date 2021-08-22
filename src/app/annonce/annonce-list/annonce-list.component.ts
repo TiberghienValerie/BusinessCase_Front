@@ -58,7 +58,7 @@ export class NgbdModalContent {
 
   suppression(idannonce: number){
 
-  /*  if (this.authService.hasToken()) {
+    if (this.authService.hasToken()) {
       this.token = this.authService.token();
       const httpOptions = {
         headers: new HttpHeaders({
@@ -67,7 +67,7 @@ export class NgbdModalContent {
         })
       };
 
-      this.httpClient.delete(`${this.apiURL}/api/garages/${idgarage}`, httpOptions).subscribe(
+      this.httpClient.delete(`${this.apiURL}/annonce/delete/${idannonce}`, httpOptions).subscribe(
         (data) => {
           this.router.navigate(['']);
         },
@@ -76,7 +76,7 @@ export class NgbdModalContent {
           alert(e.error.message);
         },
       );
-    }*/
+    }
 
   }
 }

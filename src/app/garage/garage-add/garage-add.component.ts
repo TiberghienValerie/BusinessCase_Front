@@ -8,6 +8,8 @@ import {CredentialsVille} from "../credentialsVille";
 import {Collection} from "../../models/collection";
 import {Garages} from "../../models/garages";
 import {environment} from "../../../environments/environment";
+import {Carburant} from "../../models/carburant";
+
 
 
 @Component({
@@ -31,15 +33,16 @@ export class GarageAddComponent implements OnInit {
 
   public apiURL = environment.apiURL;
 
-
-
   constructor(
     private authService: AuthService,
     private garageApiService: GarageApiService,
     private httpClient: HttpClient,
     private router: Router,
     private formBuilder: FormBuilder
-  ) { }
+  ) {
+
+
+  }
 
   ngOnInit(): void {
   }

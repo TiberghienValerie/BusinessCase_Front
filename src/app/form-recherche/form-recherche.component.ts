@@ -61,11 +61,6 @@ export class FormRechercheComponent implements OnInit {
             new Carburant(o.id, o.NomCarburant)
           );
         }
-
-     /*   if(data['hydra:view']['hydra:next'] !== undefined) {
-          let recherchePage = parseInt(data['hydra:view']['hydra:next'].split(/\s*=\s*///)[1]);
-   /*       this.getCarburants(recherchePage);
-        }*/
       },
       () => {
         alert('Cannot load Modele');
@@ -81,10 +76,6 @@ export class FormRechercheComponent implements OnInit {
             new Marque(o.id, o.nomMarque)
           );
         }
-        /*if(data['hydra:view']['hydra:next'] !== undefined) {
-          let recherchePage = parseInt(data['hydra:view']['hydra:next'].split(/\s*=\s*///)[1]);
-         // this.getModeles(recherchePage);
-       // }
       },
       () => {
         alert('Cannot load Modele');

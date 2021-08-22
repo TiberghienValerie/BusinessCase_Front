@@ -480,7 +480,8 @@ footer,
 input[type="email"],
 input[type="text"],
 input[type="password"],
-input[type="tel"]
+input[type="tel"],
+input[type="number"]
 {
   border-top: none !important;
   border-right: none !important;
