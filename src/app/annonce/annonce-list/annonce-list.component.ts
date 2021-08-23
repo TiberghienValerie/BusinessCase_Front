@@ -69,6 +69,7 @@ export class NgbdModalContent {
 
       this.httpClient.delete(`${this.apiURL}/annonce/delete/${idannonce}`, httpOptions).subscribe(
         (data) => {
+
           this.router.navigate(['']);
         },
         (e: {error: {code: number, message: string}}) => {

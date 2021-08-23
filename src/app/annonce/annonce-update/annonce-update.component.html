@@ -1,1 +1,145 @@
-<p>annonce-update works!</p>
+<div class="container m-4 ">
+  <div class="mt-3 p-3 shadows">
+    <form
+      [formGroup]="annonceForm"
+      class="login-container"
+      (ngSubmit)="valider()"
+    >
+      <div class="row">
+        <div class="col-6">
+          <label for="titre">Titre : </label>
+          <input id="titre"
+                 type="text"
+                 placeholder="Nom de l'annonce"
+                 formControlName="titre"
+          >
+        </div>
+        <div class="col-6">
+          <label for="prix">Prix : </label>
+          <input id="prix"
+                 type="number"
+                 min="0"
+                 max="250000"
+                 placeholder="Prix de l'annonce"
+                 formControlName="prix"
+          >
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <label for="description">Description : </label>
+          <textarea
+            id="description" formControlName="description"
+            rows="10" cols="50">
+            Desription de l'annonce
+          </textarea>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <label for="kilometrage">Kiomètrage : </label>
+          <input id="kilometrage"
+                 type="number"
+                 min="0"
+                 max="250000"
+                 placeholder="Kilomètrage de l'annonce"
+                 formControlName="kilometrage"
+          >
+        </div>
+        <div class="col-6">
+          <label for="anneeeCirculation">Année de circulation : </label>
+          <input id="anneeCirculation"
+                 type="number"
+                 min="1975"
+                 max="2030"
+                 placeholder="Année de circulation"
+                 formControlName="anneeCirculation"
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-6">
+          <label for="marque">Marque : </label>
+          <select
+            id="marque"
+            name="marque"
+            content-type="choices"
+            trigger="true"
+            aria-label="marque"
+            class="shadows form-control form-select"
+            formControlName="marque"
+            #marque
+            (change)="onMarqueChanged($event)"
+            (focus)="onMarqueChanged($event)"
+          >
+            <option value="0">Toutes les marques</option>
+            <option *ngFor="let m of tabMarques" value="{{m.id}}">
+              {{ m.nomMarque }}
+            </option>
+          </select>
+        </div>
+        <div class="col-6">
+          <label for="modele">Modèle : </label>
+          <select
+            id="modele"
+            name="modele"
+            content-type="choices"
+            trigger="true"
+            aria-label="modele"
+            class="shadows form-control form-select"
+            formControlName="modele"
+            [disabled]="disabled"
+
+          >
+            <option value="0">Tous les modèles</option>
+            <option *ngFor="let mo of tabModelesFiltrer" value="{{ mo.id }}">
+              {{ mo.nomModele }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <label for="carburant">Carburant : </label>
+          <select
+            id="carburant"
+            name="carburant"
+            content-type="choices"
+            trigger="true"
+            aria-label="carburant"
+            class="shadows form-control form-select"
+            formControlName="carburant"
+          >
+            <option value="0">Tous les carburants</option>
+            <option *ngFor="let c of tabCarburants" value="{{ c.id }}">
+              {{ c.NomCarburant }}
+            </option>
+          </select>
+        </div>
+
+        <div class="col-6">
+          <label for="garage">Garage : </label>
+          <select
+            id="garage"
+            name="garage"
+            content-type="choices"
+            trigger="true"
+            aria-label="garage"
+            class="shadows form-control form-select"
+            formControlName="garage"
+          >
+            <option value="0">Tous les garages</option>
+            <option *ngFor="let g of tabGarages" value="{{ g.id }}">
+              {{ g.nom }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <input type="submit" class="btn btnRouge" value="Modifier" />
+        </div>
+      </div>
+    </form>

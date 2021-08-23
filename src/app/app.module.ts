@@ -39,6 +39,7 @@ import { AnnonceReadComponent } from './annonce/annonce-read/annonce-read.compon
 import { AnnonceAddComponent } from './annonce/annonce-add/annonce-add.component';
 import { AnnonceUpdateComponent } from './annonce/annonce-update/annonce-update.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,

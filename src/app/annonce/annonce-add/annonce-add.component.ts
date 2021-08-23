@@ -15,6 +15,8 @@ import {Collection} from "../../models/collection";
 import {Garages} from "../../models/garages";
 import {Ville} from "../../models/ville";
 import {environment} from "../../../environments/environment";
+import {CredentialsAnnonce} from "../credentialsAnnonce";
+
 
 @Component({
   selector: 'app-annonce-add',
@@ -153,6 +155,7 @@ export class AnnonceAddComponent implements OnInit {
   }
 
   onMarqueChanged(value: any) {
+
     this.tabModelesFiltrer.length = 0;
     let val = this.tabModeles.filter(function (c) {
       return c.Marque.id === parseInt(value.target.value);
@@ -166,6 +169,31 @@ export class AnnonceAddComponent implements OnInit {
 
   valider() {
 
+
+
+    this.annonceForm.markAllAsTouched();
+    // If the form is valid (all inputs valids).
+    if (this.annonceForm.valid) {
+      this.token = this.authService.token();
+      const body = JSON.stringify(this.annonceForm.value as CredentialsAnnonce);
+
+      const httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': `Bearer ${this.token}`
+        })
+      };
+
+      //Insertion du garage et de la ville
+
+      this.httpClient.post<CredentialsAnnonce>(`${this.apiURL}/annonce/add`, body, httpOptions).subscribe(
+        (data)=> {
+
+          this.router.navigate(['mesAnnonces']);
+        });
+    }
   }
+
+
 
 }

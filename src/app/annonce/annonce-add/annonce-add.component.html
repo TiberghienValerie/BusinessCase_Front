@@ -67,13 +67,14 @@
             name="marque"
             content-type="choices"
             trigger="true"
-            target="modele"
             aria-label="marque"
             class="shadows form-control form-select"
+            formControlName="marque"
             (change)="onMarqueChanged($event)"
+
           >
             <option value="0">Toutes les marques</option>
-            <option *ngFor="let m of tabMarques" [value]="m.id">
+            <option *ngFor="let m of tabMarques" value="{{m.id}}">
               {{ m.nomMarque }}
             </option>
           </select>
@@ -87,6 +88,7 @@
             trigger="true"
             aria-label="modele"
             class="shadows form-control form-select"
+            formControlName="modele"
             [disabled]="disabled"
           >
             <option value="0">Tous les modèles</option>
