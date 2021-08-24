@@ -100,7 +100,7 @@ export class HeaderComponent implements OnInit {
     // If the form is valid (all inputs valids).
     if (this.loginForm.valid) {
 
-
+      this.role = '';
       // Forge HTTP request to send to the API to retrieve JWT.
       this.httpClient.post<Token>(`${this.apiURL}/authentication_token`, this.loginForm.value as Credentials).subscribe(
         (data) => {
@@ -115,14 +115,18 @@ export class HeaderComponent implements OnInit {
           };
           this.httpClient.get<Collection<User>>(`${this.apiURL}/api/users?username=${this.loginForm.value.username}`, httpOptions).subscribe(
             (data) => {
+              console.log(data['hydra:member']);
               for (let o of data['hydra:member']) {
                o.roles.forEach((role) =>
                 {
-                  if((role == "ROLE_PROFESSIONNEL") ||(role == "ROLE_ADMIN"))
-                  {
-                    this.role = role;
-                  }
-                });
+                    if((role == "ROLE_ADMIN")) {
+                        this.role = role;
+                    }else if(role == "ROLE_PROFESSIONNEL") {
+                      if(this.role == '') {
+                        this.role = role;
+                      }
+                    }
+                  });
                 localStorage.setItem('nom', o.nom);
                 localStorage.setItem('prenom', o.prenom);
                 localStorage.setItem('username', o.username);

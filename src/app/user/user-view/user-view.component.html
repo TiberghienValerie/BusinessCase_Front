@@ -1,0 +1,49 @@
+<section>
+  <div class="row">
+    <div class="col-4 col-sm-3 col-md-3">
+      <div class="d-flex">
+        <button id="menu" type="button" class="btnJaune btn btn-display">
+          <i class="fas fa-arrow-left" aria-hidden="true"></i>
+          <a [routerLink]="['../../lesUsers']" title="Retour">Retour</a>
+        </button>
+      </div>
+    </div>
+    <div class="col-8 col-sm-9 col-md-9">
+      <h1>{{ tabUser[0].nom }} {{ tabUser[0].prenom }}</h1>
+    </div>
+  </div>
+  <!-- informations-->
+  <div class="row">
+    <div class="col-12 col-md-12 mt-5 mb-3">
+      <div class="shadows">
+        <div class="row p-3">
+          <div class="col-6 col-md-6 textContenuBold">
+            UserName : {{ tabUser[0].username }}
+          </div>
+          <div class="textContenuBold col-6 col-md-6 text-right">
+            Email : {{ tabUser[0].email }}
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-6 col-md-6 textContenuBold">
+            Téléphone : {{ tabUser[0].telephone }}
+          </div>
+          <div class="textContenuBold col-6 col-md-6 text-right">
+            Siret : {{ tabUser[0].siret }}
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-12 col-md-12 textContenuBold">
+            Rôle : {{ tabUser[0].roles }}
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+</section>

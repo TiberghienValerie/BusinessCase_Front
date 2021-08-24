@@ -1,0 +1,162 @@
+<div class="container m-4 ">
+  <div class="mt-3 p-3 shadows">
+    <form
+      [formGroup]="userForm"
+      class="login-container"
+      (ngSubmit)="valider()"
+    >
+      <div class="row">
+        <div class="col-6">
+
+          <label for="username">
+            Username
+          </label>
+          <input id="username"
+                 type="text"
+                 placeholder="Votre username"
+                 formControlName="username"
+          >
+
+          <ul *ngIf="userForm.controls.username.touched && !userForm.controls.username.valid">
+            <li *ngIf="userForm.controls.username.hasError('required')">
+              Required
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="col-6">
+
+          <label for="password">
+            Password
+          </label>
+          <input id="password"
+                 type="password"
+                 placeholder="Votre password"
+                 formControlName="password"
+          >
+
+          <ul *ngIf="userForm.controls.password.touched && !userForm.controls.password.valid">
+            <li *ngIf="userForm.controls.password.hasError('required')">
+              Required
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <label for="nom">
+            Nom
+          </label>
+          <input id="nom"
+                 type="text"
+                 placeholder="Votre nom"
+                 formControlName="nom"
+          >
+
+          <ul *ngIf="userForm.controls.nom.touched && !userForm.controls.nom.valid">
+            <li *ngIf="userForm.controls.nom.hasError('required')">
+              Required
+            </li>
+          </ul>
+
+        </div>
+
+        <div class="col-6">
+
+          <label for="prenom">
+            Prénom
+          </label>
+          <input id="prenom"
+                 type="text"
+                 placeholder="Votre prénom"
+                 formControlName="prenom"
+          >
+
+          <ul *ngIf="userForm.controls.prenom.touched && !userForm.controls.prenom.valid">
+            <li *ngIf="userForm.controls.prenom.hasError('required')">
+              Required
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <label for="telephone">
+            Téléphone
+          </label>
+          <input id="telephone"
+                 type="tel"
+                 placeholder="Votre téléphone"
+                 formControlName="telephone"
+          >
+
+          <ul *ngIf="userForm.controls.telephone.touched && !userForm.controls.telephone.valid">
+            <li *ngIf="userForm.controls.telephone.hasError('required')">
+              Required
+            </li>
+
+          </ul>
+
+
+        </div>
+        <div class="col-6">
+
+          <label for="email">
+            Email
+          </label>
+          <input id="email"
+                 type="email"
+                 placeholder="Votre émail"
+                 formControlName="email"
+                 width="250px"
+          >
+
+          <ul *ngIf="userForm.controls.email.touched && !userForm.controls.email.valid">
+            <li *ngIf="userForm.controls.email.hasError('required')">
+              Required
+            </li>
+            <li *ngIf="userForm.controls.email.hasError('email')">
+              Not a valid email
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <label for="siret">
+            Siret
+          </label>
+          <input id="siret"
+                 type="text"
+                 placeholder="Votre siret"
+                 formControlName="siret"
+          >
+
+          <ul *ngIf="userForm.controls.siret.touched && !userForm.controls.siret.valid">
+            <li *ngIf="userForm.controls.siret.hasError('required')">
+              Required
+            </li>
+
+          </ul>
+
+        </div>
+
+
+
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <input type="submit" class="btn btnRouge" value="Ajouter" />
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+

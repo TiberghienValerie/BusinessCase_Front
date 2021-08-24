@@ -1,0 +1,131 @@
+<div class="container m-4 ">
+  <div class="mt-3 p-3 shadows">
+    <form
+      [formGroup]="userForm"
+      class="login-container"
+      (ngSubmit)="valider()"
+    >
+      <div class="row">
+        <div class="col-6">
+
+          <label for="username">
+            Username
+          </label>
+          <input id="username"
+                 type="text"
+                 [readonly]="true"
+                 placeholder="Votre username"
+                 formControlName="username"
+          >
+        </div>
+
+        <div class="col-6">
+
+          <label for="password">
+            Password
+          </label>
+          <input id="password"
+                 type="password"
+                 placeholder="Votre password"
+                 formControlName="password"
+          >
+
+          <ul *ngIf="userForm.controls.password.touched && !userForm.controls.password.valid">
+            <li *ngIf="userForm.controls.password.hasError('required')">
+              Required
+            </li>
+          </ul>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <label for="nom">
+            Nom
+          </label>
+          <input id="nom"
+                 type="text"
+                 placeholder="Votre nom"
+                 formControlName="nom"
+                 [readonly]="true"
+          >
+        </div>
+
+        <div class="col-6">
+
+          <label for="prenom">
+            Prénom
+          </label>
+          <input id="prenom"
+                 type="text"
+                 [readonly]="true"
+                 placeholder="Votre prénom"
+                 formControlName="prenom"
+          >
+
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <label for="telephone">
+            Téléphone
+          </label>
+          <input id="telephone"
+                 type="tel"
+                 [readonly]="true"
+                 placeholder="Votre téléphone"
+                 formControlName="telephone"
+          >
+
+
+
+
+        </div>
+        <div class="col-6">
+
+          <label for="email">
+            Email
+          </label>
+          <input id="email"
+                 type="email"
+                 [readonly]="true"
+                 placeholder="Votre émail"
+                 formControlName="email"
+                 width="250px"
+          >
+
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+
+          <label for="siret">
+            Siret
+          </label>
+          <input id="siret"
+                 [readonly]="true"
+                 type="text"
+                 placeholder="Votre siret"
+                 formControlName="siret"
+          >
+
+
+        </div>
+
+
+
+      </div>
+      <div class="row">
+        <div class="col-12 text-center">
+          <input type="submit" class="btn btnRouge" value="Modifier" />
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+

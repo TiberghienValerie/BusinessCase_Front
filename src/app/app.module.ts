@@ -38,6 +38,11 @@ import { AnnonceListComponent } from './annonce/annonce-list/annonce-list.compon
 import { AnnonceReadComponent } from './annonce/annonce-read/annonce-read.component';
 import { AnnonceAddComponent } from './annonce/annonce-add/annonce-add.component';
 import { AnnonceUpdateComponent } from './annonce/annonce-update/annonce-update.component';
+import { UserListComponent } from './user/user-list/user-list.component';
+import { UserViewComponent } from './user/user-view/user-view.component';
+import { UserAddComponent } from './user/user-add/user-add.component';
+import { UserUpdateComponent } from './user/user-update/user-update.component';
+import { StatistiqueComponent } from './statistique/statistique/statistique.component';
 
 
 @NgModule({
@@ -64,6 +69,11 @@ import { AnnonceUpdateComponent } from './annonce/annonce-update/annonce-update.
     AnnonceReadComponent,
     AnnonceAddComponent,
     AnnonceUpdateComponent,
+    UserListComponent,
+    UserViewComponent,
+    UserAddComponent,
+    UserUpdateComponent,
+    StatistiqueComponent,
   ],
   imports: [
     BrowserModule,

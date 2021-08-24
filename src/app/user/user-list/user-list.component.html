@@ -1,0 +1,48 @@
+<button type="submit" class="btnRouge btn btn-display">
+  <a [routerLink]="['../user-add']" title="Ajouter"
+  >Ajouter</a
+  >
+</button>
+<div class="textContenuBold text-center align-self-center col-12 col-md-12 m-4">{{ nbTotalEnregistrement }} Users</div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">UserName</th>
+    <th scope="col">Email </th>
+    <th scope="col">Nom Prénom </th>
+    <th scope="col">Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of tabUser">
+    <td>{{ user.id | number }}</td>
+    <td>{{ user.username }} </td>
+    <td>{{ user.email }} </td>
+    <td>{{ user.nom }} {{user.prenom}}</td>
+    <td>
+      <button type="submit" class="btnJaune btn btn-display">
+        <a [routerLink]="['../user-view', user.id]" title="Plus info"
+        >Plus info</a
+        >
+      </button>
+
+      <button type="submit" class="btnRouge btn btn-display">
+        <a [routerLink]="['../user-update', user.id]" title="Modifier"
+        >Modifier mot de passe</a
+        >
+      </button>
+
+    </td>
+  </tr>
+  </tbody>
+</table>
+<pagination
+  [totalItems]="nbTotalEnregistrement"
+  [itemsPerPage]="resultatParPage"
+  (pageChanged)="pageChanged($event, url2)"
+  previousText="&lsaquo;"
+  nextText="&rsaquo;"
+  firstText="&laquo;"
+  lastText="&raquo;"
+></pagination>

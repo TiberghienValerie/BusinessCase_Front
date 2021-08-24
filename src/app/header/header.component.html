@@ -226,6 +226,19 @@
             >Contact</a
           >
         </li>
+        <li *ngIf="roleUtilisateur!='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
+          <a class="nav-link" [routerLink]="['lesUsers']" (click)="close()"
+          >Gérer les users</a
+          >
+        </li>
+
+        <li *ngIf="roleUtilisateur!='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
+          <a class="nav-link" [routerLink]="['lesStatistiques']" (click)="close()"
+          >Les statistiques</a
+          >
+        </li>
+
+
 
         <li *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
           <a class="nav-link" [routerLink]="['monCompte']" (click)="close()"
@@ -239,7 +252,7 @@
         </li>
         <li *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
           <a class="nav-link" [routerLink]="['mesAnnonces']" (click)="close()"
-            >Gestion Mes annonces par Garage</a
+            >Gérer mes annonces</a
           >
         </li>
         <li class="nav-item d-lg-none">
@@ -279,8 +292,14 @@
         [ngClass]="classActive2 === true ? '-visible' : ''"
         class="hide-box shadows position-absolute translate-middle-x"
       >
-        <a *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['monCompte']">Gérer mon compte</a>
-        <a *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['mesGarages']">Gérer mes garages</a>
+        <a *ngIf="roleUtilisateur!='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['lesUsers']">
+          Gérer les users</a>
+        <a *ngIf="roleUtilisateur!='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['lesStatistiques']">
+          Les statistiques</a>
+        <a *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['monCompte']">
+          Gérer mon compte</a>
+        <a *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['mesGarages']">
+          Gérer mes garages</a>
         <a  *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['mesAnnonces']"
           >Gérer mes annonces</a
         >

@@ -160,6 +160,8 @@ export class AnnonceUpdateComponent implements OnInit {
     this.tabModelesFiltrer = [];
     this.getCarburants();
     this.getGarages();
+    this.getMarques();
+    this.getModeles();
 
 
 
@@ -177,8 +179,8 @@ export class AnnonceUpdateComponent implements OnInit {
       this.httpClient.get<Annonces>(`${this.apiURL}/api/annonces/${this.id}`, httpOptions).subscribe(
         (data) => {
           this.annonceForm.setValue({'titre':  data.titre, 'description' : data.descriptionLongue, 'anneeCirculation': data.anneeCirculation, 'kilometrage': data.kilometrage, 'prix': data.prix, 'carburant': data.carburant.id, 'modele': data.modele.id, 'marque': data.modele.Marque.id, 'garage': data.garage.id})
-          this.getMarques();
-          this.getModeles();
+          /*this.getMarques();
+          this.getModeles();*/
           this.onMarqueChanged(data.modele.Marque.id);
           this.ngAfterViewInit();
         },

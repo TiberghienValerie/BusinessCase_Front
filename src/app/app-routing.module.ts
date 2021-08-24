@@ -18,6 +18,11 @@ import {AnnonceListComponent} from "./annonce/annonce-list/annonce-list.componen
 import {AnnonceReadComponent} from "./annonce/annonce-read/annonce-read.component";
 import {AnnonceAddComponent} from "./annonce/annonce-add/annonce-add.component";
 import {AnnonceUpdateComponent} from "./annonce/annonce-update/annonce-update.component";
+import {UserListComponent} from "./user/user-list/user-list.component";
+import {UserViewComponent} from "./user/user-view/user-view.component";
+import {UserAddComponent} from "./user/user-add/user-add.component";
+import {UserUpdateComponent} from "./user/user-update/user-update.component";
+import {StatistiqueComponent} from "./statistique/statistique/statistique.component";
 
 const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
@@ -26,18 +31,71 @@ const routerOptions: ExtraOptions = {
 };
 
 const routes: Routes = [
-  { path: '', redirectTo: '/accueil', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '/accueil',
+    pathMatch: 'full'
+  },
   {
     path: 'plan',
     component: PlanSiteComponent,
   },
-  { path: 'mentionsLegales', component: MentionsLegalesComponent },
-  { path: 'CGU', component: CGUComponent },
-  { path: 'FAQ', component: FAQComponent },
-  { path: 'contact', component: ContactComponent },
-  { path: 'accueil', component: AccueilComponent },
-  { path: 'apropos', component: AproposComponent },
-  { path: 'fiche/:id', component: FicheComponent },
+  {
+    path: 'mentionsLegales',
+    component: MentionsLegalesComponent
+  },
+  {
+    path: 'CGU',
+    component: CGUComponent
+  },
+  {
+    path: 'FAQ',
+    component: FAQComponent
+  },
+  {
+    path: 'contact',
+    component: ContactComponent
+  },
+  {
+    path: 'accueil',
+    component: AccueilComponent
+  },
+  {
+    path: 'apropos',
+    component: AproposComponent
+  },
+  {
+    path: 'fiche/:id',
+    component: FicheComponent
+  },
+
+  {
+    path: 'lesStatistiques',
+    component: StatistiqueComponent,
+    canActivate: [IsSignedInGuard],
+  },
+
+  {
+    path: 'lesUsers',
+    component: UserListComponent,
+    canActivate: [IsSignedInGuard],
+  },
+  {
+    path: 'user-view/:id',
+    component: UserViewComponent,
+    canActivate: [IsSignedInGuard],
+  },
+  {
+    path: 'user-add',
+    component: UserAddComponent,
+    canActivate: [IsSignedInGuard],
+  },
+  {
+    path: 'user-update/:id',
+    component: UserUpdateComponent,
+    canActivate: [IsSignedInGuard],
+  },
+
   {
     path: 'monCompte',
     component: MonCompteComponent,
@@ -48,17 +106,41 @@ const routes: Routes = [
     component: GarageListComponent,
     canActivate: [IsSignedInGuard],
   },
-  { path: 'garage-view/:id', component: GarageViewComponent, canActivate: [IsSignedInGuard], },
-  { path: 'garage-update/:id', component: GarageUpdateComponent, canActivate: [IsSignedInGuard],},
-  { path: 'garage-add', component: GarageAddComponent, canActivate: [IsSignedInGuard], },
+  {
+    path: 'garage-view/:id',
+    component: GarageViewComponent,
+    canActivate: [IsSignedInGuard],
+  },
+  {
+    path: 'garage-update/:id',
+    component: GarageUpdateComponent,
+    canActivate: [IsSignedInGuard],
+  },
+  {
+    path: 'garage-add',
+    component: GarageAddComponent,
+    canActivate: [IsSignedInGuard],
+  },
   {
     path: 'mesAnnonces',
     component: AnnonceListComponent,
     canActivate: [IsSignedInGuard],
   },
-  { path: 'annonce-read/:id', component: AnnonceReadComponent, canActivate: [IsSignedInGuard], },
-  { path: 'annonce-update/:id', component: AnnonceUpdateComponent, canActivate: [IsSignedInGuard],},
-  { path: 'annonce-add', component: AnnonceAddComponent, canActivate: [IsSignedInGuard], },
+  {
+    path: 'annonce-read/:id',
+    component: AnnonceReadComponent,
+    canActivate: [IsSignedInGuard],
+  },
+  {
+    path: 'annonce-update/:id',
+    component: AnnonceUpdateComponent,
+    canActivate: [IsSignedInGuard],
+  },
+  {
+    path: 'annonce-add',
+    component: AnnonceAddComponent,
+    canActivate: [IsSignedInGuard],
+  },
 
 ];
 
