@@ -135,9 +135,8 @@ export class AnnonceUpdateComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-
     this.marque.nativeElement.focus();
-
+    this.onMarqueChanged(this.annonceForm.get('marque')?.value);
   }
 
 
@@ -162,9 +161,9 @@ export class AnnonceUpdateComponent implements OnInit {
     this.getGarages();
     this.getMarques();
     this.getModeles();
+  }
 
-
-
+  ngOnInit(): void {
     if (this.authService.hasToken()) {
       this.route.paramMap.subscribe((params) => {
         this.id = params.get('id')!;
@@ -179,10 +178,7 @@ export class AnnonceUpdateComponent implements OnInit {
       this.httpClient.get<Annonces>(`${this.apiURL}/api/annonces/${this.id}`, httpOptions).subscribe(
         (data) => {
           this.annonceForm.setValue({'titre':  data.titre, 'description' : data.descriptionLongue, 'anneeCirculation': data.anneeCirculation, 'kilometrage': data.kilometrage, 'prix': data.prix, 'carburant': data.carburant.id, 'modele': data.modele.id, 'marque': data.modele.Marque.id, 'garage': data.garage.id})
-          /*this.getMarques();
-          this.getModeles();*/
           this.onMarqueChanged(data.modele.Marque.id);
-          this.ngAfterViewInit();
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.
@@ -191,10 +187,6 @@ export class AnnonceUpdateComponent implements OnInit {
       );
 
     }
-
-  }
-
-  ngOnInit(): void {
   }
 
   onMarqueChanged(value: any) {
