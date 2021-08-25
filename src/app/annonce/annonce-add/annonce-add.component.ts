@@ -30,7 +30,7 @@ export class AnnonceAddComponent implements OnInit {
   public apiURL = environment.apiURL;
 
   public annonceForm: FormGroup = this.formBuilder.group({
-    titre: ['', [Validators.required]],
+    nom: ['', [Validators.required]],
     description: ['', [Validators.required]],
     anneeCirculation: ['', [Validators.required, Validators.min(1975), Validators.max(2030)]],
     kilometrage: ['', [Validators.required, Validators.min(0), Validators.max(250000)]],

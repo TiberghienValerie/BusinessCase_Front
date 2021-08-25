@@ -64,7 +64,7 @@ export class FicheComponent implements OnInit {
               data.id,
               data.refAnnonce,
               data.DateAnnonce,
-              data.titre,
+              data.nom,
               data.descriptionCourte,
               data.descriptionLongue,
               data.anneeCirculation,

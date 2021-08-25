@@ -172,7 +172,7 @@ export class FormRechercheComponent implements OnInit {
                 o.id,
                 o.refAnnonce,
                 o.DateAnnonce,
-                o.titre,
+                o.nom,
                 o.descriptionCourte,
                 o.descriptionLongue,
                 o.anneeCirculation,

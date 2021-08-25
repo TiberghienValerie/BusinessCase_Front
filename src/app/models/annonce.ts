@@ -8,7 +8,7 @@ export class Annonce {
     public id: number,
     public refAnnonce: string,
     public DateAnnonce: Date,
-    public titre: string,
+    public nom: string,
     public descriptionCourte: string,
     public descriptionLongue: string,
     public anneeCirculation: number,

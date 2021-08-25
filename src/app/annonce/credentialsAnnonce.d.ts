@@ -1,7 +1,7 @@
 import {Validators} from "@angular/forms";
 
 export interface CredentialsAnnonce {
-  titre: string,
+  nom: string,
   description: string,
   anneeCirculation: number,
   kilometrage: number,

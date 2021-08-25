@@ -16,7 +16,8 @@ import {Garages} from "../../models/garages";
 import {Ville} from "../../models/ville";
 import {environment} from "../../../environments/environment";
 import {CredentialsAnnonce} from "../credentialsAnnonce";
-import {Annonces} from "../../models/annonces";
+import {Annonce} from "../../models/annonce";
+import {Photos} from "../../models/photos";
 
 @Component({
   selector: 'app-annonce-update',
@@ -29,19 +30,9 @@ export class AnnonceUpdateComponent implements OnInit {
   public url: string |null | undefined;
   public apiURL = environment.apiURL;
   public id: string |null | undefined;
+  public tabAnnonce: Annonce[] = [];
 
-  public annonceForm: FormGroup = this.formBuilder.group({
-    titre: ['', [Validators.required]],
-    description: ['', [Validators.required]],
-    anneeCirculation: ['', [Validators.required, Validators.min(1975), Validators.max(2030)]],
-    kilometrage: ['', [Validators.required, Validators.min(0), Validators.max(250000)]],
-    prix: ['', [Validators.required, Validators.min(0), Validators.max(250000)]],
-    carburant:[0, [Validators.required]],
-    modele: [0, [Validators.required]],
-    marque: [0, [Validators.required]],
-    garage: [0, [Validators.required]]
 
-  });
 
   @ViewChild('marque') marque!: ElementRef;
 
@@ -52,6 +43,8 @@ export class AnnonceUpdateComponent implements OnInit {
   public tabModeles: Modele[] = [];
   public tabModelesFiltrer: Modele[] = [];
   public disabled: boolean = true;
+  public photos: Photos[] = [];
+  public annonceForm!: FormGroup;
 
   getCarburants(page: number = 1) {
     this.serviceApiCarburant.getCollection(page).subscribe(
@@ -157,10 +150,7 @@ export class AnnonceUpdateComponent implements OnInit {
     this.tabMarques = [];
     this.tabModeles = [];
     this.tabModelesFiltrer = [];
-    this.getCarburants();
-    this.getGarages();
-    this.getMarques();
-    this.getModeles();
+
   }
 
   ngOnInit(): void {
@@ -175,10 +165,53 @@ export class AnnonceUpdateComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.httpClient.get<Annonces>(`${this.apiURL}/api/annonces/${this.id}`, httpOptions).subscribe(
+      this.httpClient.get<Annonce>(`${this.apiURL}/api/annonces/${this.id}`, httpOptions).subscribe(
         (data) => {
-          this.annonceForm.setValue({'titre':  data.titre, 'description' : data.descriptionLongue, 'anneeCirculation': data.anneeCirculation, 'kilometrage': data.kilometrage, 'prix': data.prix, 'carburant': data.carburant.id, 'modele': data.modele.id, 'marque': data.modele.Marque.id, 'garage': data.garage.id})
-          this.onMarqueChanged(data.modele.Marque.id);
+          this.photos = [];
+          if(data.photos.length>0) {
+            let i = 0;
+            for(let p of data.photos) {
+              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${data.id}/${p.pathPhotos}`);
+              i = i+1;
+            }
+          }
+          this.tabAnnonce.push(
+            new Annonce(
+              data.id,
+              data.refAnnonce,
+              data.DateAnnonce,
+              data.nom,
+              data.descriptionCourte,
+              data.descriptionLongue,
+              data.anneeCirculation,
+              data.kilometrage,
+              data.prix,
+              new Modele(data.modele.id, data.modele.nomModele, new Marque(data.modele.Marque.id, data.modele.Marque.nomMarque)),
+              new Garage(data.garage.id, data.garage.nom),
+              new Carburant(data.carburant.id, data.carburant.NomCarburant),
+              this.photos
+            )
+          );
+
+          this.getCarburants();
+          this.getGarages();
+          this.getMarques();
+          this.getModeles();
+
+          this.annonceForm = this.formBuilder.group({
+            nom: [this.tabAnnonce[0].nom, [Validators.required]],
+            description: [this.tabAnnonce[0].descriptionLongue, [Validators.required]],
+            anneeCirculation: [this.tabAnnonce[0].anneeCirculation, [Validators.required, Validators.min(1975), Validators.max(2030)]],
+            kilometrage: [this.tabAnnonce[0].kilometrage, [Validators.required, Validators.min(0), Validators.max(250000)]],
+            prix: [this.tabAnnonce[0].prix, [Validators.required, Validators.min(0), Validators.max(250000)]],
+            carburant:[this.tabAnnonce[0].carburant.id, [Validators.required]],
+            modele: [this.tabAnnonce[0].modele.id, [Validators.required]],
+            marque: [this.tabAnnonce[0].modele.Marque.id, [Validators.required]],
+            garage: [this.tabAnnonce[0].garage.id, [Validators.required]]
+          });
+
+          this.onMarqueChanged(this.tabAnnonce[0].modele.Marque.id);
+
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.
@@ -186,7 +219,8 @@ export class AnnonceUpdateComponent implements OnInit {
         },
       );
 
-    }
+    };
+
   }
 
   onMarqueChanged(value: any) {
@@ -202,8 +236,6 @@ export class AnnonceUpdateComponent implements OnInit {
   }
 
   valider() {
-
-
 
     this.annonceForm.markAllAsTouched();
     // If the form is valid (all inputs valids).
