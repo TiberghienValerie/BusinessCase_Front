@@ -34,19 +34,22 @@ export class FicheComponent implements OnInit {
     public serviceApiAnnonce: annonceApiService,
     private spinner: NgxSpinnerService
   ) {
+  }
+
+  ngOnInit(): void {
 
     this.route.paramMap.subscribe((params) => {
       this.idObj = params.get('id')!;
     });
-    this.spinner.show("fiche");
+    this.spinner.show("ficheannonce");
     this.serviceApiAnnonce.getItem(parseInt(this.idObj)).subscribe(
       (data) => {
         this.photos = [];
         if(data.photos.length>0) {
           let i=0;
           for(let p of data.photos) {
-              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${data.id}/${p.pathPhotos}`);
-              i = i+1;
+            this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${data.id}/${p.pathPhotos}`);
+            i = i+1;
           }
 
           for(let p1 of this.photos) {
@@ -59,25 +62,24 @@ export class FicheComponent implements OnInit {
         }
 
 
-          this.tabAnnoncesId.push(
-            new Annonce(
-              data.id,
-              data.refAnnonce,
-              data.DateAnnonce,
-              data.nom,
-              data.descriptionCourte,
-              data.descriptionLongue,
-              data.anneeCirculation,
-              data.kilometrage,
-              data.prix,
-              new Modele(data.modele.id, data.modele.nomModele, new Marque(data.modele.Marque.id, data.modele.Marque.nomMarque)),
-              new Garage(data.garage.id, data.garage.nom),
-              new Carburant(data.carburant.id, data.carburant.NomCarburant),
-              this.photos
-            ));
-        this.spinner.hide("fiche");
+        this.tabAnnoncesId.push(
+          new Annonce(
+            data.id,
+            data.refAnnonce,
+            data.DateAnnonce,
+            data.nom,
+            data.descriptionCourte,
+            data.descriptionLongue,
+            data.anneeCirculation,
+            data.kilometrage,
+            data.prix,
+            new Modele(data.modele.id, data.modele.nomModele, new Marque(data.modele.Marque.id, data.modele.Marque.nomMarque)),
+            new Garage(data.garage.id, data.garage.nom),
+            new Carburant(data.carburant.id, data.carburant.NomCarburant),
+            this.photos
+          ));
+        this.spinner.hide("ficheannonce");
       });
-  }
 
-  ngOnInit(): void {}
+  }
 }

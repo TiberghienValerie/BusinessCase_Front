@@ -145,11 +145,6 @@ export class AccueilComponent implements OnInit {
     this.getParametre();
     this.resultatParPage = 30;
     this.mode = 'nonRecherche';
-
-
-
-
-
   }
 
   ngOnInit(): void {

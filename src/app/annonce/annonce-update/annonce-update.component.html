@@ -1,4 +1,8 @@
 <div class="container m-4 ">
+  <button id="menu" type="button" class="btnJaune btn btn-display">
+    <i class="fas fa-arrow-left" aria-hidden="true"></i>
+    <a [routerLink]="['../../mesAnnonces']" title="Retour">Retour</a>
+  </button>
   <div class="mt-3 p-3 shadows">
     <form
       [formGroup]="annonceForm"
@@ -70,13 +74,10 @@
             aria-label="marque"
             class="shadows form-control form-select"
             formControlName="marque"
-            #marque
             (change)="onMarqueChanged($event)"
-            (focus)="onMarqueChanged($event)"
-            (load)="onMarqueChanged($event)"
           >
             <option value="0">Toutes les marques</option>
-            <option *ngFor="let m of tabMarques" value="{{m.id}}">
+            <option *ngFor="let m of tabMarques" value={{m.id}}>
               {{ m.nomMarque }}
             </option>
           </select>
@@ -91,11 +92,11 @@
             aria-label="modele"
             class="shadows form-control form-select"
             formControlName="modele"
+            #modele
             [disabled]="disabled"
-
           >
             <option value="0">Tous les modèles</option>
-            <option *ngFor="let mo of tabModelesFiltrer" value="{{ mo.id }}">
+            <option *ngFor="let mo of tabModelesFiltrer" value={{mo.id}}>
               {{ mo.nomModele }}
             </option>
           </select>
@@ -114,7 +115,7 @@
             formControlName="carburant"
           >
             <option value="0">Tous les carburants</option>
-            <option *ngFor="let c of tabCarburants" value="{{ c.id }}">
+            <option *ngFor="let c of tabCarburants" value={{c.id}}>
               {{ c.NomCarburant }}
             </option>
           </select>
@@ -132,15 +133,24 @@
             formControlName="garage"
           >
             <option value="0">Tous les garages</option>
-            <option *ngFor="let g of tabGarages" value="{{ g.id }}">
+            <option *ngFor="let g of tabGarages" value={{g.id}}>
               {{ g.nom }}
             </option>
           </select>
         </div>
       </div>
       <div class="row">
-        <div class="col-12 text-center">
+        <div class="p-3 marginbottom2 col-12 text-center align-self-center">
           <input type="submit" class="btn btnRouge" value="Modifier" />
         </div>
       </div>
     </form>
+    <ngx-spinner
+      bdColor="rgba(0, 0, 0, 0.8)"
+      size="medium"
+      color="#fff"
+      type="square-jelly-box"
+      [fullScreen]="true"
+      name="annonce-update"
+    ><p style="color: white">Loading...</p>
+    </ngx-spinner>

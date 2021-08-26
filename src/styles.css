@@ -369,9 +369,27 @@ li.nav-item .active {
   background: var(--backgroundgrid);
 }
 
+
 .marginbottom {
   margin-bottom: -15px;
 }
+
+/** formulaire annonce et garage et mon compte*/
+.marginbottom2 {
+  margin-bottom: -50px;
+}
+
+/** contact **/
+.marginbottom3 {
+  margin-bottom: -33px;
+}
+
+/** photo annonce view */
+.marginbottom4 {
+  margin-bottom: -127px;
+}
+
+
 
 /*====================
   Images

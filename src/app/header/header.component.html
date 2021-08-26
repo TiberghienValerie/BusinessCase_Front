@@ -150,8 +150,7 @@
                   </li>
                 </ul>
               </div>
-
-
+              <br/>
               <div>
                 <input type="submit" value="Se connecter" />
               </div>
@@ -228,13 +227,13 @@
         </li>
         <li *ngIf="roleUtilisateur!='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
           <a class="nav-link" [routerLink]="['lesUsers']" (click)="close()"
-          >Gérer les users</a
+          >Gérer Les Utilisateurs</a
           >
         </li>
 
         <li *ngIf="roleUtilisateur!='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
           <a class="nav-link" [routerLink]="['lesStatistiques']" (click)="close()"
-          >Les statistiques</a
+          >Les Statistiques</a
           >
         </li>
 
@@ -252,7 +251,7 @@
         </li>
         <li *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" class="nav-item d-lg-none">
           <a class="nav-link" [routerLink]="['mesAnnonces']" (click)="close()"
-            >Gérer mes annonces</a
+            >Gérer Mes Annonces</a
           >
         </li>
         <li class="nav-item d-lg-none">
@@ -293,15 +292,15 @@
         class="hide-box shadows position-absolute translate-middle-x"
       >
         <a *ngIf="roleUtilisateur!='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['lesUsers']">
-          Gérer les users</a>
+          Gérer Les Utilisateurs</a>
         <a *ngIf="roleUtilisateur!='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['lesStatistiques']">
-          Les statistiques</a>
+          Les Statistiques</a>
         <a *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['monCompte']">
-          Gérer mon compte</a>
+          Gérer Mon Compte</a>
         <a *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['mesGarages']">
-          Gérer mes garages</a>
+          Gérer Mes Garages</a>
         <a  *ngIf="roleUtilisateur=='ROLE_PROFESSIONNEL'" (click)="close2()" class="nav-link" [routerLink]="['mesAnnonces']"
-          >Gérer mes annonces</a
+          >Gérer Mes Annonces</a
         >
         <a
           class="nav-link"

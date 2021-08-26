@@ -15,7 +15,7 @@
 
   <!-- carroussel -->
   <div class="row">
-    <div class="col-12 col-md-12 mt-5 mb-3">
+    <div class="col-12 col-md-12  mt-5 mb-3">
       <carousel
         [itemsPerSlide]="itemsPerSlide"
         [singleSlideOffset]="singleSlideOffset"
@@ -25,7 +25,7 @@
         [showIndicators]="showIndicator"
       >
         <slide *ngFor="let slide of slides; let index = index" class="mx-auto">
-          <img width="100%" alt="image slide" [src]="slide.image" class="img-fluid" />
+          <img width="99%" alt="image slide" [src]="slide.image" class="img-fluid" />
         </slide>
       </carousel>
     </div>
@@ -106,7 +106,7 @@
             >
           </div>
         </div>
-        <div class="row p-3">
+        <div class="row p-4">
           <p class="textcontenu">
             {{ tabAnnoncesId[0].descriptionLongue }}
           </p>
@@ -126,15 +126,14 @@
       </div>
     </div>
   </div>
+  <ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="square-jelly-box"
+    [fullScreen]="true"
+    name="ficheannonce"
+  ><p style="color: white">Loading...</p>
+  </ngx-spinner>
 </section>
-
-<ngx-spinner
-  bdColor="rgba(0, 0, 0, 0.8)"
-  size="medium"
-  color="#fff"
-  type="square-jelly-box"
-  [fullScreen]="true"
-  name="fiche"
-><p style="color: white">Loading...</p>
-</ngx-spinner>
 

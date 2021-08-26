@@ -4,7 +4,7 @@
       <div class="d-flex">
         <button id="menu" type="button" class="btnJaune btn btn-display">
           <i class="fas fa-arrow-left" aria-hidden="true"></i>
-          <a [routerLink]="['../../mesAnnonces']" title="Retour">Retour</a>
+          <a [routerLink]="['../mesAnnonces']" title="Retour">Retour</a>
         </button>
       </div>
     </div>
@@ -32,6 +32,7 @@
                 height="113"
                 alt="img"
               />
+              {{photos.nomPhotos}}
           </div>
         </div>
       </div>
@@ -72,10 +73,11 @@
                     class="form-control"
                     (change)="onFileChange($event)">
                 </div>
-
                 <ul *ngIf="mauvaisImage">
                   <li>
+                    <font color="#e33826">
                       {{mauvaisImage}}
+                    </font>
                   </li>
                 </ul>
 
@@ -87,7 +89,11 @@
 
 
                 <img [src]="imageSrc" *ngIf="imageSrc" style="height: 300px; width:500px">
-                <button class="btn btnRouge" type="submit">Submit</button>
+                <div class="row">
+                  <div class="p-3 marginbottom4 col-12 text-center align-self-center">
+                      <button class="btn btnRouge" type="submit">Ajouter</button>
+                  </div>
+                </div>
               </form>
             </div>
 
@@ -172,7 +178,7 @@
             >
           </div>
         </div>
-        <div class="row p-3">
+        <div class="row p-4">
           <p class="textcontenu">
             {{ tabAnnonce[0].descriptionLongue }}
           </p>

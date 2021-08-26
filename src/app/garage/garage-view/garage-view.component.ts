@@ -7,6 +7,7 @@ import {AuthService} from "../../service/auth.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {user2} from "../../mon-compte/user2";
 import {environment} from "../../../environments/environment";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-garage-view',
@@ -27,7 +28,8 @@ export class GarageViewComponent implements OnInit {
     private authService: AuthService,
     private httpClient: HttpClient,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private spinner: NgxSpinnerService) {
 
     if (this.authService.hasToken()) {
       this.route.paramMap.subscribe((params) => {
@@ -40,7 +42,7 @@ export class GarageViewComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-
+      this.spinner.show("garage-view");
       this.httpClient.get<Garages>(`${this.apiURL}/api/garages/${this.id}`, httpOptions).subscribe(
         (data) => {
             this.tabGarage.push(
@@ -52,6 +54,7 @@ export class GarageViewComponent implements OnInit {
                 data.annonces
               )
             );
+          this.spinner.hide("garage-view");
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.

@@ -18,6 +18,7 @@ import {environment} from "../../../environments/environment";
 import {CredentialsAnnonce} from "../credentialsAnnonce";
 import {Annonce} from "../../models/annonce";
 import {Photos} from "../../models/photos";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-annonce-update',
@@ -32,17 +33,12 @@ export class AnnonceUpdateComponent implements OnInit {
   public id: string |null | undefined;
   public tabAnnonce: Annonce[] = [];
 
-
-
-  @ViewChild('marque') marque!: ElementRef;
-
-
   public tabCarburants: Carburant[] = [];
   public tabGarages: Garage[] = [];
   public tabMarques: Marque[] = [];
   public tabModeles: Modele[] = [];
   public tabModelesFiltrer: Modele[] = [];
-  public disabled: boolean = true;
+  public disabled: boolean = false;
   public photos: Photos[] = [];
   public annonceForm!: FormGroup;
 
@@ -77,17 +73,22 @@ export class AnnonceUpdateComponent implements OnInit {
 
   }
 
-  getModeles(page: number = 1) {
+  getModeles(marque: number, page: number = 1) {
     this.serviceApiModele.getCollection(page).subscribe(
       (data) => {
         for (let o of data['hydra:member'] ) {
+          if(o.Marque.id == marque) {
+            this.tabModelesFiltrer.push(
+              new Modele(o.id, o.nomModele, new Marque(o.Marque.id, o.Marque.nomMarque))
+            );
+          }
           this.tabModeles.push(
             new Modele(o.id, o.nomModele, new Marque(o.Marque.id, o.Marque.nomMarque))
           );
         }
         if(data['hydra:view']['hydra:next']!== undefined) {
           let recherchePage = parseInt(data['hydra:view']['hydra:next'].split(/\s*=\s*/)[1]);
-          this.getModeles(recherchePage);
+          this.getModeles(marque, recherchePage);
         }
       },
       () => {
@@ -127,12 +128,6 @@ export class AnnonceUpdateComponent implements OnInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    this.marque.nativeElement.focus();
-    this.onMarqueChanged(this.annonceForm.get('marque')?.value);
-  }
-
-
   constructor(
     private authService: AuthService,
     private garageApiService: GarageApiService,
@@ -142,7 +137,8 @@ export class AnnonceUpdateComponent implements OnInit {
     private formBuilder: FormBuilder,
     public serviceApiCarburant: carburantApiService,
     public serviceApiMarque: marqueApiService,
-    public serviceApiModele: modeleApiService
+    public serviceApiModele: modeleApiService,
+    private spinner: NgxSpinnerService
   ) {
 
     this.tabCarburants = [];
@@ -150,10 +146,6 @@ export class AnnonceUpdateComponent implements OnInit {
     this.tabMarques = [];
     this.tabModeles = [];
     this.tabModelesFiltrer = [];
-
-  }
-
-  ngOnInit(): void {
     if (this.authService.hasToken()) {
       this.route.paramMap.subscribe((params) => {
         this.id = params.get('id')!;
@@ -165,6 +157,7 @@ export class AnnonceUpdateComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
+      this.spinner.show("annonce-update");
       this.httpClient.get<Annonce>(`${this.apiURL}/api/annonces/${this.id}`, httpOptions).subscribe(
         (data) => {
           this.photos = [];
@@ -193,10 +186,6 @@ export class AnnonceUpdateComponent implements OnInit {
             )
           );
 
-          this.getCarburants();
-          this.getGarages();
-          this.getMarques();
-          this.getModeles();
 
           this.annonceForm = this.formBuilder.group({
             nom: [this.tabAnnonce[0].nom, [Validators.required]],
@@ -209,9 +198,11 @@ export class AnnonceUpdateComponent implements OnInit {
             marque: [this.tabAnnonce[0].modele.Marque.id, [Validators.required]],
             garage: [this.tabAnnonce[0].garage.id, [Validators.required]]
           });
-
-          this.onMarqueChanged(this.tabAnnonce[0].modele.Marque.id);
-
+          this.getModeles(this.tabAnnonce[0].modele.Marque.id);
+          this.getMarques();
+          this.getCarburants();
+          this.getGarages();
+          this.spinner.hide("annonce-update");
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.
@@ -223,8 +214,12 @@ export class AnnonceUpdateComponent implements OnInit {
 
   }
 
+  ngOnInit(): void {
+  }
+
   onMarqueChanged(value: any) {
-    this.tabModelesFiltrer.length = 0;
+
+    this.tabModelesFiltrer = [];
     let val = this.tabModeles.filter(function (c) {
       return c.Marque.id === parseInt(value.target.value);
     });
@@ -234,6 +229,7 @@ export class AnnonceUpdateComponent implements OnInit {
       this.disabled = true;
     } else this.disabled = false;
   }
+
 
   valider() {
 
