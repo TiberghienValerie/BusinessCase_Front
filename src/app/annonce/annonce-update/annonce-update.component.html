@@ -17,6 +17,11 @@
                  placeholder="Nom de l'annonce"
                  formControlName="nom"
           >
+          <ul *ngIf="annonceForm.controls.nom.touched && !annonceForm.controls.nom.valid">
+            <li *ngIf="annonceForm.controls.nom.hasError('required')">
+              <font color="#e33826">Le nom est requis</font>
+            </li>
+          </ul>
         </div>
         <div class="col-6">
           <label for="prix">Prix : </label>
@@ -27,6 +32,17 @@
                  placeholder="Prix de l'annonce"
                  formControlName="prix"
           >
+          <ul *ngIf="annonceForm.controls.prix.touched && !annonceForm.controls.prix.valid">
+            <li *ngIf="annonceForm.controls.prix.hasError('required')">
+              <font color="#e33826">Le prix est requis</font>
+            </li>
+            <li *ngIf="annonceForm.controls.prix.hasError('min')">
+              <font color="#e33826">Minimum required prix is {{minNum}}.</font>
+            </li>
+            <li *ngIf="annonceForm.controls.prix.hasError('max')">
+              <font color="#e33826">Max required prix is {{maxNum}}.</font>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="row">
@@ -37,12 +53,16 @@
             rows="10" cols="50">
             Desription de l'annonce
           </textarea>
-
+          <ul *ngIf="annonceForm.controls.description.touched && !annonceForm.controls.description.valid">
+            <li *ngIf="annonceForm.controls.description.hasError('required')">
+              <font color="#e33826">La description est requise</font>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
-          <label for="kilometrage">Kiomètrage : </label>
+          <label for="kilometrage">Kilomètrage : </label>
           <input id="kilometrage"
                  type="number"
                  min="0"
@@ -50,6 +70,17 @@
                  placeholder="Kilomètrage de l'annonce"
                  formControlName="kilometrage"
           >
+          <ul *ngIf="annonceForm.controls.kilometrage.touched && !annonceForm.controls.kilometrage.valid">
+            <li *ngIf="annonceForm.controls.kilometrage.hasError('required')">
+              <font color="#e33826">Le kilomètrage est requis</font>
+            </li>
+            <li *ngIf="annonceForm.controls.kilometrage.hasError('min')">
+              <font color="#e33826">Minimum required kilometrage is {{minNum}}.</font>
+            </li>
+            <li *ngIf="annonceForm.controls.kilometrage.hasError('max')">
+              <font color="#e33826">Max required kilometrage is {{maxNum}}.</font>
+            </li>
+          </ul>
         </div>
         <div class="col-6">
           <label for="anneeeCirculation">Année de circulation : </label>
@@ -60,6 +91,17 @@
                  placeholder="Année de circulation"
                  formControlName="anneeCirculation"
           >
+          <ul *ngIf="annonceForm.controls.anneeCirculation.touched && !annonceForm.controls.anneeCirculation.valid">
+            <li *ngIf="annonceForm.controls.anneeCirculation.hasError('required')">
+              <font color="#e33826">L'année de circulation est requis</font>
+            </li>
+            <li *ngIf="annonceForm.controls.anneeCirculation.hasError('min')">
+              <font color="#e33826">Minimum required anneeCirculation is {{minDate}}.</font>
+            </li>
+            <li *ngIf="annonceForm.controls.anneeCirculation.hasError('max')">
+              <font color="#e33826">Max required anneeCirculation is {{maxDate}}.</font>
+            </li>
+          </ul>
         </div>
       </div>
 
@@ -81,6 +123,11 @@
               {{ m.nomMarque }}
             </option>
           </select>
+          <ul *ngIf="annonceForm.controls.marque.touched && !annonceForm.controls.marque.valid">
+            <li *ngIf="annonceForm.controls.marque.hasError('required')">
+              <font color="#e33826">La marque est requise</font>
+            </li>
+          </ul>
         </div>
         <div class="col-6">
           <label for="modele">Modèle : </label>
@@ -100,6 +147,11 @@
               {{ mo.nomModele }}
             </option>
           </select>
+          <ul *ngIf="annonceForm.controls.modele.touched && !annonceForm.controls.modele.valid">
+            <li *ngIf="annonceForm.controls.modele.hasError('required')">
+              <font color="#e33826">Le modèle est requis</font>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="row">
@@ -119,6 +171,11 @@
               {{ c.NomCarburant }}
             </option>
           </select>
+          <ul *ngIf="annonceForm.controls.carburant.touched && !annonceForm.controls.carburant.valid">
+            <li *ngIf="annonceForm.controls.carburant.hasError('required')">
+              <font color="#e33826">Le carburant est requis</font>
+            </li>
+          </ul>
         </div>
 
         <div class="col-6">
@@ -137,6 +194,11 @@
               {{ g.nom }}
             </option>
           </select>
+          <ul *ngIf="annonceForm.controls.garage.touched && !annonceForm.controls.garage.valid">
+            <li *ngIf="annonceForm.controls.garage.hasError('required')">
+              <font color="#e33826">Le garage est requis</font>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="row">

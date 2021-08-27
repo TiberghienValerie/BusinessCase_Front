@@ -24,7 +24,7 @@
 
           <ul *ngIf="garageForm.controls.nom.touched && !garageForm.controls.nom.valid">
             <li *ngIf="garageForm.controls.nom.hasError('required')">
-              Required
+              <font color="#e33826">Le nom est requis</font>
             </li>
           </ul>
 
@@ -43,7 +43,7 @@
 
           <ul *ngIf="garageForm.controls.telephone.touched && !garageForm.controls.telephone.valid">
             <li *ngIf="garageForm.controls.telephone.hasError('required')">
-              Required
+              <font color="#e33826">Le numéro de téléphone est requis</font>
             </li>
           </ul>
 
@@ -63,7 +63,7 @@
 
           <ul *ngIf="garageForm.controls.adresse1.touched && !garageForm.controls.adresse1.valid">
             <li *ngIf="garageForm.controls.adresse1.hasError('required')">
-              Required
+              <font color="#e33826">L'adresse 1 est requis</font>
             </li>
 
           </ul>
@@ -81,17 +81,10 @@
                  formControlName="adresse2"
                  width="250px"
           >
-
-          <ul *ngIf="garageForm.controls.adresse2.touched && !garageForm.controls.adresse2.valid">
-            <li *ngIf="garageForm.controls.adresse2.hasError('required')">
-              Required
-            </li>
-          </ul>
         </div>
       </div>
       <div class="row">
         <div class="col-6">
-
           <label for="adresse3">
             Adresse 3
           </label>
@@ -100,14 +93,6 @@
                  placeholder="Votre adresse 3"
                  formControlName="adresse3"
           >
-
-          <ul *ngIf="garageForm.controls.adresse3.touched && !garageForm.controls.adresse3.valid">
-            <li *ngIf="garageForm.controls.adresse3.hasError('required')">
-              Required
-            </li>
-
-          </ul>
-
         </div>
         <div class="col-6">
 
@@ -122,7 +107,7 @@
 
           <ul *ngIf="garageForm.controls.codePostal.touched && !garageForm.controls.codePostal.valid">
             <li *ngIf="garageForm.controls.codePostal.hasError('required')">
-              Required
+              <font color="#e33826">Le code postal est requis</font>
             </li>
 
           </ul>
@@ -145,7 +130,7 @@
 
           <ul *ngIf="garageForm.controls.nomVille.touched && !garageForm.controls.nomVille.valid">
             <li *ngIf="garageForm.controls.nomVille.hasError('required')">
-              Required
+              <font color="#e33826">le nom de la ville est requis</font>
             </li>
 
           </ul>

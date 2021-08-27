@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {Collection} from "../../models/collection";
 import {Annonces} from "../../models/annonces";
 import {User} from "../../models/user";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-statistique',
@@ -28,6 +29,7 @@ export class StatistiqueComponent implements OnInit {
     private garageApiService: GarageApiService,
     private httpClient: HttpClient,
     private router: Router,
+    private spinner: NgxSpinnerService
   ) {
 
     if (this.authService.hasToken()) {
@@ -38,7 +40,7 @@ export class StatistiqueComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-
+      this.spinner.show("statistique");
       this.httpClient.get<Collection<Annonces>>(`${this.apiURL}/api/annonces`, httpOptions).subscribe(
         (data) => {
           this.countAnnonces = data['hydra:totalItems'];
@@ -53,6 +55,7 @@ export class StatistiqueComponent implements OnInit {
         (data) => {
           this.countUsers = data['hydra:totalItems']-1;
         });
+      this.spinner.hide("statistique");
 
     }
   }

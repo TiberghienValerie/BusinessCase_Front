@@ -2,3 +2,12 @@
 <p>Nombre d'utilisateurs : {{countUsers}}</p>
 <p>Nombre d'annonces : {{countAnnonces}}</p>
 <p>Nombre de garages : {{countGarages}}</p>
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  name="statistique"
+><p style="color: white">Loading...</p>
+</ngx-spinner>

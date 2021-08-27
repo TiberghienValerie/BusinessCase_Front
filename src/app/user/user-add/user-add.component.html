@@ -19,7 +19,7 @@
 
           <ul *ngIf="userForm.controls.username.touched && !userForm.controls.username.valid">
             <li *ngIf="userForm.controls.username.hasError('required')">
-              Required
+              <font color="#e33826">Le login est requis</font>
             </li>
           </ul>
 
@@ -38,7 +38,7 @@
 
           <ul *ngIf="userForm.controls.password.touched && !userForm.controls.password.valid">
             <li *ngIf="userForm.controls.password.hasError('required')">
-              Required
+              <font color="#e33826">Le mot de passe est requis</font>
             </li>
           </ul>
 
@@ -58,7 +58,7 @@
 
           <ul *ngIf="userForm.controls.nom.touched && !userForm.controls.nom.valid">
             <li *ngIf="userForm.controls.nom.hasError('required')">
-              Required
+              <font color="#e33826">Le nom est requis</font>
             </li>
           </ul>
 
@@ -77,7 +77,7 @@
 
           <ul *ngIf="userForm.controls.prenom.touched && !userForm.controls.prenom.valid">
             <li *ngIf="userForm.controls.prenom.hasError('required')">
-              Required
+              <font color="#e33826">Le prénom est requis</font>
             </li>
           </ul>
 
@@ -140,7 +140,7 @@
 
           <ul *ngIf="userForm.controls.siret.touched && !userForm.controls.siret.valid">
             <li *ngIf="userForm.controls.siret.hasError('required')">
-              Required
+              <font color="#e33826">Le numéro de siret est requis</font>
             </li>
 
           </ul>

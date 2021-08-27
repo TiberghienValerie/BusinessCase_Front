@@ -32,7 +32,7 @@
 
           <ul *ngIf="userForm.controls.password.touched && !userForm.controls.password.valid">
             <li *ngIf="userForm.controls.password.hasError('required')">
-              Required
+              <font color="#e33826">Le mot de passe est requis</font>
             </li>
           </ul>
 
@@ -128,4 +128,12 @@
     </form>
   </div>
 </div>
-
+<ngx-spinner
+  bdColor="rgba(0, 0, 0, 0.8)"
+  size="medium"
+  color="#fff"
+  type="square-jelly-box"
+  [fullScreen]="true"
+  name="user-update"
+><p style="color: white">Loading...</p>
+</ngx-spinner>

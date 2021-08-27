@@ -37,13 +37,16 @@
             Rôle : {{ tabUser[0].roles }}
           </div>
         </div>
-
-
-
-
-
-
       </div>
     </div>
   </div>
+  <ngx-spinner
+    bdColor="rgba(0, 0, 0, 0.8)"
+    size="medium"
+    color="#fff"
+    type="square-jelly-box"
+    [fullScreen]="true"
+    name="user-view"
+  ><p style="color: white">Loading...</p>
+  </ngx-spinner>
 </section>

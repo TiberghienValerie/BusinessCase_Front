@@ -33,6 +33,8 @@ import { GarageAddComponent } from './garage/garage-add/garage-add.component';
 import { GarageUpdateComponent } from './garage/garage-update/garage-update.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 
+
+
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AnnonceListComponent } from './annonce/annonce-list/annonce-list.component';
 import { AnnonceReadComponent } from './annonce/annonce-read/annonce-read.component';
@@ -74,6 +76,7 @@ import { StatistiqueComponent } from './statistique/statistique/statistique.comp
     UserAddComponent,
     UserUpdateComponent,
     StatistiqueComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -91,6 +94,7 @@ import { StatistiqueComponent } from './statistique/statistique/statistique.comp
     HttpClientModule,
     NgxSpinnerModule,
     NgbModule,
+
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('access_token'),

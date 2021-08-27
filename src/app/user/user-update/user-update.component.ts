@@ -7,6 +7,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {ActivatedRoute, Router} from "@angular/router";
 import {userPro} from "../userpro";
 import {User} from "../../models/user";
+import {NgxSpinnerService} from "ngx-spinner";
 
 
 @Component({
@@ -34,7 +35,8 @@ export class UserUpdateComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
-    private formBuilder: FormBuilder) {
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService) {
 
     if (this.authService.hasToken()) {
       this.route.paramMap.subscribe((params) => {
@@ -47,7 +49,7 @@ export class UserUpdateComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-
+      this.spinner.show("user-update");
       this.httpClient.get<userPro>(`${this.apiURL}/api/users/${this.id}`, httpOptions).subscribe(
         (data) => {
 
@@ -61,6 +63,7 @@ export class UserUpdateComponent implements OnInit {
               'siret': data.siret,
               'password': ''
             });
+          this.spinner.hide("user-update");
         },
         (e: { error: { code: number, message: string } }) => {
           // When error.

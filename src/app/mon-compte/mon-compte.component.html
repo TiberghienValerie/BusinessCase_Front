@@ -20,7 +20,7 @@ class="login-container"
 
     <ul *ngIf="monCompteForm.controls.nom.touched && !monCompteForm.controls.nom.valid">
       <li *ngIf="monCompteForm.controls.nom.hasError('required')">
-        Required
+        <font color="#e33826">Le nom est requis</font>
       </li>
     </ul>
 
@@ -39,7 +39,7 @@ class="login-container"
 
     <ul *ngIf="monCompteForm.controls.prenom.touched && !monCompteForm.controls.prenom.valid">
       <li *ngIf="monCompteForm.controls.prenom.hasError('required')">
-        Required
+        <font color="#e33826">Le prénom est requis</font>
       </li>
     </ul>
 
@@ -59,7 +59,7 @@ class="login-container"
 
       <ul *ngIf="monCompteForm.controls.telephone.touched && !monCompteForm.controls.telephone.valid">
         <li *ngIf="monCompteForm.controls.telephone.hasError('required')">
-          Required
+          <font color="#e33826">Le numéro de téléphone est requis</font>
         </li>
 
       </ul>
@@ -80,10 +80,10 @@ class="login-container"
 
      <ul *ngIf="monCompteForm.controls.email.touched && !monCompteForm.controls.email.valid">
        <li *ngIf="monCompteForm.controls.email.hasError('required')">
-         Required
+         <font color="#e33826">L'émail est requis</font>
        </li>
        <li *ngIf="monCompteForm.controls.email.hasError('email')">
-         Not a valid email
+         <font color="#e33826">L'email n'est pas valide</font>
        </li>
      </ul>
    </div>
@@ -102,7 +102,7 @@ class="login-container"
 
       <ul *ngIf="monCompteForm.controls.siret.touched && !monCompteForm.controls.siret.valid">
         <li *ngIf="monCompteForm.controls.siret.hasError('required')">
-          Required
+          <font color="#e33826">Le numéro de siret est requis</font>
         </li>
 
       </ul>

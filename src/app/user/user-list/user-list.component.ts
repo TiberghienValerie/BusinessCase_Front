@@ -17,6 +17,7 @@ import {Modele} from "../../models/modele";
 import {Marque} from "../../models/marque";
 import {Garage} from "../../models/garage";
 import {Carburant} from "../../models/carburant";
+import {NgxSpinnerService} from "ngx-spinner";
 
 @Component({
   selector: 'app-user-list',
@@ -39,6 +40,7 @@ export class UserListComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private modalService: NgbModal,
+    private spinner: NgxSpinnerService
 
   ) {
     this.resultatParPage = 30;
@@ -54,6 +56,7 @@ export class UserListComponent implements OnInit {
         })
       };
       this.url = `/api/users`;
+      this.spinner.show("user-list");
       this.httpClient.get<Collection<User>>(`${this.apiURL}${this.url}`, httpOptions).subscribe(
         (data) => {
           for (let o of data['hydra:member']) {
@@ -81,7 +84,7 @@ export class UserListComponent implements OnInit {
             this.nbPages = 1;
             this.url2 = '';
           }
-
+          this.spinner.hide("user-list");
         },
         (e: { error: { code: number, message: string } }) => {
           // When error.
@@ -111,7 +114,7 @@ export class UserListComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-
+      this.spinner.show("user-list");
       this.httpClient.get<Collection<User>>(`${this.apiURL}${this.url2}`, httpOptions).subscribe(
         (data) => {
           for (let o of data['hydra:member']) {
@@ -140,6 +143,7 @@ export class UserListComponent implements OnInit {
             this.nbPages = 1;
             this.url2 = '';
           }
+          this.spinner.hide("user-list");
         },
         (e: { error: { code: number, message: string } }) => {
           // When error.

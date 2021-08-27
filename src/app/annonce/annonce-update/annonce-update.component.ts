@@ -42,6 +42,12 @@ export class AnnonceUpdateComponent implements OnInit {
   public photos: Photos[] = [];
   public annonceForm!: FormGroup;
 
+  public minNum = 0;
+  public maxNum = 250000;
+
+  public minDate = 1975;
+  public maxDate = 2030;
+
   getCarburants(page: number = 1) {
     this.serviceApiCarburant.getCollection(page).subscribe(
       (data) => {
@@ -190,9 +196,9 @@ export class AnnonceUpdateComponent implements OnInit {
           this.annonceForm = this.formBuilder.group({
             nom: [this.tabAnnonce[0].nom, [Validators.required]],
             description: [this.tabAnnonce[0].descriptionLongue, [Validators.required]],
-            anneeCirculation: [this.tabAnnonce[0].anneeCirculation, [Validators.required, Validators.min(1975), Validators.max(2030)]],
-            kilometrage: [this.tabAnnonce[0].kilometrage, [Validators.required, Validators.min(0), Validators.max(250000)]],
-            prix: [this.tabAnnonce[0].prix, [Validators.required, Validators.min(0), Validators.max(250000)]],
+            anneeCirculation: [this.tabAnnonce[0].anneeCirculation, [Validators.required, Validators.min(this.minDate), Validators.max(this.maxDate)]],
+            kilometrage: [this.tabAnnonce[0].kilometrage, [Validators.required, Validators.min(this.minNum), Validators.max(this.maxNum)]],
+            prix: [this.tabAnnonce[0].prix, [Validators.required, Validators.min(this.minNum), Validators.max(this.maxNum)]],
             carburant:[this.tabAnnonce[0].carburant.id, [Validators.required]],
             modele: [this.tabAnnonce[0].modele.id, [Validators.required]],
             marque: [this.tabAnnonce[0].modele.Marque.id, [Validators.required]],

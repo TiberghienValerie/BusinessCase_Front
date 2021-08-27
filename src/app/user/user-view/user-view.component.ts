@@ -32,6 +32,7 @@ export class UserViewComponent implements OnInit {
     private httpClient: HttpClient,
     private router: Router,
     private route: ActivatedRoute,
+    private spinner: NgxSpinnerService
   ) {
 
     if (this.authService.hasToken()) {
@@ -45,7 +46,7 @@ export class UserViewComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-
+      this.spinner.show("user-view");
       this.httpClient.get<User>(`${this.apiURL}/api/users/${this.id}`, httpOptions).subscribe(
         (data) => {
 
@@ -61,7 +62,7 @@ export class UserViewComponent implements OnInit {
               data.roles
             )
           );
-
+          this.spinner.hide("user-view");
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.

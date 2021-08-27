@@ -29,12 +29,18 @@ export class AnnonceAddComponent implements OnInit {
   public url: string |null | undefined;
   public apiURL = environment.apiURL;
 
+  public minNum = 0;
+  public maxNum = 250000;
+
+  public minDate = 1975;
+  public maxDate = 2030;
+
   public annonceForm: FormGroup = this.formBuilder.group({
     nom: ['', [Validators.required]],
     description: ['', [Validators.required]],
-    anneeCirculation: ['', [Validators.required, Validators.min(1975), Validators.max(2030)]],
-    kilometrage: ['', [Validators.required, Validators.min(0), Validators.max(250000)]],
-    prix: ['', [Validators.required, Validators.min(0), Validators.max(250000)]],
+    anneeCirculation: ['', [Validators.required, Validators.min(this.minDate), Validators.max(this.maxDate)]],
+    kilometrage: ['', [Validators.required, Validators.min(this.minNum), Validators.max(this.maxNum)]],
+    prix: ['', [Validators.required, Validators.min(this.minNum), Validators.max(this.maxNum)]],
     carburant:[0, [Validators.required]],
     modele: [0, [Validators.required]],
     marque: [0, [Validators.required]],
