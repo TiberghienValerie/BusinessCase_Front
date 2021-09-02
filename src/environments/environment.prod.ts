@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiURL: 'https://localhost:8000'
+  apiURL: 'http://api-vtiberghienbc.atwebpages.com/'
 };
