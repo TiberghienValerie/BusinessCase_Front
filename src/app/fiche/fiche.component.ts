@@ -59,7 +59,7 @@ export class FicheComponent implements OnInit {
             });
           }
         }else{
-          this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
+          this.photos.push(new Photos(1, 'Voiture Générique', 'assets/img/voiture-photogenerique.jpg'))
         }
 
 

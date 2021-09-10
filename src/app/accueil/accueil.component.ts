@@ -98,7 +98,7 @@ export class AccueilComponent implements OnInit {
               i = i+1;
             }
           }else{
-            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
+            this.photos.push(new Photos(1, 'Voiture Générique', 'assets/img/voiture-photogenerique.jpg'))
           }
             this.tabAnnonces.push(
               new Annonce(
@@ -172,7 +172,7 @@ export class AccueilComponent implements OnInit {
                 i = i+1;
               }
             }else{
-              this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
+              this.photos.push(new Photos(1, 'Voiture Générique', 'assets/img/voiture-photogenerique.jpg'))
             }
 
 

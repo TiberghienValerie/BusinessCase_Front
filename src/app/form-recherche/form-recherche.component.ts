@@ -163,7 +163,7 @@ export class FormRechercheComponent implements OnInit {
               i = i+1;
             }
           }else{
-            this.photos.push(new Photos(1, 'Générique', 'assets/img/photogenerique.jpg'))
+            this.photos.push(new Photos(1, 'Générique', 'assets/img/voiture-photogenerique.jpg'))
           }
 
 

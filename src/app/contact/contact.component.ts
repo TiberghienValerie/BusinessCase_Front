@@ -27,7 +27,7 @@ export class ContactComponent implements OnInit {
     icon: icon({
       iconSize: [25, 41],
       iconAnchor: [13, 41],
-      iconUrl: 'assets/img/Orion_marker-location.png',
+      iconUrl: 'assets/img/marker-location.png',
       popupAnchor: [0, -35],
     }),
   });
