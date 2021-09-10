@@ -61,6 +61,9 @@ class="login-container"
         <li *ngIf="monCompteForm.controls.telephone.hasError('required')">
           <font color="#e33826">Le numéro de téléphone est requis</font>
         </li>
+        <li *ngIf="monCompteForm.controls.telephone.hasError('pattern')">
+          <font color="#e33826">Le numéro de téléphone doit être de type  06 12 15 23 45</font>
+        </li>
 
       </ul>
 
@@ -103,6 +106,9 @@ class="login-container"
       <ul *ngIf="monCompteForm.controls.siret.touched && !monCompteForm.controls.siret.valid">
         <li *ngIf="monCompteForm.controls.siret.hasError('required')">
           <font color="#e33826">Le numéro de siret est requis</font>
+        </li>
+        <li *ngIf="monCompteForm.controls.siret.hasError('pattern')">
+          <font color="#e33826">Le numéro de siret doit être de type 01234567891234</font>
         </li>
 
       </ul>

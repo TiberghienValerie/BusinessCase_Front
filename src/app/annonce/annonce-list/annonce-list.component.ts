@@ -108,7 +108,7 @@ export class AnnonceListComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.url = `/api/annonces?garage.user.id=${localStorage.getItem('id')}`;
+      this.url = `/annonces?garage.user.id=${localStorage.getItem('id')}`;
       this.spinner.show("annonce-list");
       this.httpClient.get<Collection<Annonces>>(`${this.apiURL}${this.url}`, httpOptions).subscribe(
         (data) => {

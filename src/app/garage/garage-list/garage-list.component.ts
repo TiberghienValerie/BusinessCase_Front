@@ -60,7 +60,7 @@ export class NgbdModalContent {
         })
       };
 
-      this.httpClient.delete(`${this.apiURL}/api/garages/${idgarage}`, httpOptions).subscribe(
+      this.httpClient.delete(`${this.apiURL}/garages/${idgarage}`, httpOptions).subscribe(
         (data) => {
           this.router.navigate(['']);
         },
@@ -98,7 +98,7 @@ export class GarageListComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.url = `/api/garages?user.id=${localStorage.getItem('id')}`;
+      this.url = `/garages?user.id=${localStorage.getItem('id')}`;
       this.spinner.show("garage-list");
       this.httpClient.get<Collection<Garages>>(`${this.apiURL}${this.url}`, httpOptions).subscribe(
         (data) => {

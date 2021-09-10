@@ -23,6 +23,7 @@ export class StatistiqueComponent implements OnInit {
   public countUsers!: number;
   public countAnnonces!: number;
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
 
   constructor(
     private authService: AuthService,
@@ -41,17 +42,17 @@ export class StatistiqueComponent implements OnInit {
         })
       };
       this.spinner.show("statistique");
-      this.httpClient.get<Collection<Annonces>>(`${this.apiURL}/api/annonces`, httpOptions).subscribe(
+      this.httpClient.get<Collection<Annonces>>(`${this.apiURL}/annonces`, httpOptions).subscribe(
         (data) => {
           this.countAnnonces = data['hydra:totalItems'];
         });
 
-      this.httpClient.get<Collection<Garages>>(`${this.apiURL}/api/garages`, httpOptions).subscribe(
+      this.httpClient.get<Collection<Garages>>(`${this.apiURL}/garages`, httpOptions).subscribe(
         (data) => {
           this.countGarages = data['hydra:totalItems'];
         });
 
-      this.httpClient.get<Collection<User>>(`${this.apiURL}/api/users`, httpOptions).subscribe(
+      this.httpClient.get<Collection<User>>(`${this.apiURL}/users`, httpOptions).subscribe(
         (data) => {
           this.countUsers = data['hydra:totalItems']-1;
         });

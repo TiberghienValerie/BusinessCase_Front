@@ -47,7 +47,7 @@ export class UserViewComponent implements OnInit {
         })
       };
       this.spinner.show("user-view");
-      this.httpClient.get<User>(`${this.apiURL}/api/users/${this.id}`, httpOptions).subscribe(
+      this.httpClient.get<User>(`${this.apiURL}/users/${this.id}`, httpOptions).subscribe(
         (data) => {
 
           this.tabUser.push(

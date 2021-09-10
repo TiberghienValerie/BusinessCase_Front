@@ -43,7 +43,7 @@ export class GarageViewComponent implements OnInit {
         })
       };
       this.spinner.show("garage-view");
-      this.httpClient.get<Garages>(`${this.apiURL}/api/garages/${this.id}`, httpOptions).subscribe(
+      this.httpClient.get<Garages>(`${this.apiURL}/garages/${this.id}`, httpOptions).subscribe(
         (data) => {
             this.tabGarage.push(
               new Garages(

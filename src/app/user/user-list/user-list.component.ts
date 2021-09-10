@@ -55,7 +55,7 @@ export class UserListComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.url = `/api/users`;
+      this.url = `/users`;
       this.spinner.show("user-list");
       this.httpClient.get<Collection<User>>(`${this.apiURL}${this.url}`, httpOptions).subscribe(
         (data) => {

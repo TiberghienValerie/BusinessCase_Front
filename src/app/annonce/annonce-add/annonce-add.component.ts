@@ -28,6 +28,7 @@ export class AnnonceAddComponent implements OnInit {
   public token: string |null | undefined;
   public url: string |null | undefined;
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
 
   public minNum = 0;
   public maxNum = 250000;
@@ -114,7 +115,7 @@ export class AnnonceAddComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.url = `/api/garages?user.id=${localStorage.getItem('id')}`;
+      this.url = `/garages?user.id=${localStorage.getItem('id')}`;
       this.httpClient.get<Collection<Garages>>(`${this.apiURL}${this.url}`, httpOptions).subscribe(
         (data) => {
           for (let o of data['hydra:member']) {
@@ -192,7 +193,7 @@ export class AnnonceAddComponent implements OnInit {
 
       //Insertion du garage et de la ville
 
-      this.httpClient.post<CredentialsAnnonce>(`${this.apiURL}/annonce/add`, body, httpOptions).subscribe(
+      this.httpClient.post<CredentialsAnnonce>(`${this.apiConnexion}/annonce/add`, body, httpOptions).subscribe(
         (data)=> {
 
           this.router.navigate(['mesAnnonces']);

@@ -46,6 +46,9 @@
             <li *ngIf="garageForm.controls.telephone.hasError('required')">
               <font color="#e33826">Le numéro de téléphone est requis</font>
             </li>
+            <li *ngIf="garageForm.controls.telephone.hasError('pattern')">
+              <font color="#e33826">Le numéro de téléphone doit être de type  06 12 15 23 45</font>
+            </li>
           </ul>
 
         </div>

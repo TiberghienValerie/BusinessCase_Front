@@ -30,6 +30,7 @@ export class AnnonceUpdateComponent implements OnInit {
   public token: string |null | undefined;
   public url: string |null | undefined;
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
   public id: string |null | undefined;
   public tabAnnonce: Annonce[] = [];
 
@@ -40,13 +41,25 @@ export class AnnonceUpdateComponent implements OnInit {
   public tabModelesFiltrer: Modele[] = [];
   public disabled: boolean = false;
   public photos: Photos[] = [];
-  public annonceForm!: FormGroup;
+  //public annonceForm!: FormGroup;
 
   public minNum = 0;
   public maxNum = 250000;
 
   public minDate = 1975;
   public maxDate = 2030;
+
+  public annonceForm = this.formBuilder.group({
+    nom: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    anneeCirculation: ['', [Validators.required, Validators.min(this.minDate), Validators.max(this.maxDate)]],
+    kilometrage: ['', [Validators.required, Validators.min(this.minNum), Validators.max(this.maxNum)]],
+    prix: ['', [Validators.required, Validators.min(this.minNum), Validators.max(this.maxNum)]],
+    carburant:['', [Validators.required]],
+    modele: ['', [Validators.required]],
+    marque: ['', [Validators.required]],
+    garage: ['', [Validators.required]]
+  });
 
   getCarburants(page: number = 1) {
     this.serviceApiCarburant.getCollection(page).subscribe(
@@ -113,7 +126,7 @@ export class AnnonceUpdateComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.url = `/api/garages?user.id=${localStorage.getItem('id')}`;
+      this.url = `/garages?user.id=${localStorage.getItem('id')}`;
       this.httpClient.get<Collection<Garages>>(`${this.apiURL}${this.url}`, httpOptions).subscribe(
         (data) => {
           for (let o of data['hydra:member']) {
@@ -164,7 +177,7 @@ export class AnnonceUpdateComponent implements OnInit {
         })
       };
       this.spinner.show("annonce-update");
-      this.httpClient.get<Annonce>(`${this.apiURL}/api/annonces/${this.id}`, httpOptions).subscribe(
+      this.httpClient.get<Annonce>(`${this.apiURL}/annonces/${this.id}`, httpOptions).subscribe(
         (data) => {
           this.photos = [];
           if(data.photos.length>0) {
@@ -174,6 +187,7 @@ export class AnnonceUpdateComponent implements OnInit {
               i = i+1;
             }
           }
+
           this.tabAnnonce.push(
             new Annonce(
               data.id,
@@ -192,9 +206,8 @@ export class AnnonceUpdateComponent implements OnInit {
             )
           );
 
-
-          this.annonceForm = this.formBuilder.group({
-            nom: [this.tabAnnonce[0].nom, [Validators.required]],
+          /*this.annonceForm = this.formBuilder.group({
+            Nom: [this.tabAnnonce[0].nom, [Validators.required]],
             description: [this.tabAnnonce[0].descriptionLongue, [Validators.required]],
             anneeCirculation: [this.tabAnnonce[0].anneeCirculation, [Validators.required, Validators.min(this.minDate), Validators.max(this.maxDate)]],
             kilometrage: [this.tabAnnonce[0].kilometrage, [Validators.required, Validators.min(this.minNum), Validators.max(this.maxNum)]],
@@ -203,7 +216,18 @@ export class AnnonceUpdateComponent implements OnInit {
             modele: [this.tabAnnonce[0].modele.id, [Validators.required]],
             marque: [this.tabAnnonce[0].modele.Marque.id, [Validators.required]],
             garage: [this.tabAnnonce[0].garage.id, [Validators.required]]
-          });
+          });*/
+          this.annonceForm.setValue(
+            {'nom':  data.nom,
+              'description' : data.descriptionLongue,
+              'anneeCirculation': data.anneeCirculation,
+              'kilometrage': data.kilometrage,
+              'prix': data.prix,
+              'carburant': data.carburant.id,
+              'modele': data.modele.id,
+              'marque': data.modele.Marque.id,
+              'garage': data.garage.id
+            })
           this.getModeles(this.tabAnnonce[0].modele.Marque.id);
           this.getMarques();
           this.getCarburants();
@@ -254,7 +278,7 @@ export class AnnonceUpdateComponent implements OnInit {
 
       //Insertion de l'annonce
 
-      this.httpClient.put<CredentialsAnnonce>(`${this.apiURL}/annonce/update/${this.id}`, body, httpOptions).subscribe(
+      this.httpClient.put<CredentialsAnnonce>(`${this.apiConnexion}/annonce/update/${this.id}`, body, httpOptions).subscribe(
         (data)=> {
 
           this.router.navigate(['mesAnnonces']);

@@ -65,6 +65,7 @@ export class HeaderComponent implements OnInit {
   public role !: string;
 
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
 
   constructor(
     private authService: AuthService,
@@ -102,7 +103,7 @@ export class HeaderComponent implements OnInit {
 
       this.role = '';
       // Forge HTTP request to send to the API to retrieve JWT.
-      this.httpClient.post<Token>(`${this.apiURL}/authentication_token`, this.loginForm.value as Credentials).subscribe(
+      this.httpClient.post<Token>(`${this.apiConnexion}/authentication_token`, this.loginForm.value as Credentials).subscribe(
         (data) => {
           // When success. Save the JWT in local storage.
           this.authService.saveToken(data.token);
@@ -113,9 +114,8 @@ export class HeaderComponent implements OnInit {
               'Authorization': `Bearer ${this.token}`
             })
           };
-          this.httpClient.get<Collection<User>>(`${this.apiURL}/api/users?username=${this.loginForm.value.username}`, httpOptions).subscribe(
+          this.httpClient.get<Collection<User>>(`${this.apiURL}/users?username=${this.loginForm.value.username}`, httpOptions).subscribe(
             (data) => {
-              console.log(data['hydra:member']);
               for (let o of data['hydra:member']) {
                o.roles.forEach((role) =>
                 {

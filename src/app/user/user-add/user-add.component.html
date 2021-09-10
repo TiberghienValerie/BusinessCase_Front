@@ -99,6 +99,9 @@
             <li *ngIf="userForm.controls.telephone.hasError('required')">
               Required
             </li>
+            <li *ngIf="userForm.controls.telephone.hasError('pattern')">
+              <font color="#e33826">Le numéro de téléphone doit être de type 04 77 56 45 78</font>
+            </li>
 
           </ul>
 
@@ -141,6 +144,9 @@
           <ul *ngIf="userForm.controls.siret.touched && !userForm.controls.siret.valid">
             <li *ngIf="userForm.controls.siret.hasError('required')">
               <font color="#e33826">Le numéro de siret est requis</font>
+            </li>
+            <li *ngIf="userForm.controls.siret.hasError('pattern')">
+              <font color="#e33826">Le numéro de siret doit être de type 01234567891234</font>
             </li>
 
           </ul>

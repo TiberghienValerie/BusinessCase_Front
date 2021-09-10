@@ -19,9 +19,10 @@ import {Carburant} from "../../models/carburant";
 })
 export class GarageAddComponent implements OnInit {
   public token: string |null | undefined;
+  public telephonePattern = "^((0)?[0-9]{2}(1)?\\s{1}){4}(0)?[0-9]{2}$";
   public garageForm: FormGroup = this.formBuilder.group({
     nom: ['', [Validators.required]],
-    telephone: ['', [Validators.required]],
+    telephone: ['', [Validators.required, Validators.pattern(this.telephonePattern)]],
     adresse1: ['', [Validators.required]],
     adresse2: [''],
     adresse3: [''],
@@ -32,6 +33,8 @@ export class GarageAddComponent implements OnInit {
   });
 
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
+
 
   constructor(
     private authService: AuthService,
@@ -64,7 +67,7 @@ export class GarageAddComponent implements OnInit {
 
       //Insertion du garage et de la ville
 
-      this.httpClient.post<CredentialsVille>(`${this.apiURL}/garage/add`, body, httpOptions).subscribe(
+      this.httpClient.post<CredentialsVille>(`${this.apiConnexion}/garage/add`, body, httpOptions).subscribe(
         (data)=> {
           this.router.navigate(['mesGarages']);
         });

@@ -18,12 +18,15 @@ export class UserAddComponent implements OnInit {
 
   public token: string |null | undefined;
 
+  public telephonePattern = "^((0)?[0-9]{2}(1)?\\s{1}){4}(0)?[0-9]{2}$";
+  public siretPattern = "^(0)?[0-9]{14}$";
+
   public userForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     nom: ['', [Validators.required]],
-    telephone: ['', [Validators.required]],
+    telephone: ['', [Validators.required, Validators.pattern(this.telephonePattern)]],
     prenom: ['', [Validators.required]],
-    siret: ['', [Validators.required]],
+    siret: ['', [Validators.required, Validators.pattern(this.siretPattern)]],
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
@@ -54,7 +57,7 @@ export class UserAddComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.httpClient.post<userPro>(`${this.apiURL}/api/users`, body, httpOptions).subscribe(
+      this.httpClient.post<userPro>(`${this.apiURL}/users`, body, httpOptions).subscribe(
         (data)=> {
           this.router.navigate(['lesUsers']);
         },

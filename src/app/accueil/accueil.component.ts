@@ -42,6 +42,7 @@ export class AccueilComponent implements OnInit {
   public maxPrix!: number;
   public mode!: string;
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
   public photos: Photos[] = [];
 
   getParametre() {
@@ -93,7 +94,7 @@ export class AccueilComponent implements OnInit {
           if(o.photos.length>0) {
             let i = 0;
             for(let p of o.photos) {
-              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${o.id}/${p.pathPhotos}`);
+              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiConnexion}/uploads/${o.id}/${p.pathPhotos}`);
               i = i+1;
             }
           }else{
@@ -167,7 +168,7 @@ export class AccueilComponent implements OnInit {
             if(o.photos.length>0) {
               let i = 0;
               for(let p of o.photos) {
-                this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${o.id}/${p.pathPhotos}`);
+                this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiConnexion}/uploads/${o.id}/${p.pathPhotos}`);
                 i = i+1;
               }
             }else{

@@ -17,12 +17,15 @@ export class MonCompteComponent implements OnInit {
 
   public token: string |null | undefined;
 
+  public telephonePattern = "^((0)?[0-9]{2}(1)?\\s{1}){4}(0)?[0-9]{2}$";
+  public siretPattern = "^(0)?[0-9]{14}$";
+
   public monCompteForm: FormGroup = this.formBuilder.group({
     email: [localStorage.getItem('email'), [Validators.required, Validators.email]],
     nom: [localStorage.getItem('nom'), [Validators.required]],
-    telephone: [localStorage.getItem('telephone'), [Validators.required]],
+    telephone: [localStorage.getItem('telephone'), [Validators.required, Validators.pattern(this.telephonePattern)]],
     prenom: [localStorage.getItem('prenom'), [Validators.required]],
-    siret: [localStorage.getItem('siret'), [Validators.required]],
+    siret: [localStorage.getItem('siret'), [Validators.required, Validators.pattern(this.siretPattern)]],
   });
 
   public apiURL = environment.apiURL;
@@ -55,7 +58,7 @@ export class MonCompteComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.httpClient.put<user2>(`${this.apiURL}/api/users/${localStorage.getItem('id')}`, body, httpOptions).subscribe(
+      this.httpClient.put<user2>(`${this.apiURL}/users/${localStorage.getItem('id')}`, body, httpOptions).subscribe(
         (data)=> {
           localStorage.setItem('nom', this.monCompteForm.value.nom);
           localStorage.setItem('prenom', this.monCompteForm.value.prenom);

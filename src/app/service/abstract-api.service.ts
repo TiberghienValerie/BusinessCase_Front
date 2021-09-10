@@ -13,7 +13,7 @@ export abstract class AbstractApiService<T, L> {
     private httpClient: HttpClient,
     resourceName: string,
   ) {
-    this.baseUrl = `${this.apiURL}/api/${resourceName}/`;
+    this.baseUrl = `${this.apiURL}/${resourceName}/`;
   }
 
   getCollection(page: number = 1 ): Observable<Collection<L>> {

@@ -46,6 +46,7 @@ export class NgbdModalContent2 {
 
   public token: string |null | undefined;
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -65,7 +66,7 @@ export class NgbdModalContent2 {
         })
       };
 
-      this.httpClient.delete(`${this.apiURL}/photo/remove/${idphoto}`, httpOptions).subscribe(
+      this.httpClient.delete(`${this.apiConnexion}/photo/remove/${idphoto}`, httpOptions).subscribe(
         (data) => {
           this.router.navigate(['mesAnnonces']);
         },
@@ -91,6 +92,8 @@ export class AnnonceReadComponent implements OnInit {
   public id: string |null | undefined;
   public tabAnnonce: Array<Annonces> = [];
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
+
   public photos: Photos[] = [];
   faTimes = faTimes;
   public imageSrc!: string;
@@ -126,13 +129,13 @@ export class AnnonceReadComponent implements OnInit {
         })
       };
       this.spinner.show("annonce-read");
-      this.httpClient.get<Annonces>(`${this.apiURL}/api/annonces/${this.id}`, httpOptions).subscribe(
+      this.httpClient.get<Annonces>(`${this.apiURL}/annonces/${this.id}`, httpOptions).subscribe(
         (data) => {
           this.photos = [];
           if(data.photos.length>0) {
             let i = 0;
             for(let p of data.photos) {
-              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${data.id}/${p.pathPhotos}`);
+              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiConnexion}/uploads/${data.id}/${p.pathPhotos}`);
               i = i+1;
             }
           }
@@ -216,7 +219,7 @@ export class AnnonceReadComponent implements OnInit {
         })
       };
 
-      this.httpClient.post(`${this.apiURL}/photo/upload/${this.id}`, body, httpOptions).subscribe(
+      this.httpClient.post(`${this.apiConnexion}/photo/upload/${this.id}`, body, httpOptions).subscribe(
         (data) => {
 
           this.router.navigate(['mesAnnonces']);

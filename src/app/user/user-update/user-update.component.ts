@@ -50,7 +50,7 @@ export class UserUpdateComponent implements OnInit {
         })
       };
       this.spinner.show("user-update");
-      this.httpClient.get<userPro>(`${this.apiURL}/api/users/${this.id}`, httpOptions).subscribe(
+      this.httpClient.get<userPro>(`${this.apiURL}/users/${this.id}`, httpOptions).subscribe(
         (data) => {
 
           this.userForm.setValue(
@@ -91,7 +91,7 @@ export class UserUpdateComponent implements OnInit {
           'Authorization': `Bearer ${this.token}`
         })
       };
-      this.httpClient.put<userPro>(`${this.apiURL}/api/users/${this.id}`, body, httpOptions).subscribe(
+      this.httpClient.put<userPro>(`${this.apiURL}/users/${this.id}`, body, httpOptions).subscribe(
         (data) => {
           this.router.navigate(['lesUsers']);
         },

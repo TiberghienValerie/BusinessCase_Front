@@ -21,9 +21,10 @@ export class GarageUpdateComponent implements OnInit {
 
   public id: string |null | undefined;
   public token: string |null | undefined;
+  public telephonePattern = "^((0)?[0-9]{2}(1)?\\s{1}){4}(0)?[0-9]{2}$";
   public garageForm: FormGroup = this.formBuilder.group({
     nom: ['', [Validators.required]],
-    telephone: ['', [Validators.required]],
+    telephone: ['', [Validators.required, Validators.pattern(this.telephonePattern)]],
     adresse1: ['', [Validators.required]],
     adresse2: [''],
     adresse3: [''],
@@ -33,6 +34,7 @@ export class GarageUpdateComponent implements OnInit {
 
   });
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
 
   constructor(
     private authService: AuthService,
@@ -56,7 +58,7 @@ export class GarageUpdateComponent implements OnInit {
         })
       };
       this.spinner.show("garage-update");
-      this.httpClient.get<Garages>(`${this.apiURL}/api/garages/${this.id}`, httpOptions).subscribe(
+      this.httpClient.get<Garages>(`${this.apiURL}/garages/${this.id}`, httpOptions).subscribe(
         (data) => {
           this.garageForm.setValue({'nom':  data.nom, 'telephone' : data.telephone, 'adresse1': data.ville.adresse1, 'adresse2': data.ville.adresse2, 'adresse3': data.ville.adresse3, 'codePostal': data.ville.codePostal, 'nomVille': data.ville.nomVille, 'user': localStorage.getItem('id')})
           this.spinner.hide("garage-update");
@@ -88,7 +90,7 @@ export class GarageUpdateComponent implements OnInit {
 
       //Insertion du garage et de la ville
 
-      this.httpClient.put<CredentialsVille>(`${this.apiURL}/garage/update/${this.id}`, body, httpOptions).subscribe(
+      this.httpClient.put<CredentialsVille>(`${this.apiConnexion}/garage/update/${this.id}`, body, httpOptions).subscribe(
         (data)=> {
           this.router.navigate(['mesGarages']);
         });
