@@ -48,6 +48,7 @@ export class NgbdModalContent {
 
   public token: string |null | undefined;
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -67,7 +68,7 @@ export class NgbdModalContent {
         })
       };
 
-      this.httpClient.delete(`${this.apiURL}/annonce/delete/${idannonce}`, httpOptions).subscribe(
+      this.httpClient.delete(`${this.apiConnexion}/annonce/delete/${idannonce}`, httpOptions).subscribe(
         (data) => {
 
           this.router.navigate(['']);
