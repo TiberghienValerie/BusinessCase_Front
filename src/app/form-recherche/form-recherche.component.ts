@@ -13,6 +13,7 @@ import {carburantApiService} from "../service/carburant-api.service";
 import {Garage} from "../models/garage";
 import {annonceApiService} from "../service/annonce-api.service";
 import {Photos} from "../models/photos";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-form-recherche',
@@ -37,6 +38,9 @@ export class FormRechercheComponent implements OnInit {
   public url!: string;
   public nbPages!: number;
   public photos: Photos[] = [];
+
+  public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
 
   @Input() public tabAnnonces!: Annonce[];
   @Input() public nbTotalEnregistrement!: number;
@@ -159,7 +163,7 @@ export class FormRechercheComponent implements OnInit {
           if(o.photos.length>0) {
             let i = 0;
             for(let p of o.photos) {
-              this.photos[i] = new Photos(p.id, p.nomPhotos, p.pathPhotos);
+              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiConnexion}/uploads/${o.id}/${p.pathPhotos}`);
               i = i+1;
             }
           }else{

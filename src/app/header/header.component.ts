@@ -111,7 +111,7 @@ export class HeaderComponent implements OnInit {
           const httpOptions = {
             headers: new HttpHeaders({
               'Content-Type':  'application/json',
-              'Authorization': `Bearer ${this.token}`
+              // 'Authorization': `Bearer ${this.authService.token()}`
             })
           };
           this.httpClient.get<Collection<User>>(`${this.apiURL}/users?username=${this.loginForm.value.username}`, httpOptions).subscribe(

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Annonces} from "../../models/annonces";
 import {environment} from "../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
@@ -45,6 +45,7 @@ import {Photos} from "../../models/photos";
 export class NgbdModalContent {
   @Input() name!:string;
   @Input() id!:number;
+  @Output() public demandeSuppression: EventEmitter<void>;
 
   public token: string |null | undefined;
   public apiURL = environment.apiURL;
@@ -55,7 +56,10 @@ export class NgbdModalContent {
     private authService: AuthService,
     private httpClient: HttpClient,
     private router: Router,
-  ) {}
+
+  ) {
+    this.demandeSuppression = new EventEmitter();
+  }
 
   suppression(idannonce: number){
 
@@ -71,7 +75,9 @@ export class NgbdModalContent {
       this.httpClient.delete(`${this.apiConnexion}/annonce/delete/${idannonce}`, httpOptions).subscribe(
         (data) => {
 
-          this.router.navigate(['']);
+          //this.router.navigate(['']);
+
+          this.demandeSuppression.emit();
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.
@@ -94,6 +100,7 @@ export class AnnonceListComponent implements OnInit {
   public url: string |null | undefined;
   public tabAnnonces: Array<Annonces> = [];
   public apiURL = environment.apiURL;
+  public apiConnexion = environment.apiConnexion;
   public nbTotalEnregistrement!: number;
   public nbPages!: number;
   public resultatParPage!: number;
@@ -118,7 +125,7 @@ export class AnnonceListComponent implements OnInit {
             if(o.photos.length>0) {
               let i = 0;
               for(let p of o.photos) {
-                this.photos[i] = new Photos(p.id, p.nomPhotos, p.pathPhotos);
+                this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiConnexion}/uploads/${o.id}/${p.pathPhotos}`);
                 i = i+1;
               }
             }else{
@@ -197,14 +204,14 @@ export class AnnonceListComponent implements OnInit {
       };
 
     this.spinner.show("annonce-list");
-    this.httpClient.get<Collection<Annonces>>(`${this.apiURL}${url2}`, httpOptions).subscribe(
+    this.httpClient.get<Collection<Annonces>>(`${this.apiConnexion}${url2}`, httpOptions).subscribe(
       (data) => {
         for (let o of data['hydra:member']) {
           this.photos = [];
           if(o.photos.length>0) {
             let i = 0;
             for(let p of o.photos) {
-              this.photos[i] = new Photos(p.id, p.nomPhotos, p.pathPhotos);
+              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiConnexion}/uploads/${o.id}/${p.pathPhotos}`);
               i = i+1;
             }
           }else{
@@ -253,5 +260,9 @@ export class AnnonceListComponent implements OnInit {
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.name = name;
     modalRef.componentInstance.id = id;
+
+    (modalRef.componentInstance as NgbdModalContent).demandeSuppression.subscribe(() => {
+      this.ngOnInit();
+    })
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {AuthService} from "../../service/auth.service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Router} from "@angular/router";
@@ -38,6 +38,7 @@ import {environment} from "../../../environments/environment";
 export class NgbdModalContent {
   @Input() name!:string;
   @Input() id!:number;
+  @Output() public demandeSuppression: EventEmitter<void>;
 
   public token: string |null | undefined;
   public apiURL = environment.apiURL;
@@ -47,7 +48,9 @@ export class NgbdModalContent {
     private authService: AuthService,
     private httpClient: HttpClient,
     private router: Router,
-  ) {}
+  ) {
+    this.demandeSuppression = new EventEmitter();
+  }
 
   suppression(idgarage: number){
 
@@ -62,7 +65,8 @@ export class NgbdModalContent {
 
       this.httpClient.delete(`${this.apiURL}/garages/${idgarage}`, httpOptions).subscribe(
         (data) => {
-          this.router.navigate(['']);
+          //this.router.navigate(['']);
+          this.demandeSuppression.emit();
         },
         (e: {error: {code: number, message: string}}) => {
           // When error.
@@ -144,6 +148,10 @@ export class GarageListComponent implements OnInit {
     const modalRef = this.modalService.open(NgbdModalContent);
     modalRef.componentInstance.name = name;
     modalRef.componentInstance.id = id;
+
+    (modalRef.componentInstance as NgbdModalContent).demandeSuppression.subscribe(() => {
+      this.ngOnInit();
+    })
   }
 
 

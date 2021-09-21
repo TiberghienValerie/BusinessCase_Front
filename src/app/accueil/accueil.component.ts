@@ -161,7 +161,7 @@ export class AccueilComponent implements OnInit {
     this.tabAnnonces = [];
     this.tabAnnoncesFilter = [];
     this.spinner.show("accueil");
-    this.serviceApiAnnonce.getCollectionSpecifique(`${this.apiURL}${url}`).subscribe(
+    this.serviceApiAnnonce.getCollectionSpecifique(`${this.apiConnexion}${url}`).subscribe(
         (data) => {
           for (let o of data['hydra:member']) {
             this.photos = [];

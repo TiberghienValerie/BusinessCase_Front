@@ -183,7 +183,7 @@ export class AnnonceUpdateComponent implements OnInit {
           if(data.photos.length>0) {
             let i = 0;
             for(let p of data.photos) {
-              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiURL}/uploads/${data.id}/${p.pathPhotos}`);
+              this.photos[i] = new Photos(p.id, p.nomPhotos, `${this.apiConnexion}/uploads/${data.id}/${p.pathPhotos}`);
               i = i+1;
             }
           }

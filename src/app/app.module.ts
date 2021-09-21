@@ -98,7 +98,7 @@ import { StatistiqueComponent } from './statistique/statistique/statistique.comp
     JwtModule.forRoot({
       config: {
         tokenGetter: () => localStorage.getItem('access_token'),
-        allowedDomains: ['localhost:8000'],
+        allowedDomains: ['localhost:8000', 'api-vtiberghienbc.atwebpages.com'],
       },
     }),
   ],
